@@ -1,0 +1,2 @@
+//获取实体的运行距离，并设置到自定义参数中
+Agent.variables["runningdistance"].set(Agent.instance.runtime_d);

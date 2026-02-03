@@ -1,0 +1,13 @@
+//发射到的位置
+var location=Location(TargetLoc_lon,TargetLoc_lat,TargetLoc_hgt,TargetLoc_ref,TargetLoc_simtime);
+//设置该实体的发射位置
+Agent.variables["targetlocation"].set(location);
+//设置该实体的速度
+Agent._set_speed(420.0);
+//设置脱离父级,指定脱离后的运行动力学，进行发射
+Agent._detach("MissionDynamicsDefault",LaunchWpk);
+//设置实体的指定感知域为激活状态【此处为探测感知域设置为激活】
+var fldkey = "field_223497769901277761";
+var tmplmodsig = 223497769907408832;
+Agent.smd_create(fldkey, tmplmodsig, E_FMD_WKMD____SLEEP___,E_FMD_WKMD___SEARCH___);
+

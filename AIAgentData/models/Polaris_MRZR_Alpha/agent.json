@@ -1,0 +1,863 @@
+[
+  {
+    "agentKey": "AGENTKEY_284192036567532847158404575634001192370",
+    "agentDesc": "主要目的：投放无人机/无人狗，还可以被CH-47直升机携带\n重量 (战斗全重)：2,300 kg (约 2.3t，含载荷)\n最高速度 (公路)：26.8 m/s (约 96 km/h)\n最高速度 (越野)：18 m/s (约 65 km/h)，主越野\n续航里程：362 km\n爬坡能力：60度 (极限地形通过性)，可以走人行道、主路、公路甚至楼梯\n类型: 无人机/无人狗投放母舰",
+    "entitySignature": "",
+    "agentName": "北极星超轻型全地形车 (Polaris MRZR Alpha)",
+    "agentNameI18n": "北极星超轻型全地形车 (Polaris MRZR Alpha)",
+    "agentPath": null,
+    "i18nLabels": [],
+    "agentKeyword": "wrcl",
+    "agentUsageLabel": [],
+    "modelUrlSlim": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha_AI_Rodin.glb",
+    "modelUrlFat": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha_AI_Rodin.glb",
+    "modelUrlMedium": "",
+    "modelUrlPAK": "",
+    "modelUrlSymbols": [
+      {
+        "symbolSeries": 1,
+        "symbolName": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha.png",
+        "thumbnail": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha.png"
+      },
+      {
+        "symbolSeries": 2,
+        "symbolName": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha_mil.png",
+        "thumbnail": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha_mil.png"
+      }
+    ],
+    "modelAbstracted": [
+      {
+        "abstProfileKeyword": "",
+        "abstProfileFrame": 0,
+        "abstProfileResolution": 13,
+        "abstProfileLonLat": [],
+        "abstProfileCarteXY": [],
+        "abstHeights": [],
+        "abstHeightResolution": 12
+      }
+    ],
+    "clusterComms": {
+      "clusterOptionalPlugins": []
+    },
+    "subagents": [],
+    "freelanceable": false,
+    "freelanceableDynamics": [],
+    "locatable": false,
+    "locatableDynamics": [],
+    "navigatable": false,
+    "navigatableDynamics": [],
+    "missionable": true,
+    "missionableDynamics": [
+      {
+        "dynPluginName": "iagnt_dynamics_vehicle_simple",
+        "dynKeyword": "iagnt_dynamics_vehicle_simple",
+        "dynAsDefault": true,
+        "dynSettings": {
+          "pluginName": "iagnt_dynamics_vehicle_simple",
+          "pluginNote": "vehicleSimple",
+          "pluginNoteI18n": "简单车辆动力学",
+          "pluginSignature": "dynamics_yxWRSGOD8hjzxNLWvumD",
+          "pluginDefaultSettings": "{\"freqdistPlugin\":null,\"freqdistPluginSettings\":null,\"dynSettings\":{},\"evidences\":null,\"prejudgmentModels\":null,\"paramsfilter\":null}"
+        }
+      }
+    ],
+    "operatable": true,
+    "useIb": false,
+    "cognitiveConfig": {
+      "plugins": []
+    },
+    "stopCond": {
+      "stopCondType": 0,
+      "vicinityDist": 0,
+      "loopTimes": 0,
+      "isStopped": false
+    },
+    "agentType": "Instagent",
+    "fldmds": [],
+    "waypoints": [
+      {
+        "wpsKey": "229338968576245761",
+        "wpsUsage": "",
+        "wpsKeyword": "clroute",
+        "wpsFrame": 0,
+        "wps": [
+          {
+            "wpsCore": [
+              113.3301497,
+              23.3832924,
+              3.0,
+              1.0,
+              0.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3299995,
+              23.3800268,
+              3.0,
+              1.0,
+              10.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3274954,
+              23.3740869,
+              3.0,
+              1.0,
+              20.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3264864,
+              23.3697439,
+              3.0,
+              1.0,
+              30.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3257609,
+              23.3619966,
+              3.0,
+              1.0,
+              40.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3251153,
+              23.3590599,
+              3.0,
+              1.0,
+              50.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3225431,
+              23.3544728,
+              3.0,
+              1.0,
+              60.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          }
+        ],
+        "wpsGenPOIs": [],
+        "wpsPathPlanner": "",
+        "wpsGenFences": [],
+        "wpsGenTimeConsumed": 0,
+        "wpsTalk": []
+      }
+    ],
+    "pois": [],
+    "fences": [],
+    "vardefs": [
+      {
+        "varKeyword": "priorVehicles",
+        "varName": "priorVehicles",
+        "varSig": "priorVehicles",
+        "varNameI18n": "priorVehicles",
+        "i18nLabels": [
+          {
+            "uuid": "",
+            "transtgt": ""
+          }
+        ],
+        "varType": "Strings",
+        "stdCode": "",
+        "varSchema": {},
+        "varDefault": [],
+        "access": 0,
+        "varDecorator": "",
+        "varDecoratorSettings": {},
+        "varIndexCode": 0,
+        "varUnit": ""
+      },
+      {
+        "varKeyword": "missionLevel",
+        "varName": "missionLevel",
+        "varSig": "missionLevel",
+        "varNameI18n": "missionLevel",
+        "i18nLabels": [
+          {
+            "uuid": "",
+            "transtgt": ""
+          }
+        ],
+        "varType": "Number",
+        "stdCode": "",
+        "varSchema": {},
+        "varDefault": [
+          "3"
+        ],
+        "access": 1,
+        "varDecorator": "",
+        "varDecoratorSettings": {},
+        "varIndexCode": 0,
+        "varUnit": ""
+      },
+      {
+        "varKeyword": "maxEnergy",
+        "varName": "maxEnergy",
+        "varSig": "maxEnergy",
+        "varNameI18n": "maxEnergy",
+        "i18nLabels": [
+          {
+            "uuid": "",
+            "transtgt": ""
+          }
+        ],
+        "varType": "Number",
+        "stdCode": "",
+        "varSchema": {},
+        "varDefault": [
+          "500"
+        ],
+        "access": 0,
+        "varDecorator": "",
+        "varDecoratorSettings": {},
+        "varIndexCode": 2,
+        "varUnit": ""
+      },
+      {
+        "varKeyword": "vehicleEnergy",
+        "varName": "vehicleEnergy",
+        "varSig": "vehicleEnergy",
+        "varNameI18n": "vehicleEnergy",
+        "i18nLabels": [
+          {
+            "uuid": "",
+            "transtgt": ""
+          }
+        ],
+        "varType": "Number",
+        "stdCode": "",
+        "varSchema": {},
+        "varDefault": [
+          "400"
+        ],
+        "access": 0,
+        "varDecorator": "",
+        "varDecoratorSettings": {},
+        "varIndexCode": 3,
+        "varUnit": ""
+      },
+      {
+        "varKeyword": "energyCost",
+        "varName": "energyCost",
+        "varSig": "energyCost",
+        "varNameI18n": "energyCost",
+        "i18nLabels": [
+          {
+            "uuid": "",
+            "transtgt": ""
+          }
+        ],
+        "varType": "Number",
+        "stdCode": "",
+        "varSchema": {},
+        "varDefault": [
+          "-0.1"
+        ],
+        "access": 0,
+        "varDecorator": "",
+        "varDecoratorSettings": {},
+        "varIndexCode": 4,
+        "varUnit": ""
+      }
+    ],
+    "varpool": [
+      {
+        "varSig": "priorVehicles",
+        "varData": []
+      },
+      {
+        "varSig": "missionLevel",
+        "varData": [
+          "3"
+        ]
+      },
+      {
+        "varSig": "maxEnergy",
+        "varData": [
+          "500"
+        ]
+      },
+      {
+        "varSig": "vehicleEnergy",
+        "varData": [
+          "400"
+        ]
+      },
+      {
+        "varSig": "energyCost",
+        "varData": [
+          "-0.1"
+        ]
+      }
+    ],
+    "axns": [
+      {
+        "scriptId": "action_228888124886827008",
+        "axnKeyword": "start",
+        "axnName": "启动",
+        "axnNameI18n": "启动",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/5c2f3ff7-66b0-4191-82e7-dff87bdf5ad9action.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "{",
+          "var num = Numbers();",
+          "num.push_back(1.0);",
+          "num.push_back(2.0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_vehicle_simple\", 0, num);",
+          "}"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "激活车辆仿真，使其开始执行预设任务或响应指令。并做折返运动。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228888125195632640",
+        "axnKeyword": "stop",
+        "axnName": "停止",
+        "axnNameI18n": "停止",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/4a508b79-4287-4592-ae78-d6d563d7451caction.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "{",
+          "var num = Numbers();",
+          "num.push_back(1.0);",
+          "num.push_back(2.0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_vehicle_simple\", 1, num);",
+          "}"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "立即暂停车辆运行，冻结所有状态直至再次启动。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228888125679157248",
+        "axnKeyword": "switch_path",
+        "axnName": "switch_path",
+        "axnNameI18n": "切换路径",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/0f66f5df-23cf-4b33-ab65-42817bde67f8action.png",
+        "vardefs": [
+          {
+            "varKeyword": "params",
+            "varName": "params",
+            "varSig": "params",
+            "varNameI18n": "切换路径名称Waypoints",
+            "i18nLabels": [],
+            "varType": "Waypoints",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "var wps = Agent.actions[\"switch_path\"][\"params\"].get();",
+          "for (var i = 0; i < wps.size(); ++i) ",
+          "{",
+          "    var wp = wps[i];",
+          "    num.push_back(wp.lon);",
+          "    num.push_back(wp.lat);",
+          "}",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_vehicle_simple\", 2, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "动态更改无人车辆的行驶路线，支持从预设路径库中选择或输入新路径。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228923018729631744",
+        "axnKeyword": "set_mission_level",
+        "axnName": "设置通行优先级",
+        "axnNameI18n": "设置通行优先级",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/0486041b-4765-4e24-8122-8e0f9cd97d06action.png",
+        "vardefs": [
+          {
+            "varKeyword": "level",
+            "varName": "level",
+            "varSig": "level",
+            "varNameI18n": "任务等级Number",
+            "i18nLabels": [],
+            "varType": "Number",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "Agent.variables[\"missionLevel\"].set(level);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "为车辆分配优先级（1为最高优先级），高优先级车辆在避障时享有优先通行权。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228930872496992256",
+        "axnKeyword": "zOzzaezM",
+        "axnName": "设置能量消耗",
+        "axnNameI18n": "设置能量消耗",
+        "i18nLabels": [],
+        "axnIcon": "",
+        "vardefs": [
+          {
+            "varKeyword": "cost",
+            "varName": "cost",
+            "varSig": "cost",
+            "varNameI18n": "单位消耗值Number",
+            "i18nLabels": [],
+            "varType": "Number",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [
+              "0.1"
+            ],
+            "access": 0,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": false,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "Agent.variables[\"energyCost\"].set(cost);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "调整车辆单位时间内的能量消耗速率，模拟不同负载或路况下的能耗差异。",
+        "access": 0
+      },
+      {
+        "scriptId": "action_228930721729957888",
+        "axnKeyword": "ZrNnIQcj",
+        "axnName": "能量消耗",
+        "axnNameI18n": "能量消耗",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/bebbe9e7-ae63-45e8-8ccf-88559ee88a9daction.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 1000,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "{",
+          "var energy = Agent.variables[\"vehicleEnergy\"].get();",
+          "var energyMax = Agent.variables[\"maxEnergy\"].get();",
+          "var energy_cost = Agent.variables[\"energyCost\"].get();",
+          "var _energy = energy + energy_cost;",
+          "if(_energy < 0){",
+          "    _energy = 0;",
+          "    Agent.action_do(\"stop\");",
+          "}",
+          "",
+          "if(energy > energyMax){",
+          "    _energy = energyMax;",
+          "}",
+          "",
+          "//print(_energy);",
+          "//print(\"testa\");",
+          "",
+          "Agent.variables[\"vehicleEnergy\"].set(_energy);",
+          "}"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "模拟行驶过程中的电量递减，消耗速率由设置参数决定。",
+        "access": 0
+      },
+      {
+        "scriptId": "action_228945037647474688",
+        "axnKeyword": "debug_print",
+        "axnName": "调试输出",
+        "axnNameI18n": "调试输出",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/be842a29-4ab9-46a3-8b1a-b3874c28af0aaction.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 1,
+        "axnActivated": false,
+        "axnRunningPlan": 1000,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "print(\"vehicle energy\");",
+          "print(Agent.variables[\"vehicleEnergy\"].get());"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "输出车辆当前状态（如位置、电量、任务等级等），用于调试与日志记录。",
+        "access": 0
+      }
+    ],
+    "tsmarks": [],
+    "agentJetdsCodes": [
+      {
+        "agentJetdsCodeSig": "agntjetds_229249968759775243",
+        "agentJetdsCode": "GVA",
+        "agentJetdsCodeEx": "",
+        "relatedActions": []
+      }
+    ],
+    "oodas": [
+      {
+        "scriptId": "ooda_228888467585974272",
+        "oodaName": "避障",
+        "oodaNameI18n": "避障",
+        "scriptLang": 0,
+        "oodaVersion": 1,
+        "oodaActivated": true,
+        "oodaUsageFilter": 8,
+        "oodaScript": [
+          "{",
+          "//排除自身感知域发现自身实体",
+          "if(Agent.event.aid != Agent.event.self_id)",
+          "{",
+          "    return;",
+          "}",
+          "//获取对方优先级",
+          "var mission_level_a = Agent.variables[\"missionLevel\"].get();",
+          "var agent_b = system_other_agent(Agent.event.bid);",
+          "if(system_exists(agent_b)){",
+          "    var keyword = agent_b._agentKeyword();",
+          "    if(keyword != \"SUV\"){",
+          "        return;",
+          "    }",
+          "    var mission_level_b = agent_b.variables[\"missionLevel\"].get();",
+          "    if(mission_level_a < mission_level_b){",
+          "            if (Agent.event.event_type == E_EVENT_MODE_ADD) ",
+          "            {",
+          "                var _bid = Agent.event.bid.to_string();",
+          "                if(Agent.variables[\"priorVehicles\"].get().contains(_bid) == false){",
+          "                    Agent.variables[\"priorVehicles\"].get().push_back(_bid);",
+          "                }",
+          "            }",
+          "            else if (Agent.event.event_type == E_EVENT_MODE_UPDATE) ",
+          "            {",
+          "            }",
+          "            else if (Agent.event.event_type == E_EVENT_MODE_REMOVE) ",
+          "            {   ",
+          "                var _bid = Agent.event.bid.to_string();",
+          "                //print(\"remove bid\");",
+          "                //print(_bid);",
+          "                Agent.variables[\"priorVehicles\"].get().remove(_bid);",
+          "            }",
+          "            //print(Agent.variables[\"priorVehicles\"].get());",
+          "            if(Agent.variables[\"priorVehicles\"].get().size() == 0){",
+          "                Agent.action_do(\"start\", 1000);",
+          "            } else {",
+          "                Agent.action_do(\"stop\");",
+          "            }",
+          "    }",
+          "}",
+          "}",
+          ""
+        ],
+        "scriptTalk": [],
+        "oodaDesc": "当两车距离小于安全阈值时，系统比较任务等级，低优先级车辆暂停行驶，待高优先级车辆通过且距离恢复安全值后继续运行。"
+      },
+      {
+        "scriptId": "ooda_228933062615662592",
+        "oodaName": "充能",
+        "oodaNameI18n": "充能",
+        "scriptLang": 0,
+        "oodaVersion": 1,
+        "oodaActivated": true,
+        "oodaUsageFilter": 8,
+        "oodaScript": [
+          "{",
+          "//排除自身感知域发现自身实体",
+          "if(Agent.event.aid != Agent.event.self_id)",
+          "{",
+          "    return;",
+          "}",
+          "var agent_b = system_other_agent(Agent.event.bid);",
+          "if(system_exists(agent_b)){",
+          "    var keyword = agent_b._agentKeyword();",
+          "    if(keyword != \"Charge\"){",
+          "        return;",
+          "    }",
+          "    if (Agent.event.event_type == E_EVENT_MODE_ADD) ",
+          "    {",
+          "        // 开始充能",
+          "        Agent.variables[\"energyCost\"].set(3.0);",
+          "    }",
+          "    else if (Agent.event.event_type == E_EVENT_MODE_UPDATE) ",
+          "    {",
+          "        //vehicleEnergy",
+          "    ",
+          "        var energyMax = Agent.variables[\"maxEnergy\"].get();",
+          "        var energy = Agent.variables[\"vehicleEnergy\"].get();",
+          "        var per = energy/energyMax * 100;",
+          "        if(per > 95){",
+          "            Agent.action_do(\"start\", 1000);",
+          "            Agent.variables[\"energyCost\"].set(-1.0);",
+          "            //print(\"stop charge\");",
+          "        }",
+          "        //print(per);",
+          "        ",
+          "    }",
+          "    else if (Agent.event.event_type == E_EVENT_MODE_REMOVE) ",
+          "    {",
+          "        // 结束充能",
+          "        Agent.variables[\"energyCost\"].set(-1.0);",
+          "        // 启动",
+          "        //Agent.action_do(\"start\", 1000);",
+          "    }",
+          "}",
+          "}"
+        ],
+        "scriptTalk": [],
+        "oodaDesc": "车辆进入充电站范围时自动触发，电量按设定速率递增；离开充电站后恢复正常能耗模式。"
+      }
+    ],
+    "bts": [],
+    "commStackConfig": {
+      "refFrameEnginesSummary": [],
+      "commStacks": []
+    },
+    "agentCamp": "camp_225128854667210752",
+    "agentCampName": "导调方",
+    "doctrines": [],
+    "ncycles": 1,
+    "evalIndexes": [],
+    "audit": {
+      "createdById": "229023529002975232",
+      "createdBy": "LaViC模型管理员(Admin)",
+      "createdOn": "2025-06-09 15:13:31",
+      "updatedOn": "2025-10-14 11:32:44",
+      "updatedBy": "LaViC管理员(Admin)",
+      "updatedById": "229023529002975232",
+      "startTime": "2025-06-09 15:13:31",
+      "startBy": null,
+      "startById": null,
+      "stopTime": null,
+      "stopBy": null,
+      "stopById": null
+    },
+    "isDelete": false,
+    "order": 1750675107273,
+    "agentCoreFunc": "无人车辆仿真模型能够模拟真实场景下无人车辆的自主运行行为，包括路径规划、动态避障、任务优先级管理以及能量消耗与充能机制。该模型支持多车协同运行，通过安全距离检测实现智能避障，并可根据任务等级动态调整车辆行为，同时模拟能量消耗与充电过程，为无人车算法的验证与优化提供高效、可控的仿真环境。",
+    "agentCommonlyUsed": [],
+    "agentUsage": "1. 新建实例\n在仿真系统中，根据无人车辆模型新建一个车辆实例。\n\n2. 新建想定\n构建一个想定，用于验证无人车辆的运行逻辑。\n\n3. 将实例加入想定\n将已创建的无人车辆实例添加到当前想定中，支持同时添加多个车辆以模拟复杂交通环境。\n\n4. 启动仿真\n点击界面上的 “启动仿真” 按钮，初始化仿真环境并加载无人车辆实体，准备执行任务。\n\n5. 启动车辆运行\n在动作面板中点击 “启动” 按钮，再点击 “执行” 确认，车辆将按照预设路径开始行驶。\n\n6. 停止车辆运行\n在动作面板中点击 “停止” 按钮，再点击 “执行” 确认，车辆将立即停止运行，并保持当前状态。\n\n7. 切换行驶路径\n在动作面板中点击 “切换路径” 按钮，从下拉菜单或地图中选择新的行驶路径，点击 “执行” 确认，车辆将更新行驶路线。\n\n8. 设置任务等级\n通过 “设置任务等级” 调整车辆的优先级（1为最高优先级），高优先级车辆在冲突时（如避障场景）享有优先通行权。\n\n9. 结束仿真\n点击 “停止” 按钮，仿真系统将终止运行，所有车辆状态清零，可重新配置或退出仿真。",
+    "agentVideoUrl": "http://192.168.31.218:9000/lavic/6bfb6fb9-ec50-47b5-abb0-07604f640b4c无人车辆.mp4",
+    "relatedSimulation": [
+      {
+        "simulationSig": "sostep_229090456287449088",
+        "simulationName": "微想定_地面车辆",
+        "iconUrl": "http://192.168.31.218:9000/lavic/180f8ffe-ef86-4e99-a312-c168107cc2de",
+        "simulationNote": "微想定_地面车辆",
+        "simulationStatus": "Unstart",
+        "audit": {
+          "createdById": "229023529002975232",
+          "createdBy": "LaViC管理员(Admin)",
+          "createdOn": "2025-06-27 10:02:37",
+          "updatedOn": "2025-06-27 10:02:37",
+          "updatedBy": "LaViC管理员(Admin)",
+          "updatedById": "229023529002975232",
+          "startTime": "2025-07-02 10:35:31",
+          "startBy": "LaViC管理员(Admin)",
+          "startById": "229023529002975232",
+          "stopTime": "2025-05-28 14:09:12",
+          "stopBy": "兰崇阳(lanchongyang)",
+          "stopById": "227731431314919424"
+        }
+      }
+    ],
+    "useCount": 1,
+    "agentTag": 0,
+    "smdComponentKey": [],
+    "model": {
+      "sourceAgentKey": "",
+      "sig": "asset_229248304754958336",
+      "description": null,
+      "modelName": "Polaris_MRZR_Alpha",
+      "icon": null,
+      "thumbnail": {
+        "url": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha.png",
+        "selected": false,
+        "mutexType": null,
+        "fileSize": null,
+        "bucket": "lavic",
+        "ossSig": "Polaris_MRZR_Alpha.png"
+      },
+      "introduction": "具备环境感知与自主导航能力的无人驾驶移动载体，用于执行运输、探测等任务",
+      "abilityDescription": null,
+      "mapIconType": null,
+      "mapIconUrl": {
+        "url": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha_mil.png",
+        "selected": false,
+        "mutexType": null,
+        "fileSize": null,
+        "bucket": "lavic",
+        "ossSig": "Polaris_MRZR_Alpha_mil.png"
+      },
+      "pakUrl": null,
+      "audit": null,
+      "isDel": false,
+      "dimModelUrls": [
+        {
+          "url": "Polaris_MRZR_Alpha/Polaris_MRZR_Alpha_AI_Rodin.glb",
+          "selected": true,
+          "mutexType": null,
+          "fileSize": null,
+          "bucket": "lavic",
+          "ossSig": "Polaris_MRZR_Alpha_AI_Rodin.glb"
+        }
+      ]
+    }
+  }
+]

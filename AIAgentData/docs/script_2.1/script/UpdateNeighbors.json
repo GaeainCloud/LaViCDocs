@@ -1,0 +1,2 @@
+//更新该实体发现的临近实体到自定义参数中
+Agent.neighbors_update();

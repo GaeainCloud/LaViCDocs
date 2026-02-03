@@ -1,0 +1,1176 @@
+{
+    "agents": [
+        {
+            "agentKey": "AGENTKEY_224825536103023592",
+            "agentDesc": "",
+            "agentName": "预警机",
+            "agentNameI18n": "预警机",
+            "agentPath": "",
+            "i18nLabels": [],
+            "agentKeyword": "预警机",
+            "modelUrlSlim": "asset_224983934889029632",
+            "modelUrlFat": "",
+            "modelUrlMedium": "string",
+            "modelUrlPAK": "",
+            "modelUrlSymbols": [
+                {
+                    "symbolSeries": 2,
+                    "symbolName": "http://121.37.93.124:9000/lavic/281b52d7-d63c-4ddc-b1b2-d2a9f97c8ed1e2d.png"
+                }
+            ],
+            "modelAbstracted": [
+                {
+                    "abstProfileKeyword": "",
+                    "abstProfileFrame": 0,
+                    "abstProfileResolution": 13,
+                    "abstProfileLonLat": [],
+                    "abstProfileCarteXY": [],
+                    "abstHeights": [],
+                    "abstHeightResolution": 12
+                }
+            ],
+            "clusterComms": {},
+            "subagents": [],
+            "freelanceable": false,
+            "freelanceableDynamics": [],
+            "locatable": false,
+            "locatableDynamics": [],
+            "navigatable": false,
+            "navigatableDynamics": [],
+            "missionable": true,
+            "missionableDynamics": [
+                {
+                    "dynPluginName": "iagnt_dynamics_linear_trajectory",
+                    "dynKeyword": "MissionDynamicsDefault",
+                    "dynAsDefault": true,
+                    "dynSettings": {}
+                }
+            ],
+            "operatable": false,
+            "useIb": true,
+            "cognitiveConfig": {
+                "plugins": [
+                    {
+                        "pluginKey": "e4txGzV5aOmesOCRvCZN",
+                        "pluginName": "cgntviff_foo",
+                        "cgntvKeyword": "Some-Keyword",
+                        "runningInterval": 5000
+                    },
+                    {
+                        "pluginKey": "e4txGzV5aOmesOCRvCZN",
+                        "pluginName": "cgntviff_transponder",
+                        "cgntvKeyword": "Some-Keyword",
+                        "runningInterval": 5000
+                    },
+                    {
+                        "pluginKey": "evXDG3seHRznSifIvh1b",
+                        "pluginName": "cgntvswsigf_foo",
+                        "cgntvKeyword": "Some-Keyword",
+                        "runningInterval": 5000
+                    },
+                    {
+                        "pluginKey": "GWjqVPbCcGKdxtPrPT8X",
+                        "pluginName": "cgntvemsigf_foo",
+                        "cgntvKeyword": "Some-Keyword",
+                        "runningInterval": 5000
+                    },
+                    {
+                        "pluginKey": "cA8wBeAs8FYLw86Gq2An",
+                        "pluginName": "cgntvkg_foo",
+                        "cgntvKeyword": "Some-Keyword",
+                        "runningInterval": 5000
+                    }
+                ]
+            },
+            "stopCond": {
+                "stopCondType": 0,
+                "vicinityDist": 0,
+                "loopTimes": 0,
+                "isStopped": false
+            },
+            "agentType": "Instagent",
+            "fldmds": [
+                {
+                    "fldmdName": "探测场域",
+                    "fldmdNameI18n": "DETECTIONField",
+                    "i18nLabels": [
+                        {
+                            "uuid": "752B07DC-1578-7DD6-D759-F5DB87D10A04",
+                            "transtgt": "fldmdNameI18n"
+                        }
+                    ],
+                    "fldmdkwd": "DETECTIONField",
+                    "fldmdkey": "field_223497575968478944",
+                    "offsetx": 0.0,
+                    "offsety": 0.0,
+                    "offsetz": 0.0,
+                    "orient": 0,
+                    "sensorFusionUnit": "sensorfusionunit_simple_target_id_fusion",
+                    "sensorFusionUnitSettings": "",
+                    "smds": [
+                        {
+                            "mode": 0,
+                            "pitch": 0.0,
+                            "azimuth": 0.0,
+                            "dpch": 85.0,
+                            "dazm": 360.0,
+                            "radius": 50000.0,
+                            "gaingraph": 0,
+                            "epsln": 1.0E-5,
+                            "emgwpty": 128.0,
+                            "sndwpty": 0.0,
+                            "frqmean": 1000.0,
+                            "frqvarn": 20.0,
+                            "frqdist": 0,
+                            "wavescale": 0.0,
+                            "frqusage": 8,
+                            "wavesndrcv": 2,
+                            "silencegap": 200.0,
+                            "pwr_watts": 670000.0,
+                            "ppgt_mdl": 0,
+                            "fldid": "field_223497575968478944",
+                            "modsig": "223497575968478944",
+                            "stopSensingIn": 5000,
+                            "sensorCorePlugin": "sensorcluster_direct",
+                            "sensorCorePluginSettings": "",
+                            "multiplier": 1,
+                            "wave_hgtdiff_model": 0,
+                            "wave_hgtdiff_param1": 0,
+                            "wave_hgtdiff_param2": 0
+                        }
+                    ],
+                    "passive": true
+                }
+            ],
+            "waypoints": [
+                {
+                    "wpsKey": "223884242452299779",
+                    "wpsUsage": "",
+                    "wpsKeyword": "LaunchingWpk",
+                    "wpsFrame": 0,
+                    "wps": [
+                        {
+                            "wpsCore": [
+                                119.5458103,
+                                26.0430982,
+                                200.0,
+                                1.0,
+                                0.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                118.8589979,
+                                24.0384734,
+                                200.0,
+                                1.0,
+                                10.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                120.735766,
+                                23.4891994,
+                                200.0,
+                                1.0,
+                                20.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        }
+                    ],
+                    "wpsGenPOIs": [],
+                    "wpsPathPlanner": "",
+                    "wpsGenFences": [],
+                    "wpsGenTimeConsumed": 0,
+                    "wpsTalk": []
+                }
+            ],
+            "pois": [],
+            "fences": [],
+            "bts": [],
+            "commStackConfig": {
+                "refFrameEnginesSummary": [],
+                "commStacks": [
+                  {
+                    "commStackKey": "cs_227447752448221184",
+                    "physics": {
+                      "emgwpty": 128,
+                      "sndwpty": 0,
+                      "frqmean": 1000,
+                      "frqvarn": 20,
+                      "frqdist": 0,
+                      "wavescale": 0,
+                      "frqusage": 8,
+                      "wavesndrcv": 2,
+                      "silencegap": 200,
+                      "pwr_watts": 0,
+                      "ppgt_mdl": 0
+                    },
+                    "usage": "General",
+                    "refFrameMappings": [
+                      {
+                        "refFrameEngine": "FRAME_red_general_protocol__R1IDL",
+                        "refFrameMsgkey": "0001",
+                        "mappings": [
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_lon",
+                            "varArrayIndex": 0
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_lat",
+                            "varArrayIndex": 1
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_hgt",
+                            "varArrayIndex": 2
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_ref",
+                            "varArrayIndex": 3
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_time",
+                            "varArrayIndex": 4
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_lon",
+                            "varArrayIndex": 0
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_lat",
+                            "varArrayIndex": 1
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_hgt",
+                            "varArrayIndex": 2
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_ref",
+                            "varArrayIndex": 3
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_time",
+                            "varArrayIndex": 4
+                          }
+                        ]
+                      }
+                    ],
+                    "bindActions": [
+                      {
+                        "actionTriggerFrameEngine": "FRAME_red_general_protocol__R1IDL",
+                        "actionTriggerMsgkey": "0001",
+                        "actionTriggerCondition": "",
+                        "actionKeyword": "some-action-keyword"
+                      }
+                    ],
+                    "comStackLayers": [
+                      {
+                        "layerSignature": "plugin_227447752448221185",
+                        "pluginName": "cmmstk1dlk_codec_modem_default",
+                        "pluginSettings": null
+                      }
+                    ],
+                    "layerMetrics": {}
+                  }
+                ]
+              },
+            "agentCamp": "camp_224924231689506816",
+            "isDelete": false,
+            "vardefs": [
+                {
+                    "varKeyword": "targetids",
+                    "varName": "targetids",
+                    "varSig": "targetids",
+                    "varNameI18n": "targetids",
+                    "i18nLabels": [],
+                    "varType": "Strings",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "neighbors",
+                    "varName": "neighbors",
+                    "varSig": "neighbors",
+                    "varNameI18n": "neighbors",
+                    "i18nLabels": [],
+                    "varType": "Strings",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "handleagentids",
+                    "varName": "handleagentids",
+                    "varSig": "handleagentids",
+                    "varNameI18n": "handleagentids",
+                    "i18nLabels": [],
+                    "varType": "Strings",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "targetlocation",
+                    "varName": "targetlocation",
+                    "varSig": "targetlocation",
+                    "varNameI18n": "targetlocation",
+                    "i18nLabels": [],
+                    "varType": "Location",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "PointTo",
+                    "varSig": "PointTo",
+                    "varName": "PointTo",
+                    "varNameI18n": "PointTo",
+                    "i18nLabels": [],
+                    "varType": "Location",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDecorator": "",
+                    "varDecoratorSettings": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0
+                },
+                {
+                    "varKeyword": "Navigatable",
+                    "varName": "Navigatable",
+                    "varSig": "Navigatable",
+                    "varNameI18n": "Navigatable",
+                    "i18nLabels": [],
+                    "varType": "Location",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                }
+            ],
+            "varpool": [
+                {
+                    "varSig": "targetids",
+                    "varData": []
+                },
+                {
+                    "varSig": "neighbors",
+                    "varData": []
+                },
+                {
+                    "varSig": "handleagentids",
+                    "varData": []
+                },
+                {
+                    "varSig": "targetlocation",
+                    "varData": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "PointTo",
+                    "varData": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "Navigatable",
+                    "varData": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ]
+                }
+            ],
+            "axns": [
+                {
+                    "scriptId": "223532513321123840",
+                    "axnKeyword": "TargetAllocFollow",
+                    "axnName": "TargetAllocFollow",
+                    "axnNameI18n": "目标指定跟随",
+                    "i18nLabels": [],
+                    "axnIcon": "",
+                    "vardefs": [
+                        {
+                            "varKeyword": "TargetHandle",
+                            "varName": "TargetHandle",
+                            "varSig": "TargetHandle",
+                            "varNameI18n": "目标句柄",
+                            "i18nLabels": [],
+                            "varType": "String",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                ""
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        },
+                        {
+                            "varKeyword": "FollowHandle",
+                            "varName": "FollowHandle",
+                            "varSig": "FollowHandle",
+                            "varNameI18n": "跟随句柄",
+                            "i18nLabels": [],
+                            "varType": "String",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                ""
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        }
+                    ],
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": [
+                        "return true;"
+                    ],
+                    "axnScript": [
+                        "Agent.targets_append_handler(TargetHandle,FollowHandle);"
+                    ],
+                    "axnViewDetails": [
+                        {
+                            "axnViewName": "",
+                            "axnViewKeyword": ""
+                        }
+                    ],
+                    "scriptTalk": []
+                },
+                {
+                    "scriptId": "action_6406571425477093843",
+                    "axnKeyword": "UpdateTargets",
+                    "axnName": "UpdateTargets",
+                    "axnNameI18n": "UpdateTargets",
+                    "i18nLabels": null,
+                    "axnIcon": "UpdateTargets",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 500,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "Agent.targets_update();",                        
+                        "//print(Agent.targets);"
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576415477073843",
+                    "axnKeyword": "GuidePointToTargets",
+                    "axnName": "GuidePointToTargets",
+                    "axnNameI18n": "GuidePointToTargets",
+                    "i18nLabels": null,
+                    "axnIcon": "GuidePointToTargets",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 100,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "var loophandleagentids = fun(handlers_,targetid_,vrtlocation_){",
+                        "    var sendprotocol=fun(handleagentid,vrtlocation_){",
+                        "        var cmmstkUsage = \"General\";",
+                        "        var engineKeyedName = \"FRAME_red_general_protocol__R1IDL\";",
+                        "        var frameHexTxt = \"fe3e1900000100000000000000000000000000000000000912\";",
+                        "        var param_names = Strings([\"PARAM_lon\",\"PARAM_lat\",\"PARAM_hgt\",\"PARAM_ref\",\"PARAM_time\"]);",
+                        "        var param_values = Ids([vrtlocation_.lon*10000000, ",
+                        "                                            vrtlocation_.lat*10000000, ",
+                        "                                            vrtlocation_.hgt*1000, ",
+                        "                                            vrtlocation_.ref,",
+                        "                                            vrtlocation_.sim_timestamp]);",
+                        "        frame_set(frameHexTxt, engineKeyedName, param_names, param_values);",
+                        "        Agent.comm_publish(handleagentid,cmmstkUsage,engineKeyedName,frameHexTxt); ",
+                        "    };",
+                        "",
+                        "   var it2 = handlers_.begin();",
+                        "   while(it2 != handlers_.end())",
+                        "   {",
+                        "       var handleagentid = deref(it2).first;",
+                        "       var agent = system_other_agent(handleagentid);",
+                        "       if(system_exists(agent)){",
+                        "           agent.variables[\"targetid\"]=to_string(targetid_);",
+                        "       }",
+                        "       sendprotocol(handleagentid,vrtlocation_);",
+                        "       ++(it2);",
+                        "   }",
+                        "};",
+                        "var it = Agent.targets.begin();",
+                        "while(it != Agent.targets.end())",
+                        "{",
+                        "    var targetid = deref(it).first;",
+                        "    var handlers = deref(it).second;",
+                        "    var vrtlocation = Agent.targets_location(targetid);",
+                        "    loophandleagentids(handlers,targetid,vrtlocation);",
+                        "    ++(it);",
+                        "}"                    
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406571415477093883",
+                    "axnKeyword": "UpdateNeighbors",
+                    "axnName": "UpdateNeighbors",
+                    "axnNameI18n": "UpdateNeighbors",
+                    "i18nLabels": null,
+                    "axnIcon": "UpdateNeighbors",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": false,
+                    "axnRunningPlan": 15000,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "Agent.neighbors_update();"
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576415477093845",
+                    "axnKeyword": "IffTargets",
+                    "axnName": "IffTargets",
+                    "axnNameI18n": "IffTargets",
+                    "i18nLabels": null,
+                    "axnIcon": "IffTargets",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": false,
+                    "axnRunningPlan": 10000,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "var commstacksend= fun(id){",
+                        "    var cmmstkUsage = \"Iff_request\";",
+                        "    var engineKeyedName = \"IFF_REQUEST\";",
+                        "    var frameHexTxt = \"fe3e1900000100000000000000000000000000000000000912\";",
+                        "    Agent.comm_publish(id,cmmstkUsage,engineKeyedName,frameHexTxt);",
+                        "}",
+                        "var it = Agent.neighbors.begin();",
+                        "while(it != Agent.neighbors.end())",
+                        "{",
+                        "    var neighborid = deref(it).first;",
+                        "    commstacksend(neighborid);",
+                        "    ++(it);",
+                        "}"
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                }
+            ],
+            "oodas": []
+        },
+        {
+            "agentKey": "AGENTKEY_224825536103022592",
+            "agentDesc": "",
+            "agentName": "咆哮者",
+            "agentNameI18n": "咆哮者",
+            "agentPath": "",
+            "i18nLabels": [],
+            "agentKeyword": "咆哮者",
+            "modelUrlSlim": "asset_224899647210766336",
+            "modelUrlFat": "",
+            "modelUrlMedium": "string",
+            "modelUrlPAK": "",
+            "modelUrlSymbols": [
+                {
+                    "symbolSeries": 0,
+                    "symbolName": ""
+                }
+            ],
+            "modelAbstracted": [
+                {
+                    "abstProfileKeyword": "",
+                    "abstProfileFrame": 0,
+                    "abstProfileResolution": 13,
+                    "abstProfileLonLat": [],
+                    "abstProfileCarteXY": [],
+                    "abstHeights": [],
+                    "abstHeightResolution": 12
+                }
+            ],
+            "clusterComms": {},
+            "subagents": [],
+            "freelanceable": false,
+            "freelanceableDynamics": [],
+            "locatable": false,
+            "locatableDynamics": [],
+            "navigatable": true,
+            "navigatableDynamics": [
+                {
+                    "dynPluginName": "iagnt_dynamics_pronav",
+                    "dynKeyword": "NavigatableDynamics",
+                    "dynAsDefault": true,
+                    "dynSettings": {}
+                }
+            ],
+            "missionable": true,
+            "missionableDynamics": [
+                {
+                    "dynPluginName": "iagnt_dynamics_linear_trajectory",
+                    "dynKeyword": "MissionDynamicsDefault",
+                    "dynAsDefault": true,
+                    "dynSettings": {}
+                }
+            ],
+            "operatable": false,
+            "useIb": true,
+            "stopCond": {
+                "stopCondType": 0,
+                "vicinityDist": 0,
+                "loopTimes": 0,
+                "isStopped": false
+            },
+            "agentType": "Instagent",
+            "fldmds": [
+                {
+                    "fldmdName": "压制场域01",
+                    "fldmdNameI18n": "SUPRESSORField1",
+                    "i18nLabels": [
+                        {
+                            "uuid": "752B07DC-1578-7DD6-D759-F5DB87D10A04",
+                            "transtgt": "fldmdNameI18n"
+                        }
+                    ],
+                    "fldmdkwd": "SUPRESSORField1",
+                    "fldmdkey": "field_223497525968478944",
+                    "offsetx": 0.0,
+                    "offsety": 0.0,
+                    "offsetz": 0.0,
+                    "orient": 0,
+                    "sensorFusionUnit": "sensorfusionunit_simple_target_id_fusion",
+                    "sensorFusionUnitSettings": "",
+                    "smds": [
+                        {
+                            "mode": 0,
+                            "pitch": 0.0,
+                            "azimuth": 0.0,
+                            "dpch": 85.0,
+                            "dazm": 5.0,
+                            "radius": 100000.0,
+                            "gaingraph": 0,
+                            "epsln": 1.0E-5,
+                            "emgwpty": 128.0,
+                            "sndwpty": 0.0,
+                            "frqmean": 1000.0,
+                            "frqvarn": 20.0,
+                            "frqdist": 2,
+                            "wavescale": 0.0,
+                            "frqusage": 3,
+                            "wavesndrcv": 2,
+                            "silencegap": 200.0,
+                            "pwr_watts": 670000.0,
+                            "ppgt_mdl": 0,
+                            "fldid": "field_223497525968478944",
+                            "modsig": "223497525968478944",
+                            "stopSensingIn": 5000,
+                            "sensorCorePlugin": "sensorcluster_direct",
+                            "sensorCorePluginSettings": "",
+                            "multiplier": 1,
+                            "wave_hgtdiff_model": 0,
+                            "wave_hgtdiff_param1": 0,
+                            "wave_hgtdiff_param2": 0
+                        }
+                    ],
+                    "passive": true
+                },
+                {
+                    "fldmdName": "DetectFiled",
+                    "fldmdNameI18n": "探测",
+                    "i18nLabels": [
+                        {
+                            "uuid": "752B07DC-1578-7DD6-D759-F5DB87D10A04",
+                            "transtgt": "fldmdNameI18n"
+                        }
+                    ],
+                    "fldmdkwd": "DetectFiled",
+                    "fldmdkey": "field_223497769911277761",
+                    "offsetx": 0.0,
+                    "offsety": 0.0,
+                    "offsetz": 0.0,
+                    "orient": 0,
+                    "sensorFusionUnit": "sensorfusionunit_simple_target_id_fusion",
+                    "sensorFusionUnitSettings": "",
+                    "smds": [
+                        {
+                            "mode": -999,
+                            "pitch": 0.0,
+                            "azimuth": 0.0,
+                            "dpch": 85.0,
+                            "dazm": 120.0,
+                            "radius": 450.0,
+                            "gaingraph": 0,
+                            "epsln": 1.0E-5,
+                            "emgwpty": 128,
+                            "sndwpty": 0,
+                            "frqmean": 1000.0,
+                            "frqvarn": 20.0,
+                            "frqdist": 0,
+                            "wavescale": 0,
+                            "frqusage": 8,
+                            "wavesndrcv": 2,
+                            "silencegap": 200.0,
+                            "fldid": "field_223497769911277761",
+                            "modsig": "223497769911277761",
+                            "stopSensingIn": 5000,
+                            "multiplier": 1,
+                            "sensorCorePlugin": "sensorcluster_direct",
+                            "sensorCorePluginSettings": "",
+                            "pwr_watts": 0.0,
+                            "ppgt_mdl": 0,
+                            "wave_hgtdiff_model": 0,
+                            "wave_hgtdiff_param1": 0,
+                            "wave_hgtdiff_param2": 0
+                        }
+                    ],
+                    "passive": true
+                }
+            ],
+            "waypoints": [
+                {
+                    "wpsKey": "223884242452299779",
+                    "wpsUsage": "",
+                    "wpsKeyword": "LaunchingWpk",
+                    "wpsFrame": 0,
+                    "wps": [
+                        {
+                            "wpsCore": [
+                                119.5458103,
+                                26.0430982,
+                                200.0,
+                                1.0,
+                                0.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                118.8589979,
+                                24.0384734,
+                                200.0,
+                                1.0,
+                                10.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                120.735766,
+                                23.4891994,
+                                200.0,
+                                1.0,
+                                20.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        }
+                    ],
+                    "wpsGenPOIs": [],
+                    "wpsPathPlanner": "",
+                    "wpsGenFences": [],
+                    "wpsGenTimeConsumed": 0,
+                    "wpsTalk": []
+                }
+            ],
+            "pois": [],
+            "fences": [],
+            "bts": [],
+            "commStackConfig": {
+                "refFrameEnginesSummary": [],
+                "commStacks": [
+                  {
+                    "commStackKey": "cs_227447471681380352",
+                    "physics": {
+                      "emgwpty": 128,
+                      "sndwpty": 0,
+                      "frqmean": 1000,
+                      "frqvarn": 20,
+                      "frqdist": 0,
+                      "wavescale": 0,
+                      "frqusage": 8,
+                      "wavesndrcv": 2,
+                      "silencegap": 200,
+                      "pwr_watts": 0,
+                      "ppgt_mdl": 0
+                    },
+                    "usage": "General",
+                    "refFrameMappings": [
+                      {
+                        "refFrameEngine": "FRAME_red_general_protocol__R1IDL",
+                        "refFrameMsgkey": "0001",
+                        "mappings": [
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_lon",
+                            "varArrayIndex": 0
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_lat",
+                            "varArrayIndex": 1
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_hgt",
+                            "varArrayIndex": 2
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_ref",
+                            "varArrayIndex": 3
+                          },
+                          {
+                            "varKeyword": "targetlocation",
+                            "frameParamName": "PARAM_time",
+                            "varArrayIndex": 4
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_lon",
+                            "varArrayIndex": 0
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_lat",
+                            "varArrayIndex": 1
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_hgt",
+                            "varArrayIndex": 2
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_ref",
+                            "varArrayIndex": 3
+                          },
+                          {
+                            "varKeyword": "PointTo",
+                            "frameParamName": "PARAM_time",
+                            "varArrayIndex": 4
+                          }
+                        ]
+                      }
+                    ],
+                    "bindActions": [
+                      {
+                        "actionTriggerFrameEngine": "FRAME_red_general_protocol__R1IDL",
+                        "actionTriggerMsgkey": "0001",
+                        "actionTriggerCondition": "",
+                        "actionKeyword": "some-action-keyword"
+                      }
+                    ],
+                    "comStackLayers": [
+                      {
+                        "layerSignature": "plugin_227447719521755137",
+                        "pluginName": "cmmstk1dlk_codec_modem_default",
+                        "pluginSettings": null
+                      }
+                    ],
+                    "layerMetrics": {}
+                  }
+                ]
+              },
+            "vardefs": [
+                {
+                    "varKeyword": "targetlocation",
+                    "varName": "targetlocation",
+                    "varSig": "targetlocation",
+                    "varNameI18n": "targetlocation",
+                    "i18nLabels": [],
+                    "varType": "Location",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "targetid",
+                    "varName": "targetid",
+                    "varSig": "targetid",
+                    "varNameI18n": "targetid",
+                    "i18nLabels": [],
+                    "varType": "String",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "PointTo",
+                    "varSig": "PointTo",
+                    "varName": "PointTo",
+                    "varNameI18n": "PointTo",
+                    "i18nLabels": [],
+                    "varType": "Location",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDecorator": "",
+                    "varDecoratorSettings": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0
+                }
+            ],
+            "varpool": [
+                {
+                    "varSig": "targetlocation",
+                    "varData": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "targetid",
+                    "varData": [
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "PointTo",
+                    "varData": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ]
+                }
+            ],
+            "axns": [
+                {
+                    "scriptId": "action_6406576745477093843",
+                    "axnKeyword": "ShiftNavigation",
+                    "axnName": "ShiftNavigation",
+                    "axnNameI18n": "ShiftNavigation",
+                    "i18nLabels": null,
+                    "axnIcon": "ShiftNavigation",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": false,
+                    "axnRunningPlan": 1000,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "var fldkey = \"field_223497769911277761\";",
+                        "var tmplmodsig = 223497769911277761;",
+                        "var is_navig = Agent.dyn_is_navigating();",
+                        "if(is_navig)",
+                        "{",
+                        "    return;",
+                        "}",
+                        "if(\"0\" != Agent.variables[\"targetid\"].get())",
+                        "{",
+                        "    return;",
+                        "}",
+                        "var modsig = Agent.smd_create(fldkey, tmplmodsig, E_FMD_WKMD____SLEEP___,E_FMD_WKMD___SEARCH___);"
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477293843",
+                    "axnKeyword": "ExplodeWorking",
+                    "axnName": "ExplodeWorking",
+                    "axnNameI18n": "ExplodeWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "ExplodeWorking",
+                    "actionTypeOODA": "Explode",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477293844",
+                    "axnKeyword": "InterceptWorking",
+                    "axnName": "InterceptWorking",
+                    "axnNameI18n": "InterceptWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "InterceptWorking",
+                    "actionTypeOODA": "Intercept",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477293854",
+                    "axnKeyword": "SuppressWorking",
+                    "axnName": "SuppressWorking",
+                    "axnNameI18n": "SuppressWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "SuppressWorking",
+                    "actionTypeOODA": "Suppress",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477193854",
+                    "axnKeyword": "InterfereWorking",
+                    "axnName": "InterfereWorking",
+                    "axnNameI18n": "InterfereWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "InterfereWorking",
+                    "actionTypeOODA": "Interfere",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                }
+            ],
+            "oodas": [
+            ],
+            "agentCamp": "camp_224607814588661760",
+            "isDelete": false
+        }
+    ]
+}

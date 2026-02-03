@@ -1,0 +1,783 @@
+[
+  {
+    "agentKey": "AGENTKEY_1769136732915776664",
+    "agentDesc": "类型: 垂起多旋翼无人机\n基本属性: 最大起飞重量650公斤\n可载2人\n续航25分钟\n航程30公里\n时速130公里\n感知能力: 1. 相机（可见光）\n2. 红外感知系统\n3. 激光雷达（厘米级测绘精度）\n4. 毫米波雷达\n通信能力: 4G/5G公网频段1.8GHz、2.6GHz\n理论传输10-30公里",
+    "entitySignature": "",
+    "agentName": "亿航EH216-S无人机",
+    "agentNameI18n": "亿航EH216-S无人机",
+    "agentPath": null,
+    "i18nLabels": [],
+    "agentKeyword": "evtol_2",
+    "agentUsageLabel": [],
+    "modelUrlSlim": "亿航EH216-S无人机/亿航EH216-S无人机_AI_Rodin.glb",
+    "modelUrlFat": "亿航EH216-S无人机/亿航EH216-S无人机_AI_Rodin.glb",
+    "modelUrlMedium": "",
+    "modelUrlPAK": "",
+    "modelUrlSymbols": [
+      {
+        "symbolSeries": 1,
+        "symbolName": "亿航EH216-S无人机/亿航EH216-S无人机.png",
+        "thumbnail": "亿航EH216-S无人机/亿航EH216-S无人机.png"
+      },
+      {
+        "symbolSeries": 2,
+        "symbolName": "亿航EH216-S无人机/亿航EH216-S无人机_mil.png",
+        "thumbnail": "亿航EH216-S无人机/亿航EH216-S无人机_mil.png"
+      }
+    ],
+    "modelAbstracted": [
+      {
+        "abstProfileKeyword": "",
+        "abstProfileFrame": 0,
+        "abstProfileResolution": 13,
+        "abstProfileLonLat": [],
+        "abstProfileCarteXY": [],
+        "abstHeights": [],
+        "abstHeightResolution": 12
+      }
+    ],
+    "clusterComms": {
+      "clusterOptionalPlugins": []
+    },
+    "subagents": [],
+    "freelanceable": false,
+    "freelanceableDynamics": [],
+    "locatable": false,
+    "locatableDynamics": [],
+    "navigatable": false,
+    "navigatableDynamics": [],
+    "missionable": true,
+    "missionableDynamics": [
+      {
+        "dynPluginName": "iagnt_dynamics_evtol_simple",
+        "dynKeyword": "iagnt_dynamics_evtol_simple",
+        "dynAsDefault": true,
+        "dynSettings": {
+          "pluginName": "iagnt_dynamics_evtol_simple",
+          "pluginNote": "EVTOL/Simple",
+          "pluginNoteI18n": "简单EVTOL模型",
+          "pluginSignature": "dynamics_NOswxcfhq0j8ZnxkIMNU",
+          "pluginDefaultSettings": "{\"freqdistPlugin\":null,\"freqdistPluginSettings\":null,\"dynSettings\":{\"V_max\":27,\"V_min\":10,\"a_max\":0.3,\"d_slow\":800,\"h_slow\":20,\"modeSettings\":[{\"modeIndex\":0,\"modeKeyword\":\"VerticalTakeOff\",\"modeName\":\"VerticalTakeOff\",\"modeNameI18n\":\"垂直起飞\",\"modeParamType\":\"Location\"},{\"modeIndex\":1,\"modeKeyword\":\"ReturnPlatform\",\"modeName\":\"ReturnPlatform\",\"modeNameI18n\":\"返航垂降平台\",\"modeParamType\":\"\"},{\"modeIndex\":2,\"modeKeyword\":\"Hover\",\"modeName\":\"Hover\",\"modeNameI18n\":\"悬停\",\"modeParamType\":\"\"},{\"modeIndex\":3,\"modeKeyword\":\"Resume\",\"modeName\":\"Resume\",\"modeNameI18n\":\"继续任务\",\"modeParamType\":\"\"},{\"modeIndex\":20,\"modeKeyword\":\"NewHeading\",\"modeName\":\"NewHeading\",\"modeNameI18n\":\"执行航点\",\"modeParamType\":\"Waypoint\"},{\"modeIndex\":21,\"modeKeyword\":\"NewHeadings\",\"modeName\":\"NewHeadings\",\"modeNameI18n\":\"执行航点列\",\"modeParamType\":\"Waypoints\"},{\"modeIndex\":22,\"modeKeyword\":\"PolygonHeadings\",\"modeName\":\"PolygonHeadings\",\"modeNameI18n\":\"执行多边形航点\",\"modeParamType\":\"Waypoints\"},{\"modeIndex\":31,\"modeKeyword\":\"ChangePlatformParams\",\"modeName\":\"ChangePlatformParams\",\"modeNameI18n\":\"改变平台参数\",\"modeParamType\":\"DoubleVector\"}],\"omega_max\":0.52,\"platform_alt\":0,\"platform_lat\":21.87409170824246,\"platform_lon\":117.98597037375748},\"evidences\":null,\"prejudgmentModels\":null,\"paramsfilter\":null}"
+        }
+      }
+    ],
+    "operatable": true,
+    "useIb": false,
+    "cognitiveConfig": {
+      "plugins": []
+    },
+    "stopCond": {
+      "stopCondType": 0,
+      "vicinityDist": 0,
+      "loopTimes": 0,
+      "isStopped": false
+    },
+    "agentType": "Instagent",
+    "fldmds": [],
+    "waypoints": [
+      {
+        "wpsKey": "229330681022398465",
+        "wpsUsage": "",
+        "wpsKeyword": "route0",
+        "wpsFrame": 0,
+        "wps": [
+          {
+            "wpsCore": [
+              113.2958361,
+              23.3697914,
+              0.0,
+              1.0,
+              0.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3505526,
+              23.3859937,
+              200.0,
+              1.0,
+              10.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3923535,
+              23.3823602,
+              200.0,
+              1.0,
+              20.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.4357568,
+              23.3578489,
+              200.0,
+              1.0,
+              30.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.4403081,
+              23.3039817,
+              200.0,
+              1.0,
+              40.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3777194,
+              23.2722167,
+              200.0,
+              1.0,
+              50.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.3086452,
+              23.2777229,
+              200.0,
+              1.0,
+              60.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.2826853,
+              23.3236231,
+              200.0,
+              1.0,
+              70.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.2957251,
+              23.3684748,
+              200.0,
+              1.0,
+              80.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.2957251,
+              23.3684748,
+              200.0,
+              1.0,
+              90.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          },
+          {
+            "wpsCore": [
+              113.2958361,
+              23.3697914,
+              0.0,
+              1.0,
+              100.0
+            ],
+            "useExt": 0,
+            "speed": 0.0,
+            "roll": 0.0,
+            "pitch": 0.0,
+            "yaw": 0.0,
+            "yawEx": 0.0
+          }
+        ],
+        "wpsGenPOIs": [],
+        "wpsPathPlanner": "",
+        "wpsGenFences": [],
+        "wpsGenTimeConsumed": 0,
+        "wpsTalk": []
+      }
+    ],
+    "pois": [],
+    "fences": [],
+    "vardefs": [],
+    "varpool": [],
+    "axns": [
+      {
+        "scriptId": "action_228935455174074368",
+        "axnKeyword": "wTWpSCUl",
+        "axnName": "起飞",
+        "axnNameI18n": "起飞",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/18b21e8b-ef65-4e53-9957-a4719f3b69f9action.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "num.push_back(1.0);",
+          "num.push_back(2.0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 0, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "控制无人机从地面垂直升空至预设高度，完成多旋翼模式到固定翼模式的平稳切换。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228935455522594816",
+        "axnKeyword": "Hover",
+        "axnName": "悬停",
+        "axnNameI18n": "悬停",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/7ffd42e6-c790-49ea-921f-b03b96855a54action.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "num.push_back(1.0);",
+          "num.push_back(2.0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 2, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "中止当前动作，在多旋翼模式下维持三维定位静止，等待操作指令，能耗持续累积。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228935455940452352",
+        "axnKeyword": "uHE08gPl",
+        "axnName": "恢复",
+        "axnNameI18n": "恢复",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/8bd10b7a-f352-48f1-b97a-3b4bb9cb11cfaction.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "num.push_back(1.0);",
+          "num.push_back(2.0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 3, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "从悬停状态恢复至执行任务。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228935456399335424",
+        "axnKeyword": "u7FEJLa8",
+        "axnName": "返航",
+        "axnNameI18n": "返航",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/4367134a-6ed6-4e23-be91-1330744dafc3action.png",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "num.push_back(1.0);",
+          "num.push_back(2.0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 1, num, true);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "手动触发返航指令，无人机将立即中止当前任务，自动规划最优路径返回预设返航点，如果没有返航点将默认返回出发点。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228936003362267136",
+        "axnKeyword": "fU2uAdMN",
+        "axnName": "设置返航点",
+        "axnNameI18n": "设置返航点",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/3622b90e-fb6d-4e43-b797-8fe7491b226eaction.png",
+        "vardefs": [
+          {
+            "varKeyword": "Location",
+            "varName": "Location",
+            "varSig": "Location",
+            "varNameI18n": "航点Location",
+            "i18nLabels": [],
+            "varType": "Location",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "num.push_back(Location.lon);",
+          "num.push_back(Location.lat);",
+          "num.push_back(Location.hgt);",
+          "num.push_back(0);",
+          "num.push_back(0);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 31, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "定义返航目标位置，为手动返航提供目的地。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228935457133469696",
+        "axnKeyword": "h4G14PuZ",
+        "axnName": "执行航点",
+        "axnNameI18n": "执行航点",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/5fc2dd10-1d8f-4e84-a4d2-3307871404f4action.png",
+        "vardefs": [
+          {
+            "varKeyword": "Location",
+            "varName": "Location",
+            "varSig": "Location",
+            "varNameI18n": "航点Location",
+            "i18nLabels": [],
+            "varType": "Location",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          },
+          {
+            "varKeyword": "Loiter",
+            "varName": "Loiter",
+            "varSig": "Loiter",
+            "varNameI18n": "Loiter",
+            "i18nLabels": [],
+            "varType": "Number",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [
+              "0"
+            ],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "num.push_back(Location.lon);",
+          "num.push_back(Location.lat);",
+          "num.push_back(Location.hgt);",
+          "num.push_back(Loiter);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 20, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "按预设航点序列自主飞行，支持动态调整航点顺序或添加新航点。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228935456725966848",
+        "axnKeyword": "YubgCsxa",
+        "axnName": "执行闭合航线",
+        "axnNameI18n": "执行闭合航线",
+        "i18nLabels": [],
+        "axnIcon": "http://192.168.31.218:9000/lavic/253a3860-e6f4-4de0-a706-8f6c023c2982action.png",
+        "vardefs": [
+          {
+            "varKeyword": "params",
+            "varName": "params",
+            "varSig": "params",
+            "varNameI18n": "闭合航线名称Waypoints",
+            "i18nLabels": [],
+            "varType": "Waypoints",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var num = Numbers();",
+          "var wps = Agent.actions[\"YubgCsxa\"][\"params\"].get();",
+          "for (var i = 0; i < wps.size(); ++i) ",
+          "{",
+          "    var wp = wps[i];",
+          "    num.push_back(wp.lon);",
+          "    num.push_back(wp.lat);",
+          "    num.push_back(wp.hgt);",
+          "}",
+          "//print(\"evtol\");",
+          "//print(num);",
+          "Agent.dyn_set_mode(\"iagnt_dynamics_evtol_simple\", 22, num);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "沿闭合多边形路径循环飞行，适用于巡检或区域覆盖任务。",
+        "access": 1
+      },
+      {
+        "scriptId": "action_228936130722701312",
+        "axnKeyword": "RtRxBKaK",
+        "axnName": "能量消耗",
+        "axnNameI18n": "能量消耗",
+        "i18nLabels": [],
+        "axnIcon": "",
+        "vardefs": [],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": false,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "var energy = Agent.variables[\"energy\"].get();",
+          "var energy_cost = Agent.variables[\"energyCost\"].get();",
+          "var _energy = energy + energy_cost;",
+          "if(_energy < 30){",
+          "    // 电量过低，返航",
+          "    Agent.action_do(\"u7FEJLa8\");",
+          "}",
+          "",
+          "if(_energy < 0){",
+          "    _energy = 0;",
+          "}",
+          "",
+          "if(energy > 100){",
+          "    _energy = 100;",
+          "}",
+          "",
+          "Agent.variables[\"energy\"].set(_energy);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "实时计算飞行能耗，固定翼模式耗能较低，多旋翼模式耗能较高。",
+        "access": 0
+      },
+      {
+        "scriptId": "action_228936121633513472",
+        "axnKeyword": "pomEpMuk",
+        "axnName": "设置能量消耗",
+        "axnNameI18n": "设置能量消耗",
+        "i18nLabels": [],
+        "axnIcon": "",
+        "vardefs": [
+          {
+            "varKeyword": "cost",
+            "varName": "cost",
+            "varSig": "cost",
+            "varNameI18n": "单位消耗值Number",
+            "i18nLabels": [],
+            "varType": "Number",
+            "stdCode": "",
+            "varSchema": {},
+            "varDefault": [],
+            "access": 1,
+            "varDecorator": "",
+            "varDecoratorSettings": {},
+            "varIndexCode": 0,
+            "varUnit": null
+          }
+        ],
+        "scriptLang": 0,
+        "axnVersion": 0,
+        "axnActivated": true,
+        "axnRunningPlan": 0,
+        "axnAsync": false,
+        "axnRunningConds": [
+          "return true;"
+        ],
+        "axnScript": [
+          "Agent.variables[\"energyCost\"].set(cost);"
+        ],
+        "axnViewDetails": [
+          {
+            "axnViewName": "",
+            "axnViewKeyword": ""
+          }
+        ],
+        "scriptTalk": [],
+        "actionTypeOODA": "",
+        "axnDesc": "调整不同飞行模式的单位时间能耗参数，模拟不同负载或风阻条件。",
+        "access": 0
+      }
+    ],
+    "tsmarks": [],
+    "agentJetdsCodes": [
+      {
+        "agentJetdsCodeSig": "agntjetds_229249971308994574",
+        "agentJetdsCode": "AWC",
+        "agentJetdsCodeEx": "",
+        "relatedActions": []
+      }
+    ],
+    "oodas": [],
+    "bts": [],
+    "commStackConfig": {
+      "refFrameEnginesSummary": [],
+      "commStacks": []
+    },
+    "agentCamp": "camp_225128854667210752",
+    "agentCampName": "导调方",
+    "doctrines": [],
+    "ncycles": 1,
+    "evalIndexes": [],
+    "audit": {
+      "createdById": "229023529002975232",
+      "createdBy": "LaViC模型管理员(Admin)",
+      "createdOn": "2025-06-09 15:15:01",
+      "updatedOn": "2025-07-22 10:05:10",
+      "updatedBy": "LaViC管理员(Admin)",
+      "updatedById": "229023529002975232",
+      "startTime": "2025-06-09 15:15:01",
+      "startBy": null,
+      "startById": null,
+      "stopTime": null,
+      "stopBy": null,
+      "stopById": null
+    },
+    "isDelete": false,
+    "order": 1750676349273,
+    "agentCoreFunc": "垂起多旋翼无人机仿真模型能够模拟真实场景下垂直起降（VTOL）无人机的完整飞行流程，包括垂直起飞、固定翼巡航、多旋翼模式切换、自主航点导航及能量管理。该模型支持复杂任务规划，如闭合航线飞行、盘旋侦察、应急恢复等，并实时计算能量消耗，为无人机任务验证与算法优化提供高保真仿真环境。\n\n",
+    "agentCommonlyUsed": [
+      {
+        "agentKey": "AGENTKEY_229172135177691136",
+        "agentName": "运-5运输机(AFS)",
+        "agentDesc": "采用活塞动力的轻型多用途运输机，专司短距起降条件下的物资/人员运输任务。",
+        "agentThumbnail": "http://192.168.31.218:9000/lavic/bbfc04ab-ce0d-4929-8ed5-b5b2caa90c47图片1888.png",
+        "agentType": "Instagent"
+      }
+    ],
+    "agentUsage": "1. 新建实例\n在仿真系统中，根据垂起多旋翼飞行器的仿真模型新建一个或多个飞行器实例。\n\n2. 新建想定\n构建一个新的仿真想定，用于验证垂起多旋翼无人机的各项功能，包括起飞、巡航、任务执行等场景。\n\n3. 将实例加入想定\n将已创建的飞行器实例添加到当前想定中，可同时添加多个飞行器以模拟编队飞行等复杂场景。\n\n4. 启动仿真\n点击界面上的\"启动仿真\"按钮，初始化仿真环境并加载无人机实体，准备执行飞行任务。\n\n5. 起飞操作\n在动作面板中点击\"起飞\"按钮：\n- 选择目标起飞位置和高度\n- 点击\"执行\"确认\n飞行器将垂直升空至指定高度并完成模式切换。\n\n6. 盘旋操作\n在动作面板中点击\"盘旋\"按钮：\n- 选择盘旋中心点\n- 点击\"执行\"确认\n飞行器将开始在指定位置盘旋。\n\n7. 恢复操作\n在动作面板中点击\"恢复\"按钮：\n点击\"执行\"确认\n飞行器将立即中断当前任务并切换至悬停模式。\n\n8. 执行航点任务\n在动作面板中点击\"执行航点\"按钮：\n选择或输入航点序列\n点击\"执行\"确认\n飞行器将按顺序飞往指定航点。\n\n9. 设置返航点\n在动作面板中点击\"设置返航点\"按钮：\n选择返航目标位置\n点击\"执行\"确认\n系统将记录该位置作为手动返航目的地。\n\n10. 执行闭合航线\n在动作面板中点击\"执行闭合航线\"按钮：\n在地图上选择或绘制闭合航线\n设置飞行高度和速度\n点击\"执行\"确认\n飞行器将沿闭合航线循环飞行。\n\n11. 手动返航\n在动作面板中点击\"返航\"按钮：\n确认返航点\n点击\"执行\"确认\n飞行器将立即中止当前任务，规划最优路径返回预设返航点。\n\n12. 结束仿真\n点击\"停止\"按钮，仿真系统将终止运行，所有飞行器状态清零，可重新配置或退出仿真。",
+    "agentVideoUrl": "http://192.168.31.218:9000/lavic/2098b93e-aa7d-49bb-a43d-49aa98496d58无人机.mp4",
+    "relatedSimulation": [
+      {
+        "simulationSig": "sostep_229092609690832896",
+        "simulationName": "微想定_无人机",
+        "iconUrl": "http://192.168.31.218:9000/lavic/4f403168-ad14-4f94-9a39-e594d51cf74d",
+        "simulationNote": "微想定_无人机",
+        "simulationStatus": "Unstart",
+        "audit": {
+          "createdById": "229023529002975232",
+          "createdBy": "LaViC管理员(Admin)",
+          "createdOn": "2025-06-27 10:01:30",
+          "updatedOn": "2025-06-27 10:01:30",
+          "updatedBy": "LaViC管理员(Admin)",
+          "updatedById": "229023529002975232",
+          "startTime": "2025-07-07 15:13:22",
+          "startBy": "刘荣荣(LiuRongRong)",
+          "startById": "227416892871602176",
+          "stopTime": null,
+          "stopBy": null,
+          "stopById": null
+        }
+      }
+    ],
+    "useCount": 3,
+    "agentTag": 0,
+    "smdComponentKey": [],
+    "model": {
+      "sourceAgentKey": "",
+      "sig": "asset_229249918318813184",
+      "description": null,
+      "modelName": "亿航EH216-S无人机",
+      "icon": null,
+      "thumbnail": {
+        "url": "亿航EH216-S无人机/亿航EH216-S无人机.png",
+        "selected": false,
+        "mutexType": null,
+        "fileSize": null,
+        "bucket": "lavic",
+        "ossSig": "亿航EH216-S无人机.png"
+      },
+      "introduction": "采用多旋翼构型实现垂直起降与悬停作业的飞行平台",
+      "abilityDescription": null,
+      "mapIconType": null,
+      "mapIconUrl": {
+        "url": "亿航EH216-S无人机/亿航EH216-S无人机_mil.png",
+        "selected": false,
+        "mutexType": null,
+        "fileSize": null,
+        "bucket": "lavic",
+        "ossSig": "亿航EH216-S无人机_mil.png"
+      },
+      "pakUrl": null,
+      "audit": null,
+      "isDel": false,
+      "dimModelUrls": [
+        {
+          "url": "亿航EH216-S无人机/亿航EH216-S无人机_AI_Rodin.glb",
+          "selected": true,
+          "mutexType": null,
+          "fileSize": null,
+          "bucket": "lavic",
+          "ossSig": "亿航EH216-S无人机_AI_Rodin.glb"
+        }
+      ]
+    }
+  }
+]

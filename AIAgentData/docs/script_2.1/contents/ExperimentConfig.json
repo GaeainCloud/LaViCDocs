@@ -1,0 +1,53 @@
+{
+    "doeConfigSig": "doecfg_226111643442438144",
+    "attachedScenarioSig": "sostep_226111643442089984",
+    "topic": "actionkh31",
+    "background": null,
+    "purpose": null,
+    "samplingMethod": "田口方法",
+    "factorDesign": "均匀设计",
+    "runningInstanceNumMax": 12,
+    "varSelections": [],
+    "scenarioLifecycleCtrls": {
+        "sostepSig" : "",
+        "criterions" : {
+            "enteringCriterions" : [],
+            "enteringCriterionsSummary" : {
+                "criterionSummaryExpr" : ""
+            },
+            "exitingCriterions" : [
+                {
+                    "criterionKeyword" : "valueCondFoo",
+                    "criterionAgentId" : "",
+                    "criterionAgentLabel":"",
+                    "criterionAgentFileters" : "Agent_*",
+                    "criterionType" : "AgentVarValue",
+                    "criterionVariables" : [
+                        "runningdistance",
+                        "voyagedistance"
+                    ],
+                    "criterionExpr" : "valueCondFoo = (runningdistance > voyagedistance) ? 1.0 : 0.0;if(valueCondFoo == 1.0){print(\"runningdistance:\"+to_string(runningdistance));print(\"voyagedistance:\"+to_string(voyagedistance));print(\"valueCondFoo:\"+to_string(valueCondFoo));}"
+                },
+                {
+                    "criterionKeyword" : "lifeend",
+                    "criterionAgentId" : "",
+                    "criterionAgentLabel":"",
+                    "criterionAgentFileters" : "Agent_*",
+                    "criterionType" : "AgentVarValue",
+                    "criterionVariables" : [
+                        "lifeendstatus"
+                    ],
+                    "criterionExpr" : "lifeend = lifeendstatus;"
+                }
+            ],
+            "exitingCriterionsSummary" : {
+                "criterionSummaryExpr" : "exitingstatus = (valueCondFoo == 1.0 || lifeend == 1.0) ? 1.0 : 0.0;{print(\"lifeend:\"+to_string(lifeend));print(\"valueCondFoo:\"+to_string(valueCondFoo));print(\"exitingstatus:\"+to_string(exitingstatus));}"
+            }
+        }
+    },
+    "doeInstance": {
+        "doeInstSignature": "doeinst_226111643442700289",
+        "attachedDoEConfigSig": "doecfg_226111643442438144",
+        "varSamples": []
+    }
+}

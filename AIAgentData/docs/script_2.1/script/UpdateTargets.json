@@ -1,0 +1,2 @@
+Agent.targets_update();
+//print(Agent.targets);

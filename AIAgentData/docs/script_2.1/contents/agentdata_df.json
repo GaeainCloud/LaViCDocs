@@ -1,0 +1,939 @@
+{
+    "agents": [
+        {
+            "agentKey": "AGENTKEY_223884078497349632",
+            "agentDesc": "",
+            "agentName": "df15carAgent",
+            "agentNameI18n": "df15carAgent",
+            "agentPath": "",
+            "i18nLabels": [],
+            "agentKeyword": "df15carAgent",
+            "modelUrlSlim": "http://192.168.31.218:9000/lavic/e93647d7-6119-49c5-b15e-aa26c19eca6fDF-15B导弹车(1).glb",
+            "modelUrlFat": "",
+            "modelUrlMedium": "string",
+            "modelUrlPAK": "",
+            "modelUrlSymbols": [
+                {
+                    "symbolSeries": 0,
+                    "symbolName": ""
+                }
+            ],
+            "modelAbstracted": [
+                {
+                    "abstProfileKeyword": "",
+                    "abstProfileFrame": 0,
+                    "abstProfileResolution": 13,
+                    "abstProfileLonLat": [],
+                    "abstProfileCarteXY": [],
+                    "abstHeights": [],
+                    "abstHeightResolution": 12
+                }
+            ],
+            "clusterComms": {},
+            "subagents": [
+                {
+                    "asmKey": "asmkey_223893750395518977",
+                    "asmName": "group0",
+                    "asmNameI18n": "group0",
+                    "agentChild": "AGENTKEY_223892491731419136",
+                    "childVolume": 1,
+                    "childVolumeOffsets": [
+                        {
+                            "subagentKeyword": "",
+                            "offsetName": "offset0",
+                            "offsetNameI18n": "",
+                            "offsetKey": "offset_57onpi3t5dplti93939",
+                            "offsetx0": 8.6866322,
+                            "offsety0": 0.4517369,
+                            "offsetz0": 5.3099673,
+                            "offsetroll0": 0.0,
+                            "offsetpitch0": 6.0,
+                            "offsetyaw0": 0.0,
+                            "movaxes": []
+                        }
+                    ],
+                    "detachable": true,
+                    "attachable": true,
+                    "byAssembled": true
+                }
+            ],
+            "freelanceable": true,
+            "freelanceableDynamics": [],
+            "locatable": true,
+            "locatableDynamics": [],
+            "navigatable": true,
+            "navigatableDynamics": [],
+            "missionable": true,
+            "missionableDynamics": [
+                {
+                    "dynPluginName": "iagnt_dynamics_immobility",
+                    "dynKeyword": "MissionDynamicsDefault",
+                    "dynAsDefault": true,
+                    "dynSettings": {}
+                }
+            ],
+            "operatable": true,
+            "useIb": true,
+            "stopCond": {
+                "stopCondType": 0,
+                "vicinityDist": 0,
+                "loopTimes": 0,
+                "isStopped": false
+            },
+            "agentType": "Instagent",
+            "fldmds": [],
+            "waypoints": [
+                {
+                    "wpsKey": "223884242452299776",
+                    "wpsUsage": "",
+                    "wpsKeyword": "LaunchingWpk",
+                    "wpsFrame": 0,
+                    "wps": [
+                        {
+                            "wpsCore": [
+                                119.8220348,
+                                25.6044999,
+                                0.0,
+                                1.0,
+                                0.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                119.8221316,
+                                25.6042271,
+                                0.0,
+                                1.0,
+                                10.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        }
+                    ],
+                    "wpsGenPOIs": [],
+                    "wpsPathPlanner": "",
+                    "wpsGenFences": [],
+                    "wpsGenTimeConsumed": 0,
+                    "wpsTalk": []
+                }
+            ],
+            "pois": [],
+            "fences": [],
+            "vardefs": [],
+            "varpool": [],
+            "axns": [],
+            "oodas": [],
+            "agentCamp": "NPC",
+            "isDelete": false
+        },
+        {
+            "agentKey": "AGENTKEY_223892491731419136",
+            "agentDesc": "",
+            "agentName": "df15Agent",
+            "agentNameI18n": "df15Agent",
+            "agentPath": "",
+            "i18nLabels": [],
+            "agentKeyword": "df15Agent",
+            "modelUrlSlim": "http://192.168.31.218:9000/lavic/fcd00c4e-2e53-422d-9629-c22daea07839DF-15B导弹(1).glb",
+            "modelUrlFat": "",
+            "modelUrlMedium": "string",
+            "modelUrlPAK": "",
+            "modelUrlSymbols": [
+                {
+                    "symbolSeries": 0,
+                    "symbolName": ""
+                }
+            ],
+            "modelAbstracted": [
+                {
+                    "abstProfileKeyword": "",
+                    "abstProfileFrame": 0,
+                    "abstProfileResolution": 13,
+                    "abstProfileLonLat": [],
+                    "abstProfileCarteXY": [],
+                    "abstHeights": [],
+                    "abstHeightResolution": 12
+                }
+            ],
+            "clusterComms": {},
+            "subagents": [],
+            "freelanceable": true,
+            "freelanceableDynamics": [],
+            "locatable": false,
+            "locatableDynamics": [],
+            "navigatable": true,
+            "navigatableDynamics": [],
+            "missionable": true,
+            "missionableDynamics": [
+                {
+                    "dynPluginName": "iagnt_dynamics_linear_trajectory",
+                    "dynKeyword": "MissionDynamicsDefault",
+                    "dynAsDefault": true,
+                    "dynSettings": {}
+                }
+            ],
+            "operatable": true,
+            "useIb": true,
+            "stopCond": {
+                "stopCondType": 0,
+                "vicinityDist": 0,
+                "loopTimes": 0,
+                "isStopped": false
+            },
+            "agentType": "Instagent",
+            "fldmds": [
+                {
+                    "fldmdName": "回波",
+                    "fldmdNameI18n": "EchoField",
+                    "i18nLabels": [
+                        {
+                            "uuid": "752B07DC-1578-7DD6-D759-F5DB87D10A04",
+                            "transtgt": "fldmdNameI18n"
+                        }
+                    ],
+                    "fldmdkwd": "EchoField",
+                    "fldmdkey": "field_224244398598094848",
+                    "offsetx": 0.0,
+                    "offsety": 0.0,
+                    "offsetz": 0.0,
+                    "orient": 0,
+                    "sensorFusionUnit": "sensorfusionunit_simple_target_id_fusion",
+                    "sensorFusionUnitSettings": "",
+                    "smds": [
+                        {
+                            "mode": 999,
+                            "pitch": 0.0,
+                            "azimuth": 0.0,
+                            "dpch": 115.0,
+                            "dazm": 10.0,
+                            "radius": 110000.0,
+                            "gaingraph": 0,
+                            "epsln": 1.0E-5,
+                            "emgwpty": 0.0,
+                            "sndwpty": 0,
+                            "frqmean": 1000.0,
+                            "frqvarn": 20.0,
+                            "frqdist": 0,
+                            "wavescale": 0,
+                            "frqusage": 1,
+                            "wavesndrcv": 255,
+                            "silencegap": 200.0,
+                            "pwr_watts": 0.0,
+                            "ppgt_mdl": 0,
+                            "fldid": "field_224244398598094848",
+                            "modsig": "224244398598225920",
+                            "stopSensingIn": 5000,
+                            "multiplier": 5,
+                            "sensorCorePlugin": "sensorcluster_direct",
+                            "sensorCorePluginSettings": "",
+                            "wave_hgtdiff_model": 0,
+                            "wave_hgtdiff_param1": 0,
+                            "wave_hgtdiff_param2": 0
+                        }
+                    ],
+                    "passive": false
+                }
+            ],
+            "commStackConfig": {
+                "refFrameEnginesSummary": [
+                    "FRAME_red_general_protocol__R1IDL"
+                ],
+                "commStacks": [
+                    {
+                        "commStackKey": "cs_123457",
+                        "physics": {
+                            "emgwpty": 128,
+                            "sndwpty": 0,
+                            "frqmean": 1000.0,
+                            "frqvarn": 20.0,
+                            "frqdist": 0,
+                            "wavescale": 0,
+                            "frqusage": 8,
+                            "wavesndrcv": 2,
+                            "pwr_watts": 670000.0,
+                            "ppgt_mdl": 0
+                        },
+                        "usage": "Iff_request",
+                        "refFrameMappings": [
+                            {
+                                "refFrameEngine": "IFF_REQUEST",
+                                "refFrameMsgkey": "0035",
+                                "mappings": []
+                            }
+                        ],
+                        "bindActions": [
+                            {
+                                "actionTriggerFrameEngine": "IFF_REQUEST",
+                                "actionTriggerMsgkey": "0035",
+                                "actionTriggerCondition": "",
+                                "actionKeyword": "some-action-keyword"
+                            }
+                        ],
+                        "comStackLayers": [
+                            {
+                                "layerSignature": "plugin_1",
+                                "pluginName": "cmmstk1dlk_foo",
+                                "pluginSettings": ""
+                            },
+                            {
+                                "layerSignature": "plugin_2",
+                                "pluginName": "cmmstk2nwk_foo",
+                                "pluginSettings": ""
+                            },
+                            {
+                                "layerSignature": "plugin_3",
+                                "pluginName": "cmmstk3tsf_foo",
+                                "pluginSettings": ""
+                            },
+                            {
+                                "layerSignature": "plugin_4",
+                                "pluginName": "cmmstk4app_foo",
+                                "pluginSettings": ""
+                            }
+                        ],
+                        "layerMetrics": {}
+                    }
+                ]
+            },
+            "waypoints": [
+                {
+                    "wpsKey": "223893627187052545",
+                    "wpsUsage": "",
+                    "wpsKeyword": "LaunchingWpk",
+                    "wpsFrame": 0,
+                    "wps": [
+                        {
+                            "wpsCore": [
+                                119.79942100473522,
+                                25.55246055747675,
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                119.87911144408025,
+                                25.552174472521685,
+                                500.0,
+                                0.0,
+                                10.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                119.89311342472422,
+                                25.513923708853866,
+                                700.0,
+                                0.0,
+                                20.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                119.94250909354588,
+                                25.511466724665866,
+                                500.0,
+                                0.0,
+                                30.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        }
+                    ],
+                    "wpsGenPOIs": [],
+                    "wpsPathPlanner": "",
+                    "wpsGenFences": [],
+                    "wpsGenTimeConsumed": 0,
+                    "wpsTalk": []
+                }
+            ],
+            "pois": [],
+            "fences": [],
+            "vardefs": [
+                {
+                    "varKeyword": "targetlocation",
+                    "varName": "targetlocation",
+                    "varSig": "targetlocation",
+                    "varNameI18n": "targetlocation",
+                    "i18nLabels": [],
+                    "varType": "Location",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "runningdistance",
+                    "varName": "runningdistance",
+                    "varSig": "runningdistance",
+                    "varNameI18n": "runningdistance",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "voyagedistance",
+                    "varName": "voyagedistance",
+                    "varSig": "voyagedistance",
+                    "varNameI18n": "voyagedistance",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "600000"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "lifeendstatus",
+                    "varName": "lifeendstatus",
+                    "varSig": "lifeendstatus",
+                    "varNameI18n": "lifeendstatus",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "explodestatus",
+                    "varName": "explodestatus",
+                    "varSig": "explodestatus",
+                    "varNameI18n": "explodestatus",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "launchstatus",
+                    "varName": "launchstatus",
+                    "varSig": "launchstatus",
+                    "varNameI18n": "launchstatus",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "interceptstatus",
+                    "varName": "interceptstatus",
+                    "varSig": "interceptstatus",
+                    "varNameI18n": "interceptstatus",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "suppressstatus",
+                    "varName": "suppressstatus",
+                    "varSig": "suppressstatus",
+                    "varNameI18n": "suppressstatus",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "interferestatus",
+                    "varName": "interferestatus",
+                    "varSig": "interferestatus",
+                    "varNameI18n": "interferestatus",
+                    "i18nLabels": [],
+                    "varType": "Number",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "numbers",
+                    "varName": "numbers",
+                    "varSig": "numbers",
+                    "varNameI18n": "numbers",
+                    "i18nLabels": [],
+                    "varType": "Numbers",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                },
+                {
+                    "varKeyword": "strings",
+                    "varName": "strings",
+                    "varSig": "strings",
+                    "varNameI18n": "strings",
+                    "i18nLabels": [],
+                    "varType": "Strings",
+                    "stdCode": "Strings",
+                    "varSchema": {},
+                    "varDefault": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "access": 0,
+                    "varDecorator": "",
+                    "varDecoratorSettings": {}
+                }
+            ],
+            "varpool": [
+                {
+                    "varSig": "numbers",
+                    "varData": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                    ]
+                },
+                {
+                    "varSig": "strings",
+                    "varData": [
+                        "China",
+                        "Japan",
+                        "France",
+                        "English",
+                        "American"
+                    ]
+                },
+                {
+                    "varSig": "targetlocation",
+                    "varData": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                    ]
+                },
+                {
+                    "varSig": "runningdistance",
+                    "varData": [
+                        "1"
+                    ]
+                },
+                {
+                    "varSig": "voyagedistance",
+                    "varData": [
+                        "600000"
+                    ]
+                },
+                {
+                    "varSig": "lifeendstatus",
+                    "varData": [
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "explodestatus",
+                    "varData": [
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "launchstatus",
+                    "varData": [
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "interceptstatus",
+                    "varData": [
+                        "0"
+                    ]
+                },
+                {
+                    "varSig": "interferestatus",
+                    "varData": [
+                        "0"
+                    ]
+                }
+            ],
+            "axns": [
+                {
+                    "scriptId": "223893672555790336",
+                    "axnKeyword": "Launch",
+                    "axnName": "Launch",
+                    "axnNameI18n": "发射",
+                    "actionTypeOODA": "Launch",
+                    "i18nLabels": [],
+                    "axnIcon": "",
+                    "vardefs": [
+                        {
+                            "varKeyword": "LaunchWpk",
+                            "varName": "Launch Waypath",
+                            "varSig": "LaunchWpk",
+                            "varNameI18n": "发射路径",
+                            "i18nLabels": [],
+                            "varType": "String",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                "LaunchingWpk"
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        },
+                        {
+                            "varKeyword": "TargetLoc_lon",
+                            "varName": "Target Location Longitude",
+                            "varSig": "TargetLoc_lon",
+                            "varNameI18n": "发射目标 经度",
+                            "i18nLabels": [],
+                            "varType": "Number",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                "0"
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        },
+                        {
+                            "varKeyword": "TargetLoc_lat",
+                            "varName": "Target Location Latitude",
+                            "varSig": "TargetLoc_lat",
+                            "varNameI18n": "发射目标 纬度",
+                            "i18nLabels": [],
+                            "varType": "Number",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                "0"
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        },
+                        {
+                            "varKeyword": "TargetLoc_hgt",
+                            "varName": "Target Location height",
+                            "varSig": "TargetLoc_hgt",
+                            "varNameI18n": "发射目标 高度",
+                            "i18nLabels": [],
+                            "varType": "Number",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                "0"
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        },
+                        {
+                            "varKeyword": "TargetLoc_ref",
+                            "varName": "Target Location ref",
+                            "varSig": "TargetLoc_ref",
+                            "varNameI18n": "发射目标 高度类型",
+                            "i18nLabels": [],
+                            "varType": "Number",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                "0"
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        },
+                        {
+                            "varKeyword": "TargetLoc_simtime",
+                            "varName": "Target Location simtime",
+                            "varSig": "TargetLoc_simtime",
+                            "varNameI18n": "发射目标 仿真时间",
+                            "i18nLabels": [],
+                            "varType": "Number",
+                            "stdCode": "",
+                            "varSchema": {},
+                            "varDefault": [
+                                "0"
+                            ],
+                            "access": 1,
+                            "varDecorator": "",
+                            "varDecoratorSettings": {}
+                        }
+                    ],
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": [
+                        "return true;"
+                    ],
+                    "axnScript": [                        
+                        "D:/project/script_test/script-cmd_script2/script/df_Launch.chai"
+                    ],
+                    "axnViewDetails": [
+                        {
+                            "axnViewName": "",
+                            "axnViewKeyword": ""
+                        }
+                    ],
+                    "scriptTalk": []
+                },
+                {
+                    "scriptId": "action_6406596715477193843",
+                    "axnKeyword": "LifeSpanInvalidStopStepClearRes",
+                    "axnName": "LifeSpanInvalidStopStepClearRes",
+                    "axnNameI18n": "LifeSpanInvalidStopStepClearRes",
+                    "i18nLabels": null,
+                    "axnIcon": "LifeSpanInvalidStopStepClearRes",
+                    "actionTypeOODA": "LifeEnd",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "D:/project/script_test/script-cmd_script2/script/LifeSpanInvalidStopStepClearRes.chai"
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },                
+                {
+                    "scriptId": "action_6406576715477197843",
+                    "axnKeyword": "Recycle",
+                    "axnName": "Recycle",
+                    "axnNameI18n": "Recycle",
+                    "i18nLabels": null,
+                    "axnIcon": "Recycle",
+                    "actionTypeOODA": "LifeEnd",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                        "D:/project/script_test/script-cmd_script2/script/Recycle.chai"
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477193843",
+                    "axnKeyword": "UpdateRuntimeDistance",
+                    "axnName": "UpdateRuntimeDistance",
+                    "axnNameI18n": "UpdateRuntimeDistance",
+                    "axnIcon": "UpdateRuntimeDistance",
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 1000,
+                    "axnAsync": false,
+                    "axnScript": [
+                        "D:/project/script_test/script-cmd_script2/script/df_UpdateRuntimeDistance.chai"
+                    ],
+                    "axnViewDetails": [],
+                    "actionTypeOODA": ""
+                },
+                {
+                    "scriptId": "action_6406576715477293843",
+                    "axnKeyword": "ExplodeWorking",
+                    "axnName": "ExplodeWorking",
+                    "axnNameI18n": "ExplodeWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "ExplodeWorking",
+                    "actionTypeOODA": "Explode",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477293844",
+                    "axnKeyword": "InterceptWorking",
+                    "axnName": "InterceptWorking",
+                    "axnNameI18n": "InterceptWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "InterceptWorking",
+                    "actionTypeOODA": "Intercept",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477293854",
+                    "axnKeyword": "SuppressWorking",
+                    "axnName": "SuppressWorking",
+                    "axnNameI18n": "SuppressWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "SuppressWorking",
+                    "actionTypeOODA": "Suppress",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                },
+                {
+                    "scriptId": "action_6406576715477193854",
+                    "axnKeyword": "InterfereWorking",
+                    "axnName": "InterfereWorking",
+                    "axnNameI18n": "InterfereWorking",
+                    "i18nLabels": null,
+                    "axnIcon": "InterfereWorking",
+                    "actionTypeOODA": "Interfere",
+                    "vardefs": null,
+                    "scriptLang": 0,
+                    "axnVersion": 1,
+                    "axnActivated": true,
+                    "axnRunningPlan": 0,
+                    "axnAsync": false,
+                    "axnRunningConds": null,
+                    "axnScript": [
+                    ],
+                    "axnViewDetails": [],
+                    "scriptTalk": null
+                }
+            ],
+            "oodas": [
+                {
+                    "scriptId": "ooda_224248910275124224",
+                    "scriptLang": 0,
+                    "oodaVersion": 1,
+                    "oodaActivated": true,
+                    "oodaUsageFilter": 9,
+                    "oodaScript": [
+                        "D:/project/script_test/script-cmd_script2/script/active_LifeSpanInvalidStopStepClearRes.chai"
+                    ],
+                    "scriptTalk": []
+                },
+                {
+                    "scriptId": "ooda_224248920275124224",
+                    "scriptLang": 0,
+                    "oodaVersion": 1,
+                    "oodaActivated": true,
+                    "oodaUsageFilter": 8,
+                    "oodaScript": [
+                        "D:/project/script_test/script-cmd_script2/script/active_df_echosense.chai"
+                    ],
+                    "scriptTalk": []
+                }
+            ],
+            "agentCamp": "NPC",
+            "isDelete": false
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+var commstacksend= fun(neighborid_){
+    var cmmstkUsage = "Iff_request";
+    var engineKeyedName = "IFF_REQUEST";
+    var frameHexTxt = "fe3e1900000100000000000000000000000000000000000912";
+    Agent.comm_publish(neighborid_,cmmstkUsage,engineKeyedName,frameHexTxt);
+}
+var it = Agent.neighbors.begin();
+while(it != Agent.neighbors.end())
+{
+    var neighborid = deref(it).first;
+    commstacksend(neighborid);
+    ++(it);
+}

@@ -1,0 +1,25 @@
+//OODA
+
+//指定感知域
+var fldkey = "field_223497779901277761";
+var tmplmodsig = 223497769977408832;
+//排除同阵营的感知事件
+if(Agent.event.self_iffcode == Agent.event.a_iffcode)
+{
+    return;
+}
+//print(Agent.variables["targetid"].get());
+//排除非自身的目标
+if(Agent.event.aid != to_uint64(Agent.variables["targetid"].get()))
+{
+    return;
+}
+//print("active_ExplodeWorking working");
+//print(Agent.variables["lifeendstatus"].get());
+//激活爆炸感知域
+var modsig = Agent.smd_create(fldkey, tmplmodsig, E_FMD_WKMD____SLEEP___,E_FMD_WKMD___SEARCH___);
+if(modsig != 0xFF)
+{
+    //触发爆炸动作
+    Agent.action_do("ExplodeWorking",1);
+}
