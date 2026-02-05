@@ -17,15 +17,17 @@
 ### 2.2 步骤二：资产获取与生成 (Asset Acquisition)
 根据模型类型自动准备三类核心资源：
 1.  **缩略图 (Thumbnail)**:
-    - 来源：Web Search / Image Generation。
-    - 策略：**多源优选 (Multi-source Selection)**。
+    - 来源：Web Search (必须使用 Web Research Server MCP)。
+    - 策略：**风格一致性与质量优选 (Style Consistency & Quality Selection)**。
+      - **强制要求**：必须确保搜索到合适的图片，不得使用无效或低质量占位符。若 Web Research Server 返回结果不佳，需优化搜索词重新尝试。
       - 对每个模型搜索 3-5 张候选图片。
+      - **风格标准 (Style Guidelines)**：
+        - **优先风格**：**3D 渲染图 (3D Studio Render)** > **干净背景实拍图 (Clean Photo)** > **实拍图 (Real Photo)**。
+        - **背景要求**：优先选择 **白色、灰色 (Studio Grey)** 或 **透明** 背景，避免复杂环境干扰。
+        - **视角要求**：优先选择 **3/4 等轴侧视图 (Isometric/3/4 View)**，其次为 **正侧视图 (Side View)**。此视角最利于展示模型立体感及后续 3D 生成。
       - 优选标准：
         - 清晰度高：分辨率 > 800px (宽或高)。
         - 主体完整：车辆主体在图片中占比适中，无严重遮挡。
-        - 背景干净：优先选择白色、透明或单一背景，避免复杂环境干扰。
-        - 视角良好：优先选择 3/4 侧视图 (Three-quarter view) 或正侧视图，利于 3D 生成。
-        - 近照：避免远景，确保细节清晰。
       - 自动化：脚本下载所有候选图，通过文件大小和分辨率算法自动择优（例如：优先选分辨率最大且文件体积适中的图片）。
     - 格式：PNG/JPG。
     - 命名：`{ModelName}.png`。
@@ -39,17 +41,17 @@
     - 命名：`{ModelName}_AI_Rodin.glb`。
 
 ### 2.3 步骤三：资产标准化处理 (Asset Standardization)
-使用 **Blender** 对 3D 模型进行几何修正，确保在 LaViC 场景中姿态正确。
-- **坐标轴修正 (Y-Up)**: 
-  - 脚本：`src/process_glbs.py`
-  - 操作：绕 X 轴旋转 -90°，将 Blender 的 Z-Up 转换为 LaViC 的 Y-Up。
-- **朝向修正 (Facing)**:
-  - 脚本：`src/rotate_glbs_z180.py`
-  - 操作：绕 Z 轴旋转 180°，修正模型正面的朝向。
-- **执行命令**:
-  ```powershell
-  <blender_path> -b -P src/rotate_glbs_z180.py
-  ```
+**[严格执行]** 必须对 3D 模型进行几何修正，确保在 LaViC 场景 (Y-Up 坐标系) 中姿态正确。此步骤不可省略。
+
+- **修正逻辑 (必须按顺序执行)**:
+  1.  **坐标轴修正 (Z-Up -> Y-Up)**: 绕 X 轴旋转 **-90°**。
+  2.  **朝向修正 (Facing Correction)**: 绕 Y 轴 (即新坐标系下的垂直轴) 旋转 **180°**。
+  - **结果验证**: 模型应正立 (Y轴向上)，且机头/车头朝向正确 (通常对应 Y 轴旋转 180 度后的方向)。
+
+- **实现方式**:
+  - **Python (推荐)**: 使用 `trimesh` 库直接处理 GLB 文件 (参考 `src/fix_glb_rotation.py`)。
+  - **Blender**: 使用 `bpy` 脚本处理。
+  - **注意**: 若使用 `trimesh`，请确保先执行 X 轴旋转，再执行 Y 轴旋转。
 
 ### 2.4 步骤四：目录结构与配置 (Structure & Configuration)
 - **目录规范**:
@@ -60,14 +62,17 @@
       └── {ModelName}/        # 资源子文件夹
           ├── {ModelName}.png
           ├── {ModelName}_mil.png
-          └── {ModelName}_AI_Rodin.glb
+          ├── {ModelName}_AI_Rodin.glb
   ```
-- **配置修复**:
-  - 脚本：`src/fix_and_zip_models.py`
-  - 功能：
-    - 自动更新 `agent.json` 中的 `modelName`。
-    - 修复嵌套路径：`model.thumbnail`, `model.mapIconUrl`, `model.dimModelUrls`。
-    - 修复根级路径：`modelUrlSlim`, `modelUrlFat`, `modelUrlSymbols`。
+- **配置修复 (Configuration Fixes)**:
+  - 脚本：`src/fix_and_zip_models.py` 或生成脚本内部逻辑。
+  - **[严格执行] 必须更新以下所有字段，严禁遗漏**:
+    1.  **根级字段**: `agentName`, `modelUrlSlim`, `modelUrlFat`, `modelUrlSymbols`。
+    2.  **嵌套 model 对象 (关键)**: 必须同步更新 `model` 对象内部的以下字段，**不可保留模板默认值**：
+        - `model.modelName`: 必须与根级 `agentName` 一致。
+        - `model.thumbnail`: 必须指向 `{ModelName}/{ModelName}.png`。
+        - `model.mapIconUrl`: 必须指向 `{ModelName}/{ModelName}_mil.png`。
+        - `model.dimModelUrls`: 必须指向 `{ModelName}/{ModelName}_AI_Rodin.glb`。
     - **路径格式**: 所有资源引用必须使用相对路径 `"{ModelName}/{Filename}"`。
 
 ### 2.5 步骤五：最终打包 (Final Packaging)

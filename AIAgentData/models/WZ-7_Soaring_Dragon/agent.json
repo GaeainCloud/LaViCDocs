@@ -1,0 +1,828 @@
+[
+    {
+        "agentKey": "AGENTKEY_229080990304628736",
+        "agentDesc": "配备高性能合成孔径雷达和光电侦察设备，具备高空长航时全天候侦察监视能力。\n具备高带宽卫星通信和视距数据链，可实时传输高分辨率图像和情报数据。",
+        "entitySignature": "",
+        "agentName": "无侦-7侦察机",
+        "agentNameI18n": "无侦-7侦察机",
+        "agentPath": null,
+        "i18nLabels": [],
+        "agentKeyword": "mhkj",
+        "agentUsageLabel": [],
+        "modelUrlSlim": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon_AI_Rodin.glb",
+        "modelUrlFat": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon_AI_Rodin.glb",
+        "modelUrlMedium": "",
+        "modelUrlPAK": "",
+        "modelUrlSymbols": [
+            {
+                "symbolSeries": 1,
+                "symbolName": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon_mil.png",
+                "thumbnail": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon.png"
+            }
+        ],
+        "modelAbstracted": [
+            {
+                "abstProfileKeyword": "",
+                "abstProfileFrame": 0,
+                "abstProfileResolution": 13,
+                "abstProfileLonLat": [],
+                "abstProfileCarteXY": [],
+                "abstHeights": [],
+                "abstHeightResolution": 12
+            }
+        ],
+        "clusterComms": {
+            "clusterOptionalPlugins": []
+        },
+        "subagents": [],
+        "freelanceable": false,
+        "freelanceableDynamics": [],
+        "locatable": false,
+        "locatableDynamics": [],
+        "navigatable": false,
+        "navigatableDynamics": [],
+        "missionable": true,
+        "missionableDynamics": [
+            {
+                "dynPluginName": "iagnt_dynamics_carrier_based_aircraft",
+                "dynKeyword": "iagnt_dynamics_carrier_based_aircraft",
+                "dynAsDefault": true,
+                "dynSettings": {
+                    "pluginName": "iagnt_dynamics_carrier_based_aircraft",
+                    "pluginNote": "CarrierBasedAircraft",
+                    "pluginNoteI18n": "舰载机",
+                    "pluginSignature": "dynamics_idmYYQvtaaNfUlW1krZE",
+                    "pluginDefaultSettings": "{\"freqdistPlugin\": null, \"freqdistPluginSettings\": null, \"dynSettings\": {\"V_max\": 750, \"V_min\": 150, \"a_max\": 4, \"d_slow\": 800, \"landing_distance\": 800, \"modeSettings\": [{\"modeIndex\": 0, \"modeKeyword\": \"EjectTakeOff\", \"modeName\": \"EjectTakeOff\", \"modeNameI18n\": \"弹射起飞\", \"modeParamType\": \"Location\"}, {\"modeIndex\": 1, \"modeKeyword\": \"ReturnCarrier\", \"modeName\": \"ReturnCarrier\", \"modeNameI18n\": \"返航母舰\", \"modeParamType\": \"\"}, {\"modeIndex\": 2, \"modeKeyword\": \"Loitering\", \"modeName\": \"8FormLoitering\", \"modeNameI18n\": \"8字盘旋\", \"modeParamType\": \"\"}, {\"modeIndex\": 3, \"modeKeyword\": \"GoAround\", \"modeName\": \"GoAround\", \"modeNameI18n\": \"复飞\", \"modeParamType\": \"\"}, {\"modeIndex\": 20, \"modeKeyword\": \"NewHeading\", \"modeName\": \"NewHeading\", \"modeNameI18n\": \"执行航点\", \"modeParamType\": \"Waypoint\"}, {\"modeIndex\": 21, \"modeKeyword\": \"NewHeadings\", \"modeName\": \"NewHeadings\", \"modeNameI18n\": \"执行航点列\", \"modeParamType\": \"Waypoints\"}, {\"modeIndex\": 22, \"modeKeyword\": \"PolygonHeadings\", \"modeName\": \"PolygonHeadings\", \"modeNameI18n\": \"执行多边形航点\", \"modeParamType\": \"Waypoints\"}, {\"modeIndex\": 31, \"modeKeyword\": \"ChangePlatformParams\", \"modeName\": \"ChangePlatformParams\", \"modeNameI18n\": \"改变平台参数\", \"modeParamType\": \"DoubleVector\"}], \"omega_max\": 0.26, \"platform_alt\": 0, \"platform_azimuth\": 12, \"platform_lat\": 21.87409170824246, \"platform_lon\": 117.98597037375748, \"platform_speed\": 15}, \"evidences\": null, \"prejudgmentModels\": null, \"paramsfilter\": null}"
+                }
+            }
+        ],
+        "operatable": true,
+        "useIb": false,
+        "cognitiveConfig": {
+            "plugins": []
+        },
+        "stopCond": {
+            "stopCondType": 0,
+            "vicinityDist": 0,
+            "loopTimes": 0,
+            "isStopped": false
+        },
+        "agentType": "Instagent",
+        "fldmds": [],
+        "waypoints": [
+            {
+                "wpsKey": "229330831625961473",
+                "wpsUsage": "",
+                "wpsKeyword": "routekj",
+                "wpsFrame": 0,
+                "wps": [
+                    {
+                        "wpsCore": [
+                            114.8011195,
+                            24.2594386,
+                            1000.0,
+                            1.0,
+                            0.0
+                        ],
+                        "useExt": 0,
+                        "speed": 0.0,
+                        "roll": 0.0,
+                        "pitch": 0.0,
+                        "yaw": 0.0,
+                        "yawEx": 0.0
+                    },
+                    {
+                        "wpsCore": [
+                            115.9262376,
+                            25.5954393,
+                            1000.0,
+                            1.0,
+                            10.0
+                        ],
+                        "useExt": 0,
+                        "speed": 0.0,
+                        "roll": 0.0,
+                        "pitch": 0.0,
+                        "yaw": 0.0,
+                        "yawEx": 0.0
+                    },
+                    {
+                        "wpsCore": [
+                            116.9053124,
+                            24.2866445,
+                            1000.0,
+                            1.0,
+                            20.0
+                        ],
+                        "useExt": 0,
+                        "speed": 0.0,
+                        "roll": 0.0,
+                        "pitch": 0.0,
+                        "yaw": 0.0,
+                        "yawEx": 0.0
+                    },
+                    {
+                        "wpsCore": [
+                            116.1845925,
+                            23.300524,
+                            1000.0,
+                            1.0,
+                            30.0
+                        ],
+                        "useExt": 0,
+                        "speed": 0.0,
+                        "roll": 0.0,
+                        "pitch": 0.0,
+                        "yaw": 0.0,
+                        "yawEx": 0.0
+                    },
+                    {
+                        "wpsCore": [
+                            115.4711285,
+                            23.6114297,
+                            1000.0,
+                            1.0,
+                            40.0
+                        ],
+                        "useExt": 0,
+                        "speed": 0.0,
+                        "roll": 0.0,
+                        "pitch": 0.0,
+                        "yaw": 0.0,
+                        "yawEx": 0.0
+                    }
+                ],
+                "wpsGenPOIs": [],
+                "wpsPathPlanner": "",
+                "wpsGenFences": [],
+                "wpsGenTimeConsumed": 0,
+                "wpsTalk": []
+            }
+        ],
+        "pois": [],
+        "fences": [],
+        "vardefs": [],
+        "varpool": [],
+        "axns": [
+            {
+                "scriptId": "action_228954837858222080",
+                "axnKeyword": "PYdAk44n",
+                "axnName": "起飞",
+                "axnNameI18n": "起飞",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/59050a48-216b-4d63-b435-aa729e2328a8动作.png",
+                "vardefs": [
+                    {
+                        "varKeyword": "Location",
+                        "varName": "Location",
+                        "varSig": "Location",
+                        "varNameI18n": "Location",
+                        "i18nLabels": [],
+                        "varType": "Location",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    },
+                    {
+                        "varKeyword": "speed",
+                        "varName": "speed",
+                        "varSig": "speed",
+                        "varNameI18n": "speed",
+                        "i18nLabels": [],
+                        "varType": "Number",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [
+                            "240"
+                        ],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    }
+                ],
+                "scriptLang": 0,
+                "axnVersion": 0,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "num.push_back(Location.lon);",
+                    "num.push_back(Location.lat);",
+                    "num.push_back(Location.hgt);",
+                    "num.push_back(speed);",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 0, num);",
+                    "print(\"test\");"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "从跑道加速至决断速度后抬轮升空，自动执行标准离场程序。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_228954838150250496",
+                "axnKeyword": "ZOaURlJP",
+                "axnName": "降落",
+                "axnNameI18n": "降落",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/cafc957e-c5da-40d1-9e77-9024ebc642f7动作.png",
+                "vardefs": [],
+                "scriptLang": 0,
+                "axnVersion": 0,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "num.push_back(1.0);",
+                    "num.push_back(2.0);",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 1, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "按进近程序下降高度，触地后启动反推和刹车直至滑行速度。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_229024054770163712",
+                "axnKeyword": "GoAround",
+                "axnName": "复飞",
+                "axnNameI18n": "复飞",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/d9869c60-83d0-4659-8329-3e62679eb57f动作.png",
+                "vardefs": [],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "num.push_back(1.0);",
+                    "num.push_back(2.0);",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 3, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "在进近阶段因天气、跑道占用等异常触发，自动中止降落并执行爬升指令，重新加入等待航线。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_229046837842821120",
+                "axnKeyword": "ReturnCarrier",
+                "axnName": "返航",
+                "axnNameI18n": "返航",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/da7c0233-07be-4c85-8dc6-2e5d488fd576动作.png",
+                "vardefs": [],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "num.push_back(1.0);",
+                    "num.push_back(2.0);",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 1, num, true);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "因机械故障或天气恶化手动触发，自动规划最优路径返回起飞机场。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_229024028715671552",
+                "axnKeyword": "Taxiing",
+                "axnName": "滑行",
+                "axnNameI18n": "滑行",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/4afefb9c-d5be-49ec-8f82-5335e7361f6f动作.png",
+                "vardefs": [],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var modsigsrch := smd_select_with(fldid, FMD_WKMD_SEARCH);smd_operate_orient(fldid, modsigsrch , pitch, azimuth, FMD_WKMD_SEARCH);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "控制客机在地面低速移动，用于进出停机坪、跑道切换等场景。（开发中）",
+                "access": 0
+            },
+            {
+                "scriptId": "action_229024065893982208",
+                "axnKeyword": "NewHeading",
+                "axnName": "执行航点",
+                "axnNameI18n": "执行航点",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/713f9e96-0635-40a9-9752-eb4f6deacfd5动作.png",
+                "vardefs": [
+                    {
+                        "varKeyword": "Location",
+                        "varName": "Location",
+                        "varSig": "Location",
+                        "varNameI18n": "Location",
+                        "i18nLabels": [],
+                        "varType": "Location",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    }
+                ],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "num.push_back(Location.lon);",
+                    "num.push_back(Location.lat);",
+                    "num.push_back(Location.hgt);",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 20, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "飞抵单个指定导航点，用于航路校正或临时路径调整。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_229024087749320704",
+                "axnKeyword": "NewHeadings",
+                "axnName": "执行航点列",
+                "axnNameI18n": "执行航点列",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/22827cdf-fa47-4ac4-97f0-a2083caa82f0动作.png",
+                "vardefs": [
+                    {
+                        "varKeyword": "params",
+                        "varName": "params",
+                        "varSig": "params",
+                        "varNameI18n": "params",
+                        "i18nLabels": [],
+                        "varType": "Waypoints",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    }
+                ],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "var wps = Agent.actions[\"NewHeadings\"][\"params\"].get();",
+                    "for (var i = 0; i < wps.size(); ++i) ",
+                    "{",
+                    "    var wp = wps[i];",
+                    "    num.push_back(wp.lon);",
+                    "    num.push_back(wp.lat);",
+                    "    num.push_back(wp.hgt);",
+                    "}",
+                    "",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 21, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "按顺序飞越多个航点组成的航线，支持导入真实航路数据。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_229024091653300224",
+                "axnKeyword": "PolygonHeadings",
+                "axnName": "执行多边形航点",
+                "axnNameI18n": "执行多边形航点",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/5bdd67f4-5210-415d-afee-20380d215f45动作.png",
+                "vardefs": [
+                    {
+                        "varKeyword": "params",
+                        "varName": "params",
+                        "varSig": "params",
+                        "varNameI18n": "params",
+                        "i18nLabels": [],
+                        "varType": "Waypoints",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    }
+                ],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "var wps = Agent.actions[\"PolygonHeadings\"][\"params\"].get();",
+                    "for (var i = 0; i < wps.size(); ++i) ",
+                    "{",
+                    "    var wp = wps[i];",
+                    "    num.push_back(wp.lon);",
+                    "    num.push_back(wp.lat);",
+                    "    num.push_back(wp.hgt);",
+                    "}",
+                    "",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 22, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "沿闭合多边形路径循环飞行，适用于训练飞行。",
+                "access": 1
+            },
+            {
+                "scriptId": "action_229024105512198144",
+                "axnKeyword": "ChangePlatformParams",
+                "axnName": "修改平台位置",
+                "axnNameI18n": "修改平台位置",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/3e55661d-cdaf-44ff-8364-0aca8b0f1b9e动作.png",
+                "vardefs": [
+                    {
+                        "varKeyword": "Location",
+                        "varName": "Location",
+                        "varSig": "Location",
+                        "varNameI18n": "Location",
+                        "i18nLabels": [],
+                        "varType": "Location",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    },
+                    {
+                        "varKeyword": "azimuth",
+                        "varName": "azimuth",
+                        "varSig": "azimuth",
+                        "varNameI18n": "azimuth",
+                        "i18nLabels": [],
+                        "varType": "Number",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    },
+                    {
+                        "varKeyword": "speed",
+                        "varName": "speed",
+                        "varSig": "speed",
+                        "varNameI18n": "speed",
+                        "i18nLabels": [],
+                        "varType": "Number",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    }
+                ],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "var loc = Agent.actions[\"ChangePlatformParams\"][\"Location\"].get();",
+                    "var azh = Agent.actions[\"ChangePlatformParams\"][\"azimuth\"].get();",
+                    "var spd = Agent.actions[\"ChangePlatformParams\"][\"speed\"].get();",
+                    "",
+                    "num.push_back(loc.lon);",
+                    "num.push_back(loc.lat);",
+                    "num.push_back(loc.hgt);",
+                    "num.push_back(azh);",
+                    "num.push_back(spd);",
+                    "",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 31, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "仅更新客机在仿真场景中的 可视化坐标（纯显示层调整），不改变其导航状态、航向及飞行逻辑。",
+                "access": 0
+            },
+            {
+                "scriptId": "action_229024115885760512",
+                "axnKeyword": "ChangePlatformParamsToUpdateCurLocation",
+                "axnName": "修改平台位置且更新自身位置",
+                "axnNameI18n": "修改平台位置且更新自身位置",
+                "i18nLabels": [],
+                "axnIcon": "http://192.168.31.218:9000/lavic/db6b2ba7-d841-4d2d-ab35-04869795aad7动作.png",
+                "vardefs": [
+                    {
+                        "varKeyword": "Location",
+                        "varName": "Location",
+                        "varSig": "Location",
+                        "varNameI18n": "Location",
+                        "i18nLabels": [],
+                        "varType": "Location",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    },
+                    {
+                        "varKeyword": "azimuth",
+                        "varName": "azimuth",
+                        "varSig": "azimuth",
+                        "varNameI18n": "azimuth",
+                        "i18nLabels": [],
+                        "varType": "Number",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    },
+                    {
+                        "varKeyword": "speed",
+                        "varName": "speed",
+                        "varSig": "speed",
+                        "varNameI18n": "speed",
+                        "i18nLabels": [],
+                        "varType": "Number",
+                        "stdCode": "",
+                        "varSchema": {},
+                        "varDefault": [],
+                        "access": 1,
+                        "varDecorator": "",
+                        "varDecoratorSettings": {},
+                        "varIndexCode": 0,
+                        "varUnit": null
+                    }
+                ],
+                "scriptLang": 0,
+                "axnVersion": 1,
+                "axnActivated": true,
+                "axnRunningPlan": 0,
+                "axnAsync": false,
+                "axnRunningConds": [
+                    "return true;"
+                ],
+                "axnScript": [
+                    "var num = Numbers();",
+                    "var loc = Agent.actions[\"ChangePlatformParamsToUpdateCurLocation\"][\"Location\"].get();",
+                    "var azh = Agent.actions[\"ChangePlatformParamsToUpdateCurLocation\"][\"azimuth\"].get();",
+                    "var spd = Agent.actions[\"ChangePlatformParamsToUpdateCurLocation\"][\"speed\"].get();",
+                    "",
+                    "num.push_back(loc.lon);",
+                    "num.push_back(loc.lat);",
+                    "num.push_back(loc.hgt);",
+                    "num.push_back(azh);",
+                    "num.push_back(spd);",
+                    "",
+                    "Agent.dyn_set_mode(\"iagnt_dynamics_carrier_based_aircraft\", 32, num);"
+                ],
+                "axnViewDetails": [
+                    {
+                        "axnViewName": "",
+                        "axnViewKeyword": ""
+                    }
+                ],
+                "scriptTalk": [],
+                "actionTypeOODA": "",
+                "axnDesc": "同步更新客机的可视化坐标与底层物理位置，强制将其空间状态切换到目标点，中断当前所有任务。",
+                "access": 0
+            }
+        ],
+        "tsmarks": [],
+        "agentJetdsCodes": [
+            {
+                "agentJetdsCodeSig": "agntjetds_229261370967101462",
+                "agentJetdsCode": "AWC",
+                "agentJetdsCodeEx": "",
+                "relatedActions": []
+            }
+        ],
+        "oodas": [],
+        "bts": [],
+        "commStackConfig": {
+            "refFrameEnginesSummary": [],
+            "commStacks": []
+        },
+        "agentCamp": "camp_225128854667210752",
+        "agentCampName": "导调方",
+        "doctrines": [],
+        "ncycles": 1,
+        "evalIndexes": [],
+        "audit": {
+            "createdById": "229023529002975232",
+            "createdBy": "LaViC模型管理员(Admin)",
+            "createdOn": "2025-06-09 15:14:53",
+            "updatedOn": "2025-07-22 10:00:13",
+            "updatedBy": "LaViC管理员(Admin)",
+            "updatedById": "229023529002975232",
+            "startTime": "2025-06-09 15:14:53",
+            "startBy": null,
+            "startById": null,
+            "stopTime": null,
+            "stopBy": null,
+            "stopById": null
+        },
+        "isDelete": false,
+        "order": 1750729013269,
+        "agentCoreFunc": "民用航空客机仿真模型能够高精度模拟真实运行环境下民航客机的全流程自主飞行行为，包括起飞、降落、复飞、返航、滑行，精确执行航点与执行航点列构成的飞行计划，完成执行多边形航点等复杂任务航线，并支持动态修改平台位置。该模型集成飞行管理与自动控制系统，支持基础空中交通指令的交互，为飞行控制算法验证、航路规划优化、复杂任务（如多边形区域作业）的测试提供高效、可控、可重复的仿真环境。",
+        "agentCommonlyUsed": [],
+        "agentUsage": "1. 新建实例 在仿真系统中，根据民用航空客机模型新建一个民用航空客机实例。\n2. 新建想定 构建一个想定，用于验证民用航空客机的运行逻辑。\n3. 将实例加入想定 将已创建的民用航空客机实例添加到当前想定中，支持同时添加多个民用航空客机以模拟复杂空中环境。\n4. 启动仿真 点击界面上的 “启动仿真” 按钮，初始化仿真环境并加载民用航空客机实体，准备执行任务。\n5. 启动运行 在动作面板中点击 “启动” 按钮，再点击 “执行” 确认，民用航空客机将等待起飞。\n6. 民用航空客机运行 在动作面板中点击 “起飞” 按钮，选中目标点，再点击 “执行” 确认，民用航空客机将立即起飞。\n7. 执行航点，在动作面板中点击 “执行航点” 按钮，指定航点，点击 “执行” 确认，民用航空客机将执行指定航点。\n8. 执行航线，在动作面板中点击 “执行航线” 按钮，指定航线，点击 “执行” 确认，民用航空客机将执行指定航线。\n9. 修改平台位置，在动作面板中点击 “修改平台位置” 按钮，指定返航点，点击 “执行” 确认，民用航空客机将更新返航点。\n10. 执行多边形航线，在动作面板中点击 “执行多边形航线” 按钮，指定多边形航线，点击 “执行” 确认，民用航空客机将执行指定多边形航线，且循环执行。\n11. 返航，在动作面板中点击 “返航” 按钮，点击 “执行” 确认，民用航空客机将返回返航点。\n12. 结束仿真 点击 “停止” 按钮，仿真系统将终止运行，民用航空客机状态清零，可重新配置或退出仿真。",
+        "agentVideoUrl": null,
+        "relatedSimulation": [
+            {
+                "simulationSig": "sostep_229092119409725440",
+                "simulationName": "微想定_航空飞行器",
+                "iconUrl": "http://192.168.31.218:9000/lavic/cac5bca7-e9d9-431f-8dcf-06d96da6b548",
+                "simulationNote": "微想定_航空飞行器",
+                "simulationStatus": "Unstart",
+                "audit": {
+                    "createdById": "229023529002975232",
+                    "createdBy": "LaViC管理员(Admin)",
+                    "createdOn": "2025-06-27 10:01:58",
+                    "updatedOn": "2025-06-27 10:01:58",
+                    "updatedBy": "LaViC管理员(Admin)",
+                    "updatedById": "229023529002975232",
+                    "startTime": "2025-07-07 10:11:21",
+                    "startBy": "LaViC管理员(Admin)",
+                    "startById": "229023529002975232",
+                    "stopTime": null,
+                    "stopBy": null,
+                    "stopById": null
+                }
+            }
+        ],
+        "useCount": 2,
+        "agentTag": 0,
+        "smdComponentKey": [],
+        "model": {
+            "sourceAgentKey": "",
+            "sig": "asset_229249929322438671",
+            "description": null,
+            "modelName": "无侦-7侦察机",
+            "icon": null,
+            "thumbnail": {
+                "url": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon.png",
+                "selected": false,
+                "mutexType": null,
+                "fileSize": null,
+                "bucket": "lavic",
+                "ossSig": "WZ-7_Soaring_Dragon.png"
+            },
+            "introduction": "配备高性能合成孔径雷达和光电侦察设备，具备高空长航时全天候侦察监视能力。\n具备高带宽卫星通信和视距数据链，可实时传输高分辨率图像和情报数据。",
+            "abilityDescription": null,
+            "mapIconType": null,
+            "mapIconUrl": {
+                "url": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon_mil.png",
+                "selected": false,
+                "mutexType": null,
+                "fileSize": null,
+                "bucket": "lavic",
+                "ossSig": "WZ-7_Soaring_Dragon_mil.png"
+            },
+            "pakUrl": null,
+            "audit": null,
+            "isDel": false,
+            "dimModelUrls": [
+                {
+                    "url": "WZ-7_Soaring_Dragon/WZ-7_Soaring_Dragon_AI_Rodin.glb",
+                    "selected": true,
+                    "mutexType": null,
+                    "fileSize": null,
+                    "bucket": "lavic",
+                    "ossSig": "WZ-7_Soaring_Dragon_AI_Rodin.glb"
+                }
+            ]
+        },
+        "dynamics": "iagnt_dynamics_carrier_based_aircraft",
+        "agentIntroduction": "配备高性能合成孔径雷达和光电侦察设备，具备高空长航时全天候侦察监视能力。\n具备高带宽卫星通信和视距数据链，可实时传输高分辨率图像和情报数据。",
+        "dynamicsParams": {
+            "V_max": 750,
+            "V_min": 150,
+            "a_max": 4,
+            "landing_distance": 800,
+            "omega_max": 0.26
+        }
+    }
+]

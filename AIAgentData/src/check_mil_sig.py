@@ -1,0 +1,3 @@
+import military_symbol
+import inspect
+print(inspect.signature(military_symbol.get_symbol_svg_string_from_sidc))

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "web-research": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-web-research"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}
