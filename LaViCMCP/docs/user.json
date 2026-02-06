@@ -1,0 +1,2285 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api Documentation",
+    "version": "1.0",
+    "title": "Api Documentation",
+    "termsOfService": "urn:tos",
+    "contact": {},
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "192.168.31.218:7980",
+  "basePath": "/api/v1/lavic-user",
+  "tags": [
+    {
+      "name": "basic-error-controller",
+      "description": "Basic Error Controller"
+    },
+    {
+      "name": "用户控制器",
+      "description": "用户控制器"
+    },
+    {
+      "name": "租户控制器",
+      "description": "租户控制器"
+    },
+    {
+      "name": "角色操作接口",
+      "description": "角色控制器"
+    }
+  ],
+  "paths": {
+    "/activateTenant": {
+      "post": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "激活租户",
+        "operationId": "activateTenantUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "租户id/租户号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/activateUser": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "激活用户",
+        "operationId": "activateUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "用户ID",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/createGitGroup": {
+      "post": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "新增租户对应的gitlab用户组",
+        "operationId": "createGitGroupUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "租户对象",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/createGitLabUser": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "创建gitLab账号",
+        "operationId": "createGitLabUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "用户对象",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/decodeToken": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "解析token获取用户id",
+        "operationId": "decodeTokenUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/deleteTenant": {
+      "post": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "注销租户",
+        "operationId": "deleteTenantUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "租户id/租户号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/deleteUser": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "注销用户",
+        "operationId": "deleteUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "用户ID",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/error": {
+      "get": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "head": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      },
+      "options": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/findAllTenant": {
+      "get": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "查询所有租户",
+        "operationId": "findAllTenantUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "tenantNum",
+            "in": "query",
+            "description": "租户id/租户号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/findTenantById": {
+      "get": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "根据Id/租号查询租户",
+        "operationId": "findTenantByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "租户id/租户号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/findUserById": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "根据Id名查询用户",
+        "operationId": "findUserByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "用户名",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/findUserByTenant": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "根据租户编号和用户名查询用户集合",
+        "operationId": "findUserByTenantUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "租户编号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "用户名",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/findUserByToken": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "查询用户",
+        "operationId": "findUserByTokenUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/getAllRole": {
+      "get": {
+        "tags": [
+          "角色操作接口"
+        ],
+        "summary": "查询所有角色",
+        "operationId": "getAllRoleUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/getAllUser": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "查询所有用户",
+        "operationId": "getAllUserUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "当前页码",
+            "required": false,
+            "type": "string",
+            "default": "1",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页条数",
+            "required": false,
+            "type": "string",
+            "default": "10",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "租户编号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "用户名",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/getCode": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "获取授权码",
+        "operationId": "getCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "phoneNumber",
+            "in": "query",
+            "description": "电话号码",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/getDeviceCode": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "获取设备授权码",
+        "operationId": "getDeviceCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "deviceCode",
+            "in": "query",
+            "description": "设备标识码",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "epochTime",
+            "in": "query",
+            "description": "过期时间",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "phoneNumber",
+            "in": "query",
+            "description": "电话号码",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "softwareProduct",
+            "in": "query",
+            "description": "软件产品",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/getTenantIsEnable": {
+      "get": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "查询当前启用的租户",
+        "operationId": "getTenantByIsEnableUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/isSuperAdmin": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "查询用户",
+        "operationId": "isSuperAdminUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "登录",
+        "operationId": "loginUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "password",
+            "in": "query",
+            "description": "密码",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "密码",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "账号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/resetPassword": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "重置密码",
+        "operationId": "resetPasswordUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "需要修改的用户ID",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/saveRole": {
+      "post": {
+        "tags": [
+          "角色操作接口"
+        ],
+        "summary": "添加角色",
+        "operationId": "saveRoleUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "roleName",
+            "in": "query",
+            "description": "角色名",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/saveTenant": {
+      "post": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "新增租户",
+        "operationId": "saveTenantUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "tenant",
+            "description": "租户对象",
+            "required": false,
+            "schema": {
+              "originalRef": "系统角色",
+              "$ref": "#/definitions/系统角色"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/saveUser": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "添加用户",
+        "operationId": "saveUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginUser",
+            "description": "用户对象",
+            "required": false,
+            "schema": {
+              "originalRef": "LoginUser",
+              "$ref": "#/definitions/LoginUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateCampColor": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改阵营颜色状态",
+        "operationId": "updateCampColorUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "colorStatus",
+            "in": "query",
+            "description": "颜色状态",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateIconStatus": {
+      "post": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "修改图标",
+        "operationId": "updateIconStatusUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "tenantNum",
+            "in": "query",
+            "description": "租户号",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateMapLayer": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改地图图层",
+        "operationId": "updateMapLayerUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mapLayer",
+            "in": "query",
+            "description": "图层",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateMilitaryStandard": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改军标状态",
+        "operationId": "updateMilitaryStandardUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "军标状态",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updatePassword": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改密码",
+        "operationId": "updatePasswordUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "passwordto",
+            "description": "用户对象",
+            "required": false,
+            "schema": {
+              "originalRef": "PasswordDto",
+              "$ref": "#/definitions/PasswordDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateProtocolStack": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改协议栈状态",
+        "operationId": "updateProtocolStackUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "协议栈状态",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateSysMode": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改模式",
+        "operationId": "updateSysModeUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-UserId",
+            "in": "header",
+            "description": "X-UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "description": "图层",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateTenant": {
+      "post": {
+        "tags": [
+          "租户控制器"
+        ],
+        "summary": "修改租户",
+        "operationId": "updateTenantUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "tenant",
+            "description": "租户对象",
+            "required": false,
+            "schema": {
+              "originalRef": "系统角色",
+              "$ref": "#/definitions/系统角色"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/updateUser": {
+      "post": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "修改用户",
+        "operationId": "updateUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "loginUser",
+            "description": "用户对象",
+            "required": false,
+            "schema": {
+              "originalRef": "LoginUser",
+              "$ref": "#/definitions/LoginUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/wechat/callback": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "微信扫码登录回调",
+        "operationId": "weChatCallbackUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "state",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/wechat/login-url": {
+      "get": {
+        "tags": [
+          "用户控制器"
+        ],
+        "summary": "获取微信扫码登录二维码URL",
+        "operationId": "getWeChatLoginUrlUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ResponseResult",
+              "$ref": "#/definitions/ResponseResult"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "LoginUser": {
+      "type": "object",
+      "properties": {
+        "aiHistoryIds": {
+          "type": "array",
+          "description": "AI历史记录列表",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avatar": {
+          "type": "string",
+          "description": "头像"
+        },
+        "avatarBase64": {
+          "type": "string",
+          "description": "64位头像"
+        },
+        "birthday": {
+          "type": "array",
+          "description": "出生日期",
+          "items": {
+            "type": "object"
+          }
+        },
+        "builtIn": {
+          "type": "boolean"
+        },
+        "camps": {
+          "type": "array",
+          "description": "阵营 所属方",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createDept": {
+          "type": "string",
+          "description": "创建部门"
+        },
+        "createTime": {
+          "type": "string",
+          "description": "创建时间"
+        },
+        "createUser": {
+          "type": "string",
+          "description": "创建用户"
+        },
+        "doeMaxRunNum": {
+          "type": "integer",
+          "format": "int32",
+          "description": "DOE最大运行数量"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "enableColor": {
+          "type": "boolean",
+          "description": "是否显示颜色"
+        },
+        "entityIds": {
+          "type": "array",
+          "description": "实体id  来自实体中心",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gitLabToken": {
+          "type": "string",
+          "description": "gitLab token"
+        },
+        "gitLabUserId": {
+          "type": "string",
+          "description": "gitlab账号Id"
+        },
+        "id": {
+          "type": "string",
+          "description": "_id"
+        },
+        "isDel": {
+          "type": "boolean",
+          "description": "是否可用"
+        },
+        "knowledgeBases": {
+          "type": "array",
+          "description": "知识库列表",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapLayer": {
+          "type": "string",
+          "description": "地图图层"
+        },
+        "name": {
+          "type": "string",
+          "description": "真实姓名"
+        },
+        "openId": {
+          "type": "string",
+          "description": "微信openId"
+        },
+        "password": {
+          "type": "string",
+          "description": "密码"
+        },
+        "phone": {
+          "type": "string",
+          "description": "电话"
+        },
+        "roleName": {
+          "type": "string",
+          "description": "角色名"
+        },
+        "sex": {
+          "type": "string",
+          "description": "性别"
+        },
+        "showMilitaryStandard": {
+          "type": "string",
+          "description": "是否显示军标"
+        },
+        "showProtocolStack": {
+          "type": "boolean",
+          "description": "是否显示协议栈"
+        },
+        "simulationLine": {
+          "type": "array",
+          "description": "态势线",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subscribe": {
+          "type": "boolean",
+          "description": "是否使用信息订阅工具"
+        },
+        "sysMode": {
+          "type": "string",
+          "description": "系统模式"
+        },
+        "systemRoleId": {
+          "type": "array",
+          "description": "系统角色ID",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tenantId": {
+          "type": "array",
+          "description": "租户id",
+          "items": {
+            "type": "string"
+          }
+        },
+        "token": {
+          "type": "string",
+          "description": "token"
+        },
+        "updateTime": {
+          "type": "string",
+          "description": "修改时间"
+        },
+        "updateUser": {
+          "type": "string",
+          "description": "修改用户"
+        },
+        "useDoe": {
+          "type": "boolean",
+          "description": "是否使用doe"
+        },
+        "userRoleId": {
+          "type": "array",
+          "description": "用户角色",
+          "items": {
+            "type": "string"
+          }
+        },
+        "username": {
+          "type": "string",
+          "description": "账户"
+        }
+      },
+      "title": "LoginUser"
+    },
+    "ModelAndView": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "object"
+        },
+        "modelMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "reference": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "100 CONTINUE",
+            "101 SWITCHING_PROTOCOLS",
+            "102 PROCESSING",
+            "103 CHECKPOINT",
+            "200 OK",
+            "201 CREATED",
+            "202 ACCEPTED",
+            "203 NON_AUTHORITATIVE_INFORMATION",
+            "204 NO_CONTENT",
+            "205 RESET_CONTENT",
+            "206 PARTIAL_CONTENT",
+            "207 MULTI_STATUS",
+            "208 ALREADY_REPORTED",
+            "226 IM_USED",
+            "300 MULTIPLE_CHOICES",
+            "301 MOVED_PERMANENTLY",
+            "302 FOUND",
+            "302 MOVED_TEMPORARILY",
+            "303 SEE_OTHER",
+            "304 NOT_MODIFIED",
+            "305 USE_PROXY",
+            "307 TEMPORARY_REDIRECT",
+            "308 PERMANENT_REDIRECT",
+            "400 BAD_REQUEST",
+            "401 UNAUTHORIZED",
+            "402 PAYMENT_REQUIRED",
+            "403 FORBIDDEN",
+            "404 NOT_FOUND",
+            "405 METHOD_NOT_ALLOWED",
+            "406 NOT_ACCEPTABLE",
+            "407 PROXY_AUTHENTICATION_REQUIRED",
+            "408 REQUEST_TIMEOUT",
+            "409 CONFLICT",
+            "410 GONE",
+            "411 LENGTH_REQUIRED",
+            "412 PRECONDITION_FAILED",
+            "413 PAYLOAD_TOO_LARGE",
+            "413 REQUEST_ENTITY_TOO_LARGE",
+            "414 URI_TOO_LONG",
+            "414 REQUEST_URI_TOO_LONG",
+            "415 UNSUPPORTED_MEDIA_TYPE",
+            "416 REQUESTED_RANGE_NOT_SATISFIABLE",
+            "417 EXPECTATION_FAILED",
+            "418 I_AM_A_TEAPOT",
+            "419 INSUFFICIENT_SPACE_ON_RESOURCE",
+            "420 METHOD_FAILURE",
+            "421 DESTINATION_LOCKED",
+            "422 UNPROCESSABLE_ENTITY",
+            "423 LOCKED",
+            "424 FAILED_DEPENDENCY",
+            "425 TOO_EARLY",
+            "426 UPGRADE_REQUIRED",
+            "428 PRECONDITION_REQUIRED",
+            "429 TOO_MANY_REQUESTS",
+            "431 REQUEST_HEADER_FIELDS_TOO_LARGE",
+            "451 UNAVAILABLE_FOR_LEGAL_REASONS",
+            "500 INTERNAL_SERVER_ERROR",
+            "501 NOT_IMPLEMENTED",
+            "502 BAD_GATEWAY",
+            "503 SERVICE_UNAVAILABLE",
+            "504 GATEWAY_TIMEOUT",
+            "505 HTTP_VERSION_NOT_SUPPORTED",
+            "506 VARIANT_ALSO_NEGOTIATES",
+            "507 INSUFFICIENT_STORAGE",
+            "508 LOOP_DETECTED",
+            "509 BANDWIDTH_LIMIT_EXCEEDED",
+            "510 NOT_EXTENDED",
+            "511 NETWORK_AUTHENTICATION_REQUIRED"
+          ]
+        },
+        "view": {
+          "originalRef": "View",
+          "$ref": "#/definitions/View"
+        },
+        "viewName": {
+          "type": "string"
+        }
+      },
+      "title": "ModelAndView"
+    },
+    "PasswordDto": {
+      "type": "object",
+      "properties": {
+        "newPassword": {
+          "type": "string"
+        },
+        "oldPassword": {
+          "type": "string"
+        }
+      },
+      "title": "PasswordDto"
+    },
+    "ResponseResult": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "title": "ResponseResult"
+    },
+    "View": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        }
+      },
+      "title": "View"
+    },
+    "系统角色": {
+      "type": "object",
+      "properties": {
+        "builtIn": {
+          "type": "boolean"
+        },
+        "campStatus": {
+          "type": "boolean",
+          "description": "参与方状态"
+        },
+        "delete": {
+          "type": "boolean",
+          "description": "状态"
+        },
+        "doeMaxRunNum": {
+          "type": "integer",
+          "format": "int32",
+          "description": "DOE最大运行数量"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "geoJsonUrl": {
+          "type": "array",
+          "description": "GeoJson访问路径",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gitLabGroupId": {
+          "type": "string",
+          "description": "gitLab用户组Id"
+        },
+        "gitLabToken": {
+          "type": "string",
+          "description": "gitLab token"
+        },
+        "homePagePic": {
+          "type": "string",
+          "description": "首页图片"
+        },
+        "iconStatus": {
+          "type": "boolean",
+          "description": "图标状态"
+        },
+        "systemName": {
+          "type": "string",
+          "description": "系统名称"
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "租户Id/租户号"
+        },
+        "tenantName": {
+          "type": "string",
+          "description": "租户名称"
+        }
+      },
+      "title": "系统角色"
+    }
+  }
+}
