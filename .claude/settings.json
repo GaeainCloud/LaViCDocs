@@ -1,0 +1,8 @@
+{
+  "skills": {
+    "build-simulation-model": {
+      "description": "仿真模型构建 - 从自然语言描述生成 LaViC 标准仿真模型资产包 (.zip)",
+      "path": ".claude/skills/build-simulation-model.md"
+    }
+  }
+}
