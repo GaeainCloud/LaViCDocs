@@ -1,0 +1,7 @@
+data/okr_definitions.json
+data/evidence_records.json
+data/scores.json
+data/reports/
+__pycache__/
+*.pyc
+.env

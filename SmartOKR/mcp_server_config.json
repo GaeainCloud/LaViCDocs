@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "smartokr": {
+      "command": "python",
+      "args": [
+        "<absolute_path>/LaViCDocs/SmartOKR/src/server.py"
+      ],
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}
