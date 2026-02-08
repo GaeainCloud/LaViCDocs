@@ -8,6 +8,11 @@
     python scripts/analyze_all.py
 
 需要配置 .env 文件（参考 .env.example），或直接在下方修改配置。
+
+前置条件:
+    1. pip install -r requirements.txt
+    2. 网络可访问 open-api.biji.com
+    3. 配置好 GETNOTE_API_KEY 和 GETNOTE_TOPIC_ID
 """
 
 import sys
@@ -37,6 +42,7 @@ PERIOD = "2025-Q1"  # Analysis period
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 
+
 # ============================================================
 # Step 1: Discover team members from knowledge base
 # ============================================================
@@ -45,13 +51,14 @@ def discover_members(nc: NotesCollector) -> list:
     """Query knowledge base to find all team members."""
     print("\n📋 Step 1: 从知识库发现团队成员...")
 
-    # Multiple queries to find members
     member_queries = [
         "团队所有成员名单",
         "每个人的工作职责和岗位",
         "团队分工和角色",
         "项目成员列表",
         "团队人员组成",
+        "所有人的OKR",
+        "工作进展汇总",
     ]
 
     all_docs = []
@@ -59,12 +66,14 @@ def discover_members(nc: NotesCollector) -> list:
 
     for q in member_queries:
         resp = nc.recall(question=q, top_k=10)
-        content = resp.get("c", resp)
-        data_items = []
-        if isinstance(content, dict):
-            data_items = content.get("data", [])
-        elif isinstance(content, list):
-            data_items = content
+
+        # Check for errors
+        if "error" in resp:
+            print(f"   ⚠️  查询「{q}」失败: {resp['error'][:100]}")
+            continue
+
+        # Parse response: {h: {c: 0}, c: {data: [...]}}
+        data_items = nc._parse_recall_items(resp)
 
         for item in data_items:
             item_id = item.get("id", "")
@@ -73,29 +82,37 @@ def discover_members(nc: NotesCollector) -> list:
                 all_docs.append(item)
 
     print(f"   召回 {len(all_docs)} 篇相关文档")
+
+    if all_docs:
+        print(f"\n   📄 文档预览:")
+        for i, doc in enumerate(all_docs[:5]):
+            title = doc.get("title", "无标题")
+            score = doc.get("score", 0)
+            content_preview = doc.get("content", "")[:80].replace("\n", " ")
+            print(f"   [{i+1}] {title} (相关性: {score:.4f})")
+            print(f"       {content_preview}...")
+
     return all_docs
 
 
 def extract_members_from_docs(docs: list) -> list:
     """Extract member names from recalled documents.
 
-    This is a heuristic - in practice the AI assistant would do this reasoning.
+    This uses heuristic matching. In production, the AI assistant
+    would do intelligent reasoning on the recalled docs.
     Returns list of dicts with name and role.
     """
-    # Combine all doc content for analysis
     all_text = "\n".join(d.get("content", "") + " " + d.get("title", "") for d in docs)
 
-    # Common Chinese names and roles pattern - basic extraction
-    # In production, the AI assistant would parse this intelligently
     members = []
+    seen_names = set()
 
-    # Try to find structured member lists
     lines = all_text.split("\n")
     for line in lines:
         line = line.strip()
-        if not line:
+        if not line or len(line) > 100:
             continue
-        # Look for patterns like "姓名：xxx" or "xxx - 工程师" etc.
+
         for role_key, role_data in [
             ("工程师", "engineer"), ("开发", "engineer"), ("前端", "engineer"),
             ("后端", "engineer"), ("算法", "researcher"), ("研发", "engineer"),
@@ -104,9 +121,11 @@ def extract_members_from_docs(docs: list) -> list:
             ("主管", "manager"), ("总监", "manager"), ("研究", "researcher"),
             ("测试", "engineer"),
         ]:
-            if role_key in line and len(line) < 100:
-                # Extract potential name (2-4 Chinese chars before/after role keyword)
-                members.append({"name": line[:20].strip(), "role": role_data, "raw": line})
+            if role_key in line:
+                name = line[:20].strip()
+                if name not in seen_names:
+                    seen_names.add(name)
+                    members.append({"name": name, "role": role_data, "raw": line})
 
     return members
 
@@ -129,12 +148,11 @@ def collect_person_evidence(nc: NotesCollector, person_name: str) -> list:
 
     for q in queries:
         resp = nc.recall(question=q, top_k=5)
-        content = resp.get("c", resp)
-        data_items = []
-        if isinstance(content, dict):
-            data_items = content.get("data", [])
-        elif isinstance(content, list):
-            data_items = content
+
+        if "error" in resp:
+            continue
+
+        data_items = nc._parse_recall_items(resp)
 
         for item in data_items:
             item_id = item.get("id", "")
@@ -148,7 +166,12 @@ def collect_person_evidence(nc: NotesCollector, person_name: str) -> list:
                 description=item.get("content", "")[:500],
                 source_type="knowledge_base",
                 date_str="",
-                metadata={"source": "get_notes", "query": q, "doc_id": item_id},
+                metadata={
+                    "source": "get_notes",
+                    "query": q,
+                    "doc_id": item_id,
+                    "recall_score": item.get("score", 0),
+                },
                 tags=["knowledge_base"],
             )
             evidence_items.append(ev)
@@ -243,10 +266,8 @@ def auto_match_evidence(store: DataStore, person_name: str, objectives: list, ev
         for obj in objectives:
             dim = obj["bsc_dimension"]
             for kr in obj.get("key_results", []):
-                # Heuristic relevance scoring
-                score = 30  # Base score for any evidence
+                score = 30  # Base score
 
-                # Dimension-specific keywords
                 if dim == "financial" and any(k in text for k in ["收入", "营收", "成本", "价值", "业务", "客户", "项目交付"]):
                     score += 40
                 elif dim == "customer" and any(k in text for k in ["用户", "客户", "需求", "反馈", "满意", "体验", "服务"]):
@@ -287,27 +308,40 @@ def main():
     scoring = ScoringEngine()
     reporter = ReportGenerator()
 
+    # Connectivity test
+    print("\n🔗 测试知识库连接...")
+    test_resp = nc.recall(question="测试连接", top_k=1)
+    if "error" in test_resp:
+        print(f"\n❌ 无法连接到 Get笔记知识库 API!")
+        print(f"   错误: {test_resp['error'][:200]}")
+        print(f"\n   请检查：")
+        print(f"   1. 网络是否可以访问 https://open-api.biji.com")
+        print(f"   2. GETNOTE_API_KEY 是否正确")
+        print(f"   3. GETNOTE_TOPIC_ID 是否正确")
+        print(f"   4. 是否有代理限制（尝试: export no_proxy=open-api.biji.com）")
+        return
+    print("   ✅ 知识库连接成功!")
+
     # Step 1: Discover members
     docs = discover_members(nc)
 
     if not docs:
         print("\n⚠️  未从知识库中召回任何文档。")
-        print("   请检查：")
-        print("   1. GETNOTE_API_KEY 是否正确")
-        print("   2. GETNOTE_TOPIC_ID 是否正确")
-        print("   3. 网络是否可以访问 open-api.biji.com")
+        print("   知识库可能为空，或者查询关键词未命中。")
         return
 
     members = extract_members_from_docs(docs)
     if not members:
-        # If heuristic extraction fails, use docs as member hints
-        print("   ℹ️  未能自动提取成员名单，使用文档内容作为提示")
-        print("   请手动在下方 MEMBERS 列表中填入团队成员：")
+        print("\n   ℹ️  未能自动提取成员名单。")
+        print("   以下是从知识库召回的文档内容，请根据内容手动设定成员列表：")
         print()
-        for i, doc in enumerate(docs[:5]):
+        for i, doc in enumerate(docs[:10]):
             print(f"   文档 {i+1}: {doc.get('title', 'N/A')}")
-            print(f"   内容预览: {doc.get('content', '')[:200]}")
+            content = doc.get("content", "")[:300].replace("\n", "\n       ")
+            print(f"       {content}")
             print()
+        print("   提示: 在脚本中修改 main() 函数，手动设定 members 列表后重新运行。")
+        print('   示例: members = [{"name": "张三", "role": "engineer"}, ...]')
         return
 
     print(f"\n👥 发现 {len(members)} 位团队成员：")
@@ -342,7 +376,6 @@ def main():
 
         # Step 5: Calculate scores
         print(f"   📊 计算得分 (岗位: {role})...")
-        # Reload objectives with evidence_ids
         objectives = store.list_objectives(owner=name, period=PERIOD)
         all_evidence = store.get_evidence(person=name)
 
@@ -380,6 +413,10 @@ def main():
 
     print(f"\n✅ 分析完成！共处理 {len(all_reports)} 位成员。")
     print(f"   报告目录: {store.reports_dir}")
+    print(f"\n   提示: 报告为初始分析结果，建议通过 SmartOKR MCP 工具进行：")
+    print(f"   1. 补充更多工作证据 (add_evidence_manually)")
+    print(f"   2. AI 精细匹配 (match_evidence_to_okrs + store_evidence_matches)")
+    print(f"   3. 重新评分 (calculate_scores)")
 
 
 if __name__ == "__main__":
