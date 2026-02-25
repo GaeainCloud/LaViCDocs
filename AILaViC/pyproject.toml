@@ -1,0 +1,20 @@
+[project]
+name = "ailavic"
+version = "0.1.0"
+description = "AI-powered LaViC Scenario Orchestrator"
+authors = [
+    {name = "Your Name", email = "you@example.com"},
+]
+dependencies = [
+    "pydantic>=2.0",
+    "langchain>=0.1",
+    "langgraph>=0.0.1",
+    "openai>=1.0",
+    "anthropic>=0.1",
+    "chromadb>=0.4",
+]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

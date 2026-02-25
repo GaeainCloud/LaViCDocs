@@ -1,0 +1,270 @@
+syntax = "proto3";
+
+package msg.ProcessTransInfo;
+
+message msg_SensingConnection{
+    uint64     id=1;
+    uint64 agnt_aid_=2;
+    uint64 agnt_bid_=3;
+    uint64 modsig_=4;
+    uint32 fldmd_id_=5;
+    int32  frq_mnv_=6;
+    int32  frq_sdv_=7;
+    uint32  frq_dst_=8;
+    uint32  frq_scl_=9;
+    uint32  frq_usg_=10;
+    double  pwr0_watts_=11;
+    uint32 ppgt_mdl_=12;
+    double direction_pitch_=13;
+    double direction_azimuth_=14;
+    uint32 emgwpty_=15;
+    uint32 sndwpty_=16;
+    uint32 gaingraph_=17;
+    uint32 sndrcv_=18;
+    double alon_=19;
+    double alat_=20;
+    double ahgt_=21;
+    int32    aref_=22;
+    uint64 aphysical_timestamp=23;
+    double a_roll=24;
+    double a_pitch=25;
+    double a_yaw=26;
+    double a_speed=27;
+    double asim_timestamp_=28;
+    double blon_=29;
+    double blat_=30;
+    double bhgt_=31;
+    int32    bref_=32;
+    uint64 bphysical_timestamp=33;
+    double b_roll=34;
+    double b_pitch=35;
+    double b_yaw=36;
+    double b_speed=37;
+    double bsim_timestamp_=38;
+    double distab_=39;
+    uint64 timestamp_=40;
+    int32 bvalid_=41;
+};
+
+message msg_TargetInformationBase{
+    uint64     id = 1;
+    uint64     target_index_ = 2;
+    uint64     sensor_modsig_id_ = 3;
+    uint64     sensor_route_id_ = 4;
+    uint64     sensor_core_id_ = 5;
+    uint64     agent_bid = 6;
+    double      rt_target_lon_ = 7;
+    double      rt_target_lat_ = 8;
+    double      rt_target_hgt_ = 9;
+    int32         rt_target_ref_ = 10;
+    double      rt_target_sim_timestamp = 11;
+    uint64     handling_agnt_ids_hash_key = 12;
+    int32     lifespan_ms_ = 13;
+    int64      update_timestamp_ = 14;
+    bool        bvalid_ = 15;
+    string iffcode = 16;
+};
+
+message msg_EdgeInformation 
+{
+    uint64 id = 1;
+    uint64 n1 = 2;
+    uint64 n2 = 3;
+    bool bpositive = 4;
+    bool n1status = 5;
+    bool n2status = 6;
+    uint64 tmplmodsig = 7;
+    uint64 modsig_id = 8;
+    double snr = 9;
+    double sinr = 10;
+    uint32 frqusage = 11;
+    string b_iffcode = 12;
+    string a_iffcode = 13;
+    string b_clusterCodes = 14;
+    string a_clusterCodes = 15;
+    double bandwidth = 16;
+    double transfreqHzBtmp = 17;
+    string vardefs = 18;
+    string varpools = 19;
+    bool bValid = 20;
+}
+
+message msg_TargetHandingInformation_content 
+{
+    uint64 id = 1;
+    bool bvalid_ = 2;
+    uint64 handling_agnt_ids_hash_key = 3;
+    uint64 targetindex = 4;
+
+    uint32 bcontent = 5;
+
+    double rt_target_lon_ = 6;
+    double rt_target_lat_ = 7;
+    double rt_target_hgt_ = 8;
+    int32 rt_target_ref_ = 9;
+    double rt_target_sim_timestamp = 10;
+    double speed = 11;
+    double roll = 12;
+    double pitch = 13;
+    double azimuth = 14;
+    bool   blocationvalid_ = 15;
+    bool   location_type = 16;
+}
+
+message msg_TargetHandingInformation_threatstatus 
+{
+    uint64 id = 1;
+    bool bvalid_ = 2;
+    uint64 handling_agnt_ids_hash_key = 3;
+    uint64 targetindex = 4;
+
+    string threatstatus = 5;
+    uint64 threat_begin_timestamp = 6;
+    bool   threatstatus_type = 7;
+}
+
+message msg_TargetHandingInformation_agentdetct 
+{
+    uint64 id = 1;
+    bool bvalid_ = 2;
+    uint64 handling_agnt_ids_hash_key = 3;
+    uint64 targetindex = 4;
+
+    uint64 agentdetect = 5;
+    string agentdetectiffcode = 6;
+    bool   agentdetect_type = 7;
+}
+
+message msg_TargetHandingInformation_followagent 
+{
+    uint64 id = 1;
+    bool bvalid_ = 2;
+    uint64 handling_agnt_ids_hash_key = 3;
+    uint64 targetindex = 4;
+
+    uint64 followagentid = 5;
+    bool   followagentid_type = 6;
+
+}
+
+message msg_TargetHandingInformation_cognitiveplugin 
+{
+    uint64 id = 1;
+    bool bvalid_ = 2;
+    uint64 handling_agnt_ids_hash_key = 3;
+    uint64 targetindex = 4;
+
+    string cognitivepluginname = 5;
+    string cognitivepluginreason = 6;
+    bool   cognitiveplugin_type = 7;
+}
+
+message msg_AgentInfo{
+    uint64 agntid_=1;
+    uint32 datatype=2;
+    string datakey=3;
+    string datacontent=4;
+};
+
+message msg_AgentLocation{
+    uint64 agntid_=1;
+    double rt_target_lon_ = 2;
+    double rt_target_lat_ = 3;
+    double rt_target_hgt_ = 4;
+    int32 rt_target_ref_ = 5;
+    double rt_target_sim_timestamp = 6;
+    double speed = 7;
+    double roll = 8;
+    double pitch = 9;
+    double azimuth = 10;
+    bool   blocationvalid_ = 11;
+};
+
+
+message msg_SimParams{
+    double step_speed = 1;
+    double step_dt = 2;
+    int32 step_interval = 3;
+    double step_freq = 4;
+    int32 one_second_sim_step_second = 5;
+    uint64 utc_timestamp_begin = 6;
+    uint64 utc_timestamp_cur = 7;
+    double physics_timestamp = 8;
+    double sim_timestamp = 9;
+};
+
+message msg_Iffcode{
+    string iffcode=1;
+    uint32 datatype = 2;
+    uint64 fusionid= 3;
+};
+
+message msg_publish_info{
+    uint32 publish_from_id = 1;
+    uint64 sync_pack_index = 2;
+    uint64 time_stamp = 3;
+};
+
+
+message msg_SensingConnection_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_SensingConnection array_elements = 2;
+};
+
+message msg_TargetInformationBase_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_TargetInformationBase array_elements = 2;
+};
+
+message msg_EdgeInformation_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_EdgeInformation array_elements = 2;
+};
+
+message msg_TargetHandingInformation_content_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_TargetHandingInformation_content array_elements = 2;
+};
+
+message msg_TargetHandingInformation_threatstatus_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_TargetHandingInformation_threatstatus array_elements = 2;
+};
+
+message msg_TargetHandingInformation_agentdetct_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_TargetHandingInformation_agentdetct array_elements = 2;
+};
+
+message msg_TargetHandingInformation_followagent_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_TargetHandingInformation_followagent array_elements = 2;
+};
+
+message msg_TargetHandingInformation_cognitiveplugin_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_TargetHandingInformation_cognitiveplugin array_elements = 2;
+};
+
+message msg_AgentInfo_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_AgentInfo array_elements = 2;
+};
+
+message msg_AgentLocation_array{
+    msg_publish_info publish_info = 1;
+    repeated msg_AgentLocation array_elements = 2;
+};
+
+
+message msg_Agent_Changed_array{    
+    msg_publish_info publish_info = 1;
+    repeated string array_elements = 2;
+};
+
+message msg_Agent_Sensing_Changed_array{
+    msg_publish_info publish_info = 1;    
+    repeated string array_elements = 2;
+};
+
+

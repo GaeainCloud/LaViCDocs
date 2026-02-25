@@ -1,0 +1,247 @@
+syntax = "proto3";
+
+package msg.DebugInfo;
+
+import "AgentPositionInfo.proto";
+
+enum E_DEBUG_MESSAGECODE {
+	E_DEBUG_MESSAGECODE_UNKNOWN = 0;
+	E_DEBUG_MESSAGECODE_USER_VAR = 1;
+	E_DEBUG_MESSAGECODE_INTERNAL_VAR = 2;
+	E_DEBUG_MESSAGECODE_AGENT_POS = 3;
+	E_DEBUG_MESSAGECODE_AGENT_SENSOR = 4;
+	E_DEBUG_MESSAGECODE_OODA = 5;
+	E_DEBUG_MESSAGECODE_ACTION = 6;
+	E_DEBUG_MESSAGECODE_SENSORPARAMS = 7;
+	E_DEBUG_MESSAGECODE_AGENT_INFO = 8;
+	E_DEBUG_MESSAGECODE_EDGE_INFO = 9;
+	E_DEBUG_MESSAGECODE_AGENT_ATTACH_STATUS = 10;
+};
+
+enum E_DEBUG_DATATYPE {
+	E_DEBUG_DATATYPE_UNKNOWN = 0;
+	E_DEBUG_DATATYPE_INTEGER = 1;
+	E_DEBUG_DATATYPE_NUMBER = 2;
+	E_DEBUG_DATATYPE_STRING = 3;
+	E_DEBUG_DATATYPE_BYTES = 4;
+	E_DEBUG_DATATYPE_STRINGS = 5;
+	E_DEBUG_DATATYPE_POSITION = 6;
+	E_DEBUG_DATATYPE_LOCATION = 7;
+	E_DEBUG_DATATYPE_WAYPOINTS = 8;
+	E_DEBUG_DATATYPE_JSONOBJ = 9;
+};
+
+message msg_Debug_StringList{
+    repeated string list_value = 1;
+}
+
+message msg_Debug_Position{
+    double x = 1;
+    double y = 2;
+    double z = 3;
+    double sim_time = 4;
+}
+
+message msg_Debug_Location{
+    double lon = 1;
+    double lat = 2;
+    double hgt = 3;
+    int32 ref = 4;
+    double sim_time = 5;
+}
+
+message msg_Debug_Waypoints{
+    double wpsCore_lon = 1;
+    double wpsCore_lat = 2;
+    double wpsCore_hgt = 3;
+    double wpsCore_ref = 4;
+    double wpsCore_t = 5;
+    double useExt = 6;
+    double speed = 7;
+    double roll = 8;
+    double pitch = 9;
+    double yaw = 10;
+    double yawEx = 11;
+}
+
+message msg_Debug_Waypoints_val {
+    repeated msg_Debug_Waypoints waypoint_val = 10;
+}
+message msg_Debug_Element {
+    E_DEBUG_DATATYPE datatype = 1;
+    string dataname = 2;
+    oneof value {
+    int64 int_value = 3;
+    double double_value = 4;
+    string string_value = 5;
+    bytes binary_data = 6;
+    msg_Debug_StringList stringlist_value = 7;
+    msg_Debug_Position position_val = 8;
+    msg_Debug_Location location_val = 9;
+    msg_Debug_Waypoints_val waypoint_val = 10;
+  }
+}
+
+
+
+message msg_Debug_Element_Array {
+    uint64 infoindex=1;
+    repeated msg_Debug_Element elements = 2;
+}
+
+
+enum E_DEBUG_STATUS_TYPE {
+	E_DEBUG_STATUS_TYPE_UNKNOWN = 0;
+	E_DEBUG_STATUS_TYPE_ENABLE = 1;
+	E_DEBUG_STATUS_TYPE_DISABLE = 2;
+};
+
+message msg_Debug_Agent_Pos
+{
+    double  time_step=1;
+    double  path_length=2;
+    double  longitude=3;
+    double  latitude=4;
+    double  amsl=5;
+    int32   ref=6;
+    double  roll=7;
+    double  pitch=8;
+    double  yaw=9;
+    double  speed=10;
+    E_DEBUG_STATUS_TYPE  ismissionable=11;
+    E_DEBUG_STATUS_TYPE  isnavigating=12;
+    uint64 parent = 13;
+    int32 working_lifespan_status = 14;
+    int32 clear_lifespan_status = 15;
+    string agentkeyword = 16;
+    uint64 infoindex=17;
+};
+
+message msg_Debug_sensorposinfo
+{
+    uint64 PARAM_sensor_pack_index=1;
+    uint64 PARAM_timestamp=2;
+    uint64 PARAM_sim_timestamp=3;
+    uint64 PARAM_source_sensingmediaid=4;
+    uint32 PARAM_elecmag_wave_properties=5;
+    uint32 PARAM_sound_wave_properties=6;
+    int32  PARAM_wave_freq_mean_sgnfcnt=7;
+    int32  PARAM_wave_freq_std_dvtn_sgnfcnt=8;
+    uint32 PARAM_wave_freq_distbtn=9;
+    uint32 PARAM_wave_frequency_scale=10;
+    uint32 PARAM_wave_usage=11;
+    uint32 PARAM_wave_snd_rcv=12;
+    uint32 PARAM_wave_silent_time_gap=13;
+    uint32 PARAM_wave_field_media_id=14;
+    uint64 PARAM_wave_modsig_id=15;
+
+    double PARAM_wave_power_in_watts=16;
+    uint32 PARAM_wave_propagation_model=17;
+
+    double PARAM_wave_direction_pitch=18;
+    double PARAM_wave_direction_azimuth=19;
+    uint32 PARAM_wave_gaingraph=20;    
+    double PARAM_wave_direction_radius=21;
+};
+
+message msg_transdata_param_seq_hexidx
+{
+    uint64  PARAM_seq_hexidx_element = 1;
+    msg.AgentPositionInfo.msg_transdata_param_seq_hexidx_hgt  PARAM_seq_hexidx_hgt = 2;
+};
+
+message msg_Debug_Agent_sensor
+{
+    uint64 infoindex=1;
+    uint64 agentid=2;
+    uint64 sensingmdedia=3;
+    msg_Debug_sensorposinfo sensorinfo=4;
+    repeated msg_transdata_param_seq_hexidx hexidxslist = 5;
+    repeated msg.AgentPositionInfo.msg_TYPE_POLYGON_PT polygonlist=6;
+};
+
+
+message msg_Debug_SensorParams
+{
+    uint64 infoindex=1;
+    uint64 agentid=2;
+    uint64 sensingmdedia=3;
+};
+
+message msg_Debug_OODA
+{
+    uint64 infoindex=1;
+    string src = 2;
+    string dst = 3;
+    string oodatype=4;
+    double ooda_simtimestamp=5;
+    
+    double  src_lon=6;
+    double  src_lat=7;
+    double  src_hgt=8;
+    int32   src_ref=9;
+    double  src_sim_timestamp=10;
+
+    double  dst_lon=11;
+    double  dst_lat=12;
+    double  dst_hgt=13;
+    int32   dst_ref=14;
+    double  dst_sim_timestamp=15;
+};
+
+message msg_Debug_Action_exec
+{
+    uint64 infoindex=1;
+    string actionkeyword = 2;
+    bool actived=3;
+    uint64 axnRunningPlan=4;
+    string actioncontent = 5;
+};
+
+
+message msg_Debug_Agent_attach_status
+{
+    uint64 infoindex=1;
+    uint64 childagentid=2;
+    uint64 parentagentid=3;
+    bool attachstatus=4;
+};
+
+message msg_Debug_Agent_info
+{
+    uint64 infoindex=1;
+    uint64 agentid=2;
+    string agentkey=3;
+    string agentiffcode=4;
+    string agentlabel=5;
+    string agentclusterCodes=6;
+    string agentasmParentPath=7;
+    string agentName=8;
+};
+
+
+message msg_Debug_Info 
+{
+    E_DEBUG_MESSAGECODE messagecode=1;
+    uint64 packindex=2;
+    uint64 agentid=3;
+    uint64 timestamp=4;
+    string doeconfigsig = 5;
+    string doeinstsignature = 6;
+    double sim_time = 7;
+    oneof value {
+    msg_Debug_Agent_Pos agent_pos=8;
+    msg_Debug_Agent_sensor agent_sensor=9;
+    msg_Debug_Element_Array elements_array=10;
+    msg_Debug_Action_exec action_exec=11;
+    msg_Debug_Agent_attach_status agent_attach_status=12;
+    msg_Debug_OODA ooda_info=13;
+    msg_Debug_Agent_info agent_info=14;
+  }
+}
+
+message msg_Debug_Info_Array 
+{
+    uint64 packindex=1;
+    repeated msg_Debug_Info debug_Info = 2;
+}

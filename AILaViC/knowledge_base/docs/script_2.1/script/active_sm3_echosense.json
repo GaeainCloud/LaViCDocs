@@ -1,0 +1,48 @@
+//排除自身感知域发现自身实体
+if(Agent.event.aid == Agent.event.self_id)
+{
+    return;
+}
+//指定回波感知域
+var fldkey = "field_224244398598004848";
+//回波对应的位置
+var location = Location(Agent.event.alon,Agent.event.alat,Agent.event.ahgt,Agent.event.aref,0);
+//检查是否存在对应指纹的回波
+var hasModSig = Agent.smd_exists(Agent.event.modsig);
+if (!hasModSig) 
+{
+    //不存在情况下，感知域发现事件或更新事件
+    if (Agent.event.event_type == E_EVENT_MODE_ADD || Agent.event.event_type == E_EVENT_MODE_UPDATE) 
+    {
+        //使用指定的回波感知域，生成对应指纹的回波
+        var ret = Agent.smd_create(fldkey, Agent.event.modsig, E_FMD_WKMD_REFLECTION_);
+        if(ret != 0)
+        {
+            //调整回波的指向反向及距离
+            Agent.smd_orient(Agent.event.modsig, location, Agent.event.abdist, E_FMD_WKMD_REFLECTION_);
+        }
+    }
+} 
+else 
+{
+    if (Agent.event.event_type == E_EVENT_MODE_ADD) 
+    {
+        //使用指定的回波感知域，生成对应指纹的回波
+        var ret = Agent.smd_create(fldkey, Agent.event.modsig, E_FMD_WKMD_REFLECTION_);
+        if(ret != 0)
+        {
+            //调整回波的指向反向及距离
+            Agent.smd_orient(Agent.event.modsig, location, Agent.event.abdist, E_FMD_WKMD_REFLECTION_);
+        }
+    }
+    else if (Agent.event.event_type == E_EVENT_MODE_UPDATE) 
+    {
+        //调整回波的指向反向及距离
+        Agent.smd_orient(Agent.event.modsig, location, Agent.event.abdist, E_FMD_WKMD_REFLECTION_);
+    }
+    else if (Agent.event.event_type == E_EVENT_MODE_REMOVE) 
+    {                
+        //回收回波
+        Agent.smd_set_status(Agent.event.modsig, E_SMD_CTRL_OPTION_RECYCLE);
+    }
+}

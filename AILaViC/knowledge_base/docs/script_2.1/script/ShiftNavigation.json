@@ -1,0 +1,13 @@
+//检查该实体是否为引导模式
+var is_navig = Agent.dyn_is_navigating();
+if(is_navig)
+{
+    return;
+}
+//获取该实体的动力学行进进度
+var prgrss = Agent.dyn_progress();
+if(prgrss > 10) 
+{
+    //切换动力学为引导动力学
+    Agent.dyn_shift("NavigatableDynamics","",E_DYN_SHIFT_OPTION_TAGENT_WPS);
+}

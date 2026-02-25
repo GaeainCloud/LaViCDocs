@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "doeConfigSig": {
+      "type": "string",
+      "description": "The signature of the DoE configuration. e.g. doecfg_225001810035900416",
+      "pattern": "doecfg_[0-9]{18}"
+    },
+    "attachedScenarioSig": {
+      "type": "string",
+      "description": "The signature of the scenario. e.g. sostep_225001537536331776",
+      "pattern": "sostep_[0-9]{18}"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "samplingMethod": {
+      "type": "string"
+    },
+    "factorDesign": {
+      "type": "string"
+    },
+    "varSelections": {
+      "type": "array",
+      "items": {}
+    },
+    "doeInstance": {
+      "type": "object",
+      "properties": {
+        "doeInstSignature": {
+          "type": "string",
+          "description": "The signature of the DoE instance. e.g. doeinst_225001869686112256",
+          "pattern": "doeinst_[0-9]{18}"
+        },
+        "attachedDoEConfigSig": {
+          "type": "string",
+          "description": "The signature of the attached DoE configuration. e.g. doecfg_225001810035900416",
+          "pattern": "doecfg_[0-9]{18}"
+        },
+        "varSamples": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "doeInstSignature",
+        "attachedDoEConfigSig",
+        "varSamples"
+      ]
+    }
+  },
+  "required": [
+    "doeConfigSig",
+    "attachedScenarioSig",
+    "topic",
+    "samplingMethod",
+    "factorDesign",
+    "varSelections",
+    "doeInstance"
+  ]
+}

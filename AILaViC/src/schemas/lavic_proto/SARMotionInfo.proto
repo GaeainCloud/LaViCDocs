@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package msg.SARMotionInfo;
+
+message msg_SARMotionInfo 
+{
+    double TargetAzimuth = 1;
+    double RadarAzimuth = 2;
+    string Target2RardarID = 3;
+}
+
+message msg_SARMotionResult
+{
+    string TargetID = 1;
+    string ResultPath = 2;
+}

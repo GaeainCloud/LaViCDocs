@@ -1,0 +1,6 @@
+//OODA
+
+//设置实体的生命周期状态为停止位置迭代
+Agent._stop();
+//触发实体清理资源动作
+Agent.action_do("LifeSpanInvalidStopStepClearRes");

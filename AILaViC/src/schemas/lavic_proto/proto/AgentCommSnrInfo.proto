@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package msg.AgentCommSnrInfo;
+
+message msg_AgentCommSnrInfo 
+{
+    string src_agent = 1;
+    string dst_agent = 2;
+    string sensingmediaid = 3;
+    string tmplmodsig = 4;
+    bool positive = 5;
+    double bandwidth = 6;
+    double sinr = 7;
+    double snr = 8;
+    double freqHzB = 9;
+    string a_iffcode = 10;
+    string b_iffcode = 11;
+    repeated string a_clusterCodes = 12;
+    repeated string b_clusterCodes = 13;
+    uint32 packindex = 14;
+}

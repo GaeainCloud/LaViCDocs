@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+package msg.CustomTransInfo;
+
+enum E_DATATYPE {
+	E_DATATYPE_UNKNOWN = 0;    
+    E_DATATYPE_BOOL = 1;
+    E_DATATYPE_CHAR = 2;
+
+    E_DATATYPE_INTEGER_8 = 3;
+    E_DATATYPE_INTEGER_16 = 4;
+    E_DATATYPE_INTEGER_32 = 5;
+    E_DATATYPE_UINTEGER_8 = 6;
+    E_DATATYPE_UINTEGER_16 = 7;
+    E_DATATYPE_UINTEGER_32 = 8;
+
+    E_DATATYPE_INTEGER = 9;
+    E_DATATYPE_ID = 10;
+
+    E_DATATYPE_NUMBER = 11;
+    E_DATATYPE_STRING = 12;
+    E_DATATYPE_POSITION = 13;
+    E_DATATYPE_LOCATION = 14;
+    E_DATATYPE_ATTITUDE = 15;
+    E_DATATYPE_WAYPOINT = 16;
+    //List
+
+    E_DATATYPE_BOOLS = 17;
+    E_DATATYPE_CHARS = 18;
+    E_DATATYPE_BYTES = 19;
+    E_DATATYPE_NUMERICALS = 20;
+    E_DATATYPE_INTEGERS = 21;
+    E_DATATYPE_IDS = 22;
+    E_DATATYPE_STRINGS = 23;
+    E_DATATYPE_POSITIONS = 24;
+    E_DATATYPE_LOCATIONS = 25;
+    E_DATATYPE_ATTITUDES = 26;
+    E_DATATYPE_WAYPOINTS = 27;
+    //Map
+    E_DATATYPE_MAP_S2b = 28;
+    E_DATATYPE_MAP_S2C = 29;
+    E_DATATYPE_MAP_S2S = 30;
+    E_DATATYPE_MAP_S2I8 = 31;
+    E_DATATYPE_MAP_S2I16 = 32; 
+    E_DATATYPE_MAP_S2I32 = 33;
+    E_DATATYPE_MAP_S2I64 = 34;
+    E_DATATYPE_MAP_S2U8 = 35;
+    E_DATATYPE_MAP_S2U16 = 36;
+    E_DATATYPE_MAP_S2U32 = 37;
+    E_DATATYPE_MAP_S2ID = 38;
+    E_DATATYPE_MAP_S2N = 39;
+    E_DATATYPE_MAP_S2P = 40;
+    E_DATATYPE_MAP_S2L = 41;
+    E_DATATYPE_MAP_S2A = 42;
+    E_DATATYPE_MAP_S2W = 43;
+
+    E_DATATYPE_MAP_I2b = 44;
+    E_DATATYPE_MAP_I2C = 45;
+    E_DATATYPE_MAP_I2S = 46;
+    E_DATATYPE_MAP_I2I8 = 47;
+    E_DATATYPE_MAP_I2I16 = 48;
+    E_DATATYPE_MAP_I2I32 = 49;
+    E_DATATYPE_MAP_I2I64 = 50;
+    E_DATATYPE_MAP_I2U8 = 51;
+    E_DATATYPE_MAP_I2U16 = 52;
+    E_DATATYPE_MAP_I2U32 = 53;
+    E_DATATYPE_MAP_I2ID = 54;
+    E_DATATYPE_MAP_I2N = 55;
+    E_DATATYPE_MAP_I2P = 56;
+    E_DATATYPE_MAP_I2L = 57;
+    E_DATATYPE_MAP_I2A = 58;
+    E_DATATYPE_MAP_I2W = 59;
+	E_DATATYPE_JSONOBJ = 60;
+	E_DATATYPE_DOUBLE_TWO_DIMENSINAL_ARRAY = 61;
+	E_DATATYPE_SCRIPT_DEBUG_PRINT = 62;
+};
+
+
+enum E_MESSAGE_CODE {
+	E_MESSAGE_CODE_PPI = 0;
+	E_MESSAGE_CODE_DETECTED_TARGETLIST = 1;
+	E_MESSAGE_CODE_TARGET_INFO = 2;
+	E_MESSAGE_CODE_SAR_RESULT_PATH = 3;
+	E_MESSAGE_CODE_DETECTION_ECHO = 4;
+};
+
+message msg_Trans_Target
+{
+    repeated double x_values = 1;
+    repeated double y_values = 2;
+}
+
+message msg_Trans_One_Dimensional_Array 
+{        
+    double key = 1;
+    repeated double values = 2;
+}
+
+message msg_Trans_Two_Dimensional_Array 
+{        
+    repeated string msg_Trans_One_Dimensional_Array_values_desc = 1;
+    repeated msg_Trans_One_Dimensional_Array values = 2;
+}
+
+message msg_Trans_TargetInfo_array 
+{        
+    repeated msg_Trans_Two_Dimensional_Array two_dimensional_array = 1;
+}
+
+message msg_Trans_TargetIds_array 
+{        
+    repeated int32 msg_targets = 1;
+}
+
+message msg_Trans_ppi_array 
+{        
+    repeated msg_Trans_Target msg_targets = 1;
+}
+
+message msg_Detection_Target
+{
+    string target_id = 1;
+    double direction_azh = 2;
+    double direction_pth = 3;
+    int32 freq_mean = 4;
+    int32 pulse_num = 5;
+    double azh_trun = 6;
+    double freq_trun = 7;
+}
+
+message msg_Detection_TargetList
+{
+    repeated msg_Detection_Target targets = 1;
+}
+
+
+message msg_Agent_Trans_Two_Dimensional_Array 
+{       
+    string agentid=1;
+    string sensingmod_sig=2; 
+    int32 packindex = 3;
+    int32 transtargetid = 4;
+    oneof value {
+    msg_Trans_TargetInfo_array two_dimensional_array = 5;
+    msg_Trans_TargetIds_array  detect_target_ids = 6;
+    msg_Trans_ppi_array ppi_values = 7;
+    }
+}
+
+
+message msg_Trans_Element {
+    E_DATATYPE datatype = 1;
+    string dataname = 2;    
+    oneof value {
+    string datacontent = 3;
+    msg_Agent_Trans_Two_Dimensional_Array arraycontent = 4;
+    string resultinfo=5;
+    msg_Detection_TargetList detection_target_list = 6;
+    }
+}
+
+
+
+message msg_Agent_Trans_Array 
+{
+    int32 messagecode=1;
+    string agentid=2;
+    repeated msg_Trans_Element elements = 3;
+}
+
+message msg_Trans_Array 
+{
+    repeated msg_Agent_Trans_Array agent_Trans_infos = 1;
+}
+

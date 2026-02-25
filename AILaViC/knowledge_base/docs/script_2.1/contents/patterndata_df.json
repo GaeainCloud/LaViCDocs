@@ -1,0 +1,157 @@
+{
+    "patternSig": "pttn_22448332323832627",
+    "patternAgents": [
+        {
+            "agentKey": "AGENTKEY_223884078497349632",
+            "agentId": "223893773738524650",
+            "agentInstId": "",
+            "agentEntityId": "",
+            "agentLabel": "FWT",
+            "agentNote": "",
+            "agentIcon": "",
+            "asmParentPath": "223893773738524650",
+            "azimuth": 140.0,
+            "speed0": 8.0,
+            "iffcode": "bbbb",
+            "waypointsIndexActive": 0,
+            "waypoints": [
+                {
+                    "wpsUsage": "",
+                    "wpsKeyword": "",
+                    "wpsFrame": 0,
+                    "wps": [
+                        {
+                            "wpsCore": [
+                                119.79082208805573,
+                                25.553769640535265,
+                                0.0,
+                                1.0,
+                                0.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                119.79082208805573,
+                                25.553769640535265,
+                                0.0,
+                                1.0,
+                                10.0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        }
+                    ],
+                    "wpsGenPOIs": [],
+                    "wpsGenFences": [],
+                    "wpsGenTimeConsumed": 0.0,
+                    "wpsTalk": []
+                }
+            ]
+        },
+        {
+            "agentKey": "AGENTKEY_223892491731419136",
+            "agentId": "223893773738786850",
+            "agentInstId": "",
+            "agentEntityId": "",
+            "agentLabel": "MWT",
+            "agentNote": "",
+            "agentIcon": "",
+            "asmParentPath": "223893773738524650/223893773738786850",
+            "asmOffsets": {
+                "offsetx0": 8.6866322,
+                "offsety0": 0.4517369,
+                "offsetz0": 5.3099673,
+                "offsetroll0": 0.0,
+                "offsetpitch0": 6.0,
+                "offsetyaw0": 0.0
+            },
+            "azimuth": 140.0,
+            "speed0": 8.0,
+            "iffcode": "bbbb",
+            "waypointsIndexActive": 0,
+            "waypoints": [
+                {
+                    "wpsUsage": "",
+                    "wpsKeyword": "",
+                    "wpsFrame": 0,
+                    "wps": [
+                        {
+                            "wpsCore": [
+                                119.79910844528331,
+                                25.43684955278532,
+                                500.0,
+                                1.0,
+                                0
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                119.84466528976134,
+                                24.809925023799934,
+                                500.0,
+                                1.0,
+                                10
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                120.20000117914333,
+                                23.909382879966785,
+                                500.0,
+                                1.0,
+                                20
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        },
+                        {
+                            "wpsCore": [
+                                120.36398287720084,
+                                23.35848441395369,
+                                500.0,
+                                1.0,
+                                30
+                            ],
+                            "useExt": 0,
+                            "speed": 0.0,
+                            "roll": 0.0,
+                            "pitch": 0.0,
+                            "yaw": 0.0,
+                            "yawEx": 0.0
+                        }
+                    ],
+                    "wpsGenPOIs": [],
+                    "wpsGenFences": [],
+                    "wpsGenTimeConsumed": 0.0,
+                    "wpsTalk": []
+                }
+            ]
+        }
+    ]
+}

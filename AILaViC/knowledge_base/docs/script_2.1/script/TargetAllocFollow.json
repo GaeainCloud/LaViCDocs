@@ -1,0 +1,1 @@
+Agent.targets_append_handler(TargetHandle,FollowHandle);

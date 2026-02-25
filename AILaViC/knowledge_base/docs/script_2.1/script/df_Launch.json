@@ -1,0 +1,8 @@
+//发射到的位置
+var location=Location(TargetLoc_lon,TargetLoc_lat,TargetLoc_hgt,TargetLoc_ref,TargetLoc_simtime);
+//设置该实体的发射位置
+Agent.variables["targetlocation"].set(location);
+//设置该实体的速度
+Agent._set_speed(140.0);
+//设置脱离父级，进行发送
+Agent._detach("MissionDynamicsDefault",LaunchWpk);

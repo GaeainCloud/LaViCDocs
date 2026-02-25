@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package msg.MPARMotionInfo;
+
+message msg_MPARMotionInfo 
+{
+    double TargetPosX = 1;
+    double TargetPosY = 2;
+    double TargetPosZ = 3;
+    double TargetVelX = 4;
+    double TargetVelY = 5;
+    double TargetVelZ = 6;
+    int32 TargetRCS = 7;
+    string TargetID = 8;
+}
+
+message msg_MPARMotionInfo_Array 
+{
+    repeated msg_MPARMotionInfo MPARMotionInfos = 1;
+    int32 packageNum = 2;
+    int32 selectedRouteID = 3;
+}

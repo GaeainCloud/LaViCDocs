@@ -1,0 +1,1828 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "agentKey",
+      "agentName",
+      "i18nLabels",
+      "agentNameI18n",
+      "agentKeyword",
+      "freelanceable",
+      "locatable",
+      "navigatable",
+      "missionable",
+      "operatable",
+      "agentType",
+      "agentCamp",
+      "model",
+      "waypoints"
+    ],
+    "properties": {
+      "agentCamp": {
+        "type": "string"
+      },
+      "agentCampName": {
+        "type": ["string", "null"]
+      },
+      "agentCommonlyUsed": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "agentDesc": {
+              "type": ["string", "null"]
+            },
+            "agentKey": {
+              "type": ["string", "null"]
+            },
+            "agentName": {
+              "type": ["string", "null"]
+            },
+            "agentThumbnail": {
+              "type": ["string", "null"]
+            },
+            "agentType": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "agentCoreFunc": {
+        "type": ["string", "null"]
+      },
+      "agentDesc": {
+        "type": ["string", "null"]
+      },
+      "agentJetdsCodes": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "agentJetdsCode": {
+              "type": ["string", "null"]
+            },
+            "agentJetdsCodeEx": {
+              "type": ["string", "null"]
+            },
+            "agentJetdsCodeSig": {
+              "type": ["string", "null"]
+            },
+            "relatedActions": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        }
+      },
+      "agentKey": {
+        "type": "string"
+      },
+      "agentKeyword": {
+        "type": "string"
+      },
+      "agentName": {
+        "type": "string"
+      },
+      "agentNameI18n": {
+        "type": "string"
+      },
+      "agentPath": {
+        "type": ["string", "null"]
+      },
+      "agentTag": {
+        "type": ["number", "null"]
+      },
+      "agentType": {
+        "type": "string"
+      },
+      "agentUsage": {
+        "type": ["string", "null"]
+      },
+      "agentUsageLabel": {
+        "type": ["array", "null"],
+        "items": {
+          "type": ["string", "null"]
+        }
+      },
+      "agentVideoUrl": {
+        "type": ["string", "null"]
+      },
+      "audit": {
+        "type": ["object", "null"],
+        "required": [],
+        "properties": {
+          "createdBy": {
+            "type": ["string", "null"]
+          },
+          "createdById": {
+            "type": ["string", "null"]
+          },
+          "createdOn": {
+            "type": ["string", "null"]
+          },
+          "startBy": {
+            "type": ["string", "null"]
+          },
+          "startById": {
+            "type": ["string", "null"]
+          },
+          "startTime": {
+            "type": ["string", "null"]
+          },
+          "stopBy": {
+            "type": ["string", "null"]
+          },
+          "stopById": {
+            "type": ["string", "null"]
+          },
+          "stopTime": {
+            "type": ["string", "null"]
+          },
+          "updatedBy": {
+            "type": ["string", "null"]
+          },
+          "updatedById": {
+            "type": ["string", "null"]
+          },
+          "updatedOn": {
+            "type": ["string", "null"]
+          }
+        }
+      },
+      "axns": {
+        "type": ["array", "null"],
+        "items": {
+          "type": ["object", "null"],
+          "required": [
+            "scriptId"
+          ],
+          "properties": {
+            "access": {
+              "type": ["number", "null"]
+            },
+            "actionTypeOODA": {
+              "type": ["string", "null"]
+            },
+            "axnActivated": {
+              "type": ["boolean", "null"]
+            },
+            "axnAsync": {
+              "type": ["boolean", "null"]
+            },
+            "axnDesc": {
+              "type": ["string", "null"]
+            },
+            "axnIcon": {
+              "type": ["string", "null"]
+            },
+            "axnKeyword": {
+              "type": ["string", "null"]
+            },
+            "axnName": {
+              "type": ["string", "null"]
+            },
+            "axnNameI18n": {
+              "type": ["string", "null"]
+            },
+            "axnRunningConds": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "axnRunningPlan": {
+              "type": ["number", "null"]
+            },
+            "axnScript": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "axnVersion": {
+              "type": ["number", "null"]
+            },
+            "axnViewDetails": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["object", "null"],
+                "required": [],
+                "properties": {
+                  "axnViewKeyword": {
+                    "type": ["string", "null"]
+                  },
+                  "axnViewName": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            },
+            "i18nLabels": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["object", "null"],
+                "required": [],
+                "properties": {
+                  "transtgt": {
+                    "type": ["string", "null"]
+                  },
+                  "uuid": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            },
+            "scriptId": {
+              "type": ["string", "null"]
+            },
+            "scriptLang": {
+              "type": ["number", "null"]
+            },
+            "scriptTalk": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "vardefs": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["object", "null"],
+                "required": [],
+                "properties": {
+                  "access": {
+                    "type": ["number", "null"]
+                  },
+                  "i18nLabels": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["object", "null"],
+                      "required": [],
+                      "properties": {
+                        "transtgt": {
+                          "type": ["string", "null"]
+                        },
+                        "uuid": {
+                          "type": ["string", "null"]
+                        }
+                      }
+                    }
+                  },
+                  "stdCode": {
+                    "type": ["string", "null"]
+                  },
+                  "varDecorator": {
+                    "type": ["string", "null"]
+                  },
+                  "varDecoratorSettings": {
+                    "type": ["object", "null"],
+                    "required": [],
+                    "properties": {}
+                  },
+                  "varDefault": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["string", "null"]
+                    }
+                  },
+                  "varIndexCode": {
+                    "type": ["number", "null"]
+                  },
+                  "varKeyword": {
+                    "type": ["string", "null"]
+                  },
+                  "varName": {
+                    "type": ["string", "null"]
+                  },
+                  "varNameI18n": {
+                    "type": ["string", "null"]
+                  },
+                  "varSchema": {
+                    "type": ["object", "null"],
+                    "required": [],
+                    "properties": {}
+                  },
+                  "varSig": {
+                    "type": ["string", "null"]
+                  },
+                  "varType": {
+                    "type": ["string", "null"]
+                  },
+                  "varUnit": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "bts": {
+        "type": ["array", "null"],
+        "items": {
+          "type": ["object", "null"],
+          "required": [],
+          "properties": {
+            "btActivated": {
+              "type": ["boolean", "null"]
+            },
+            "btKey": {
+              "type": ["string", "null"]
+            },
+            "btName": {
+              "type": ["string", "null"]
+            },
+            "btNameI18n": {
+              "type": ["string", "null"]
+            },
+            "btndRootKey": {
+              "type": ["string", "null"]
+            },
+            "btnds": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["object", "null"],
+                "required": [],
+                "properties": {
+                  "btndAxns": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["object", "null"],
+                      "required": [],
+                      "properties": {
+                        "btndAxnInputObject": {
+                          "type": ["string", "null"]
+                        },
+                        "btndAxnKey": {
+                          "type": ["string", "null"]
+                        }
+                      }
+                    }
+                  },
+                  "btndName": {
+                    "type": ["string", "null"]
+                  },
+                  "btndNameI18n": {
+                    "type": ["string", "null"]
+                  },
+                  "btndPath": {
+                    "type": ["string", "null"]
+                  },
+                  "btndScript": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["string", "null"]
+                    }
+                  },
+                  "btndScriptActivated": {
+                    "type": ["boolean", "null"]
+                  },
+                  "btndType": {
+                    "type": ["number", "null"]
+                  },
+                  "btndkey": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "clusterComms": {
+        "type": ["object", "null"],
+        "required": [],
+        "properties": {
+          "clusterOptionalPlugins": {
+            "type": ["array", "null"],
+            "items": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "cognitiveConfig": {
+        "type": ["object", "null"],
+        "required": [],
+        "properties": {
+          "agentJetdsCode": {
+            "type": ["string", "null"]
+          },
+          "agentJetdsCodeEx": {
+            "type": ["string", "null"]
+          },
+          "agentJetdsCodeSig": {
+            "type": ["string", "null"]
+          },
+          "relatedActions": {
+            "type": ["array", "null"],
+            "items": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "commStackConfig": {
+        "type": ["object", "null"],
+        "required": [],
+        "properties": {
+          "commStacks": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "object",
+              "required": [],
+              "properties": {
+                "bindActions": {
+                  "type": ["array", "null"],
+                  "items": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "actionKeyword": {
+                        "type": ["string", "null"]
+                      },
+                      "actionTriggerCondition": {
+                        "type": ["string", "null"]
+                      },
+                      "actionTriggerFrameEngine": {
+                        "type": ["string", "null"]
+                      },
+                      "actionTriggerMsgkey": {
+                        "type": ["string", "null"]
+                      }
+                    }
+                  }
+                },
+                "comStackLayers": {
+                  "type": ["array", "null"],
+                  "items": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "layerSignature": {
+                        "type": ["string", "null"]
+                      },
+                      "pluginName": {
+                        "type": ["string", "null"]
+                      },
+                      "pluginSettings": {
+                        "type": ["string", "null"]
+                      }
+                    }
+                  }
+                },
+                "commStackKey": {
+                  "type": ["string", "null"]
+                },
+                "espionage": {
+                  "type": ["boolean", "null"]
+                },
+                "layerMetrics": {
+                  "type": ["object", "null"],
+                  "required": [],
+                  "properties": {}
+                },
+                "phyconf": {
+                  "type": ["number", "null"]
+                },
+                "physics": {
+                  "type": ["object", "null"],
+                  "required": [],
+                  "properties": {
+                    "emgwpty": {
+                      "type": ["number", "null"]
+                    },
+                    "frqdist": {
+                      "type": ["number", "null"]
+                    },
+                    "frqdistcfg": {
+                      "type": ["string", "null"]
+                    },
+                    "frqmean": {
+                      "type": ["number", "null"]
+                    },
+                    "frqusage": {
+                      "type": ["number", "null"]
+                    },
+                    "frqvarn": {
+                      "type": ["number", "null"]
+                    },
+                    "ppgt_mdl": {
+                      "type": ["number", "null"]
+                    },
+                    "pwr_watts": {
+                      "type": ["number", "null"]
+                    },
+                    "silencegap": {
+                      "type": ["number", "null"]
+                    },
+                    "sndwpty": {
+                      "type": ["number", "null"]
+                    },
+                    "wavescale": {
+                      "type": ["number", "null"]
+                    },
+                    "wavesndrcv": {
+                      "type": ["number", "null"]
+                    }
+                  }
+                },
+                "refFrameMappings": {
+                  "type": ["array", "null"],
+                  "items": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "mappings": {
+                        "type": ["array", "null"],
+                        "items": {
+                          "type": "object",
+                          "required": [],
+                          "properties": {
+                            "frameParamName": {
+                              "type": ["string", "null"]
+                            },
+                            "varArrayIndex": {
+                              "type": ["number", "null"]
+                            },
+                            "varKeyword": {
+                              "type": ["string", "null"]
+                            }
+                          }
+                        }
+                      },
+                      "refFrameEngine": {
+                        "type": ["string", "null"]
+                      },
+                      "refFrameMsgkey": {
+                        "type": ["string", "null"]
+                      }
+                    }
+                  }
+                },
+                "usage": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          },
+          "refFrameEnginesSummary": {
+            "type": ["array", "null"],
+            "items": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "doctrines": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "doctActions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "handlingAgentActions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "haaSig": {
+                          "type": "string"
+                        },
+                        "inputVar": {
+                          "type": ["string", "null"]
+                        },
+                        "keyword": {
+                          "type": ["string", "null"]
+                        },
+                        "subject": {
+                          "type": ["string", "null"]
+                        },
+                        "timeOffset": {
+                          "type": ["number", "null"]
+                        }
+                      }
+                    }
+                  },
+                  "handlingAgentFileters": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["string", "null"]
+                    }
+                  },
+                  "handlingAgentSelector": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["string", "null"]
+                    }
+                  },
+                  "handlingAgentSelectorVer": {
+                    "type": ["string", "null"]
+                  },
+                  "repeatStatus": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            },
+            "doctKeyword": {
+              "type": ["string", "null"]
+            },
+            "doctName": {
+              "type": ["string", "null"]
+            },
+            "doctNameI18n": {
+              "type": ["string", "null"]
+            },
+            "doctOwnerAgentId": {
+              "type": ["string", "null"]
+            },
+            "doctRangeCondition": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {
+                "rangeExpression": {
+                  "type": ["string", "null"]
+                },
+                "rangeHigherLimit": {
+                  "type": ["number", "null"]
+                },
+                "rangeLowerLimit": {
+                  "type": ["number", "null"]
+                }
+              }
+            },
+            "doctSignature": {
+              "type": ["string", "null"]
+            },
+            "doctTargetCgntvEMSigFeats": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "doctTargetCgntvIFFs": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "doctTargetCgntvSWSigFeats": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "doctTimeCondition": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "i18n": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {}
+            }
+          }
+        }
+      },
+      "entitySignature": {
+        "type": ["string", "null"]
+      },
+      "evalIndexes": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "evalIndexExpectedValue": {
+              "type": ["string", "null"]
+            },
+            "evalIndexKeyword": {
+              "type": ["string", "null"]
+            },
+            "evalIndexLabels": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "evalIndexName": {
+              "type": ["string", "null"]
+            },
+            "evalIndexNameI18n": {
+              "type": ["string", "null"]
+            },
+            "evalIndexScripts": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "evalIndexSig": {
+              "type": ["string", "null"]
+            },
+            "evalIndexTalks": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "evalIndexType": {
+              "type": ["string", "null"]
+            },
+            "evalIndexUnit": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "fences": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "fenceFrame": {
+              "type": ["number", "null"]
+            },
+            "fenceKey": {
+              "type": ["string", "null"]
+            },
+            "fenceKeyword": {
+              "type": ["string", "null"]
+            },
+            "fenceName": {
+              "type": ["string", "null"]
+            },
+            "fenceNameI18n": {
+              "type": ["string", "null"]
+            },
+            "fencePoints": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        }
+      },
+      "fldmds": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "fldmdName": {
+              "type": ["string", "null"]
+            },
+            "fldmdNameI18n": {
+              "type": ["string", "null"]
+            },
+            "fldmdkey": {
+              "type": ["string", "null"]
+            },
+            "fldmdkwd": {
+              "type": ["string", "null"]
+            },
+            "i18nLabels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "transtgt": {
+                    "type": ["string", "null"]
+                  },
+                  "uuid": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            },
+            "offsetx": {
+              "type": ["number", "null"]
+            },
+            "offsety": {
+              "type": ["number", "null"]
+            },
+            "offsetz": {
+              "type": ["number", "null"]
+            },
+            "orient": {
+              "type": ["number", "null"]
+            },
+            "passive": {
+              "type": ["boolean", "null"]
+            },
+            "sensorFusionUnit": {
+              "type": ["string", "null"]
+            },
+            "sensorFusionUnitSettings": {
+              "type": ["string", "null"]
+            },
+            "smds": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "azimuth": {
+                    "type": ["number", "null"]
+                  },
+                  "dazm": {
+                    "type": ["number", "null"]
+                  },
+                  "dpch": {
+                    "type": ["number", "null"]
+                  },
+                  "emgwpty": {
+                    "type": ["number", "null"]
+                  },
+                  "epsln": {
+                    "type": ["number", "null"]
+                  },
+                  "fldid": {
+                    "type": ["string", "null"]
+                  },
+                  "frqdist": {
+                    "type": ["number", "null"]
+                  },
+                  "frqdistcfg": {
+                    "type": ["string", "null"]
+                  },
+                  "frqmean": {
+                    "type": ["number", "null"]
+                  },
+                  "frqusage": {
+                    "type": ["number", "null"]
+                  },
+                  "frqvarn": {
+                    "type": ["number", "null"]
+                  },
+                  "gaingraph": {
+                    "type": ["number", "null"]
+                  },
+                  "mode": {
+                    "type": ["number", "null"]
+                  },
+                  "modsig": {
+                    "type": ["string", "null"]
+                  },
+                  "multiplier": {
+                    "type": ["number", "null"]
+                  },
+                  "phyconf": {
+                    "type": ["number", "null"]
+                  },
+                  "pitch": {
+                    "type": ["number", "null"]
+                  },
+                  "ppgt_mdl": {
+                    "type": ["number", "null"]
+                  },
+                  "pwr_watts": {
+                    "type": ["number", "null"]
+                  },
+                  "radius": {
+                    "type": ["number", "null"]
+                  },
+                  "sensorCorePlugin": {
+                    "type": ["string", "null"]
+                  },
+                  "sensorCorePluginSettings": {
+                    "type": ["string", "null"]
+                  },
+                  "silencegap": {
+                    "type": ["number", "null"]
+                  },
+                  "sndwpty": {
+                    "type": ["number", "null"]
+                  },
+                  "stopSensingIn": {
+                    "type": ["number", "null"]
+                  },
+                  "wave_hgtdiff_model": {
+                    "type": ["number", "null"]
+                  },
+                  "wave_hgtdiff_param1": {
+                    "type": ["number", "null"]
+                  },
+                  "wave_hgtdiff_param2": {
+                    "type": ["number", "null"]
+                  },
+                  "wavescale": {
+                    "type": ["number", "null"]
+                  },
+                  "wavesndrcv": {
+                    "type": ["number", "null"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "freelanceable": {
+        "type": ["boolean", "null"]
+      },
+      "freelanceableDynamics": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "dynAsDefault": {
+              "type": ["boolean", "null"]
+            },
+            "dynKeyword": {
+              "type": ["string", "null"]
+            },
+            "dynPluginName": {
+              "type": ["string", "null"]
+            },
+            "dynSettings": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {
+                "pluginDefaultSettings": {
+                  "type": ["string", "null"]
+                },
+                "pluginName": {
+                  "type": ["string", "null"]
+                },
+                "pluginNote": {
+                  "type": ["string", "null"]
+                },
+                "pluginNoteI18n": {
+                  "type": ["string", "null"]
+                },
+                "pluginSignature": {
+                  "type": ["string", "null"]
+                }
+              }
+            },
+            "initPathName": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "i18nLabels": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "transtgt": {
+              "type": ["string", "null"]
+            },
+            "uuid": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "isDelete": {
+        "type": ["boolean", "null"]
+      },
+      "locatable": {
+        "type": ["boolean", "null"]
+      },
+      "locatableDynamics": {
+        "type": ["array", "null"],
+        "items": {
+          "type": ["object", "null"]
+        }
+      },
+      "missionable": {
+        "type": ["boolean", "null"]
+      },
+      "missionableDynamics": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "dynAsDefault": {
+              "type": ["boolean", "null"]
+            },
+            "dynKeyword": {
+              "type": ["string", "null"]
+            },
+            "dynPluginName": {
+              "type": ["string", "null"]
+            },
+            "dynSettings": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {
+                "pluginDefaultSettings": {
+                  "type": ["string", "null"]
+                },
+                "pluginName": {
+                  "type": ["string", "null"]
+                },
+                "pluginNote": {
+                  "type": ["string", "null"]
+                },
+                "pluginNoteI18n": {
+                  "type": ["string", "null"]
+                },
+                "pluginSignature": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "model": {
+        "type": ["object", "null"],
+        "required": [],
+        "properties": {
+          "abilityDescription": {
+            "type": ["string", "null"]
+          },
+          "audit": {
+            "type": ["object", "null"],
+            "required": [],
+            "properties": {
+              "createdBy": {
+                "type": ["string", "null"]
+              },
+              "createdById": {
+                "type": ["string", "null"]
+              },
+              "createdOn": {
+                "type": ["string", "null"]
+              },
+              "startBy": {
+                "type": ["string", "null"]
+              },
+              "startById": {
+                "type": ["string", "null"]
+              },
+              "startTime": {
+                "type": ["string", "null"]
+              },
+              "stopBy": {
+                "type": ["string", "null"]
+              },
+              "stopById": {
+                "type": ["string", "null"]
+              },
+              "stopTime": {
+                "type": ["string", "null"]
+              },
+              "updatedBy": {
+                "type": ["string", "null"]
+              },
+              "updatedById": {
+                "type": ["string", "null"]
+              },
+              "updatedOn": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "description": {
+            "type": ["object", "null"],
+            "required": [],
+            "properties": {
+              "labels": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": ["string", "null"]
+                }
+              },
+              "previews": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          },
+          "dimModelUrls": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "object",
+              "required": [],
+              "properties": {
+                "bucket": {
+                  "type": ["string", "null"]
+                },
+                "fileSize": {
+                  "type": ["number", "null"]
+                },
+                "mutexType": {
+                  "type": ["string", "null"]
+                },
+                "ossSig": {
+                  "type": ["string", "null"]
+                },
+                "selected": {
+                  "type": ["boolean", "null"]
+                },
+                "url": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          },
+          "icon": {
+            "type": ["object", "null"],
+            "required": [],
+            "properties": {
+              "bucket": {
+                "type": ["string", "null"]
+              },
+              "fileSize": {
+                "type": ["number", "null"]
+              },
+              "mutexType": {
+                "type": ["string", "null"]
+              },
+              "ossSig": {
+                "type": ["string", "null"]
+              },
+              "selected": {
+                "type": ["boolean", "null"]
+              },
+              "url": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "introduction": {
+            "type": ["string", "null"]
+          },
+          "isDel": {
+            "type": ["boolean", "null"]
+          },
+          "mapIconType": {
+            "type": ["string", "null"]
+          },
+          "mapIconUrl": {
+            "type": ["object", "null"],
+            "required": [],
+            "properties": {
+              "bucket": {
+                "type": ["string", "null"]
+              },
+              "fileSize": {
+                "type": ["number", "null"]
+              },
+              "mutexType": {
+                "type": ["string", "null"]
+              },
+              "ossSig": {
+                "type": ["string", "null"]
+              },
+              "selected": {
+                "type": ["boolean", "null"]
+              },
+              "url": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "modelName": {
+            "type": ["string", "null"]
+          },
+          "pakUrl": {
+            "type": ["object", "null"],
+            "required": [],
+            "properties": {
+              "bucket": {
+                "type": ["string", "null"]
+              },
+              "fileSize": {
+                "type": ["number", "null"]
+              },
+              "mutexType": {
+                "type": ["string", "null"]
+              },
+              "ossSig": {
+                "type": ["string", "null"]
+              },
+              "selected": {
+                "type": ["boolean", "null"]
+              },
+              "url": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "sig": {
+            "type": ["string", "null"]
+          },
+          "sourceAgentKey": {
+            "type": ["string", "null"]
+          },
+          "thumbnail": {
+            "type": ["object", "null"],
+            "required": [],
+            "properties": {
+              "bucket": {
+                "type": ["string", "null"]
+              },
+              "fileSize": {
+                "type": ["number", "null"]
+              },
+              "mutexType": {
+                "type": ["string", "null"]
+              },
+              "ossSig": {
+                "type": ["string", "null"]
+              },
+              "selected": {
+                "type": ["boolean", "null"]
+              },
+              "url": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        }
+      },
+      "modelAbstracted": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "abstHeightResolution": {
+              "type": ["number", "null"]
+            },
+            "abstHeights": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "abstProfileCarteXY": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "abstProfileFrame": {
+              "type": ["number", "null"]
+            },
+            "abstProfileKeyword": {
+              "type": ["string", "null"]
+            },
+            "abstProfileLonLat": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "abstProfileResolution": {
+              "type": ["number", "null"]
+            }
+          }
+        }
+      },
+      "modelUrlFat": {
+        "type": ["string", "null"]
+      },
+      "modelUrlMedium": {
+        "type": ["string", "null"]
+      },
+      "modelUrlPAK": {
+        "type": ["string", "null"]
+      },
+      "modelUrlSlim": {
+        "type": ["string", "null"]
+      },
+      "modelUrlSymbols": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "symbolName": {
+              "type": ["string", "null"]
+            },
+            "symbolSeries": {
+              "type": ["number", "null"]
+            },
+            "thumbnail": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "navigatable": {
+        "type": ["boolean", "null"]
+      },
+      "navigatableDynamics": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "dynAsDefault": {
+              "type": ["boolean", "null"]
+            },
+            "dynKeyword": {
+              "type": ["string", "null"]
+            },
+            "dynPluginName": {
+              "type": ["string", "null"]
+            },
+            "dynSettings": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {
+                "pluginDefaultSettings": {
+                  "type": ["string", "null"]
+                },
+                "pluginName": {
+                  "type": ["string", "null"]
+                },
+                "pluginNote": {
+                  "type": ["string", "null"]
+                },
+                "pluginNoteI18n": {
+                  "type": ["string", "null"]
+                },
+                "pluginSignature": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "ncycles": {
+        "type": ["number", "null"]
+      },
+      "oodas": {
+        "type": ["array", "null"],
+        "items": {
+          "type": ["object", "null"],
+          "required": [],
+          "properties": {
+            "oodaActivated": {
+              "type": ["boolean", "null"]
+            },
+            "oodaDesc": {
+              "type": ["string", "null"]
+            },
+            "oodaName": {
+              "type": ["string", "null"]
+            },
+            "oodaNameI18n": {
+              "type": ["string", "null"]
+            },
+            "oodaScript": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "oodaUsageFilter": {
+              "type": ["number", "null"]
+            },
+            "oodaVersion": {
+              "type": ["number", "null"]
+            },
+            "scriptId": {
+              "type": ["string", "null"]
+            },
+            "scriptLang": {
+              "type": ["number", "null"]
+            },
+            "scriptTalk": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        }
+      },
+      "operatable": {
+        "type": ["boolean", "null"]
+      },
+      "order": {
+        "type": ["number", "null"]
+      },
+      "pois": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "poiDirection": {
+              "type": ["number", "null"]
+            },
+            "poiFrame": {
+              "type": ["number", "null"]
+            },
+            "poiVarDefs": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "access": {
+                    "type": ["number", "null"]
+                  },
+                  "i18nLabels": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "transtgt": {
+                          "type": ["string", "null"]
+                        },
+                        "uuid": {
+                          "type": ["string", "null"]
+                        }
+                      }
+                    }
+                  },
+                  "stdCode": {
+                    "type": ["string", "null"]
+                  },
+                  "varDecorator": {
+                    "type": ["string", "null"]
+                  },
+                  "varDecoratorSettings": {
+                    "type": ["object", "null"],
+                    "required": [],
+                    "properties": {}
+                  },
+                  "varDefault": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": ["string", "null"]
+                    }
+                  },
+                  "varIndexCode": {
+                    "type": ["number", "null"]
+                  },
+                  "varKeyword": {
+                    "type": ["string", "null"]
+                  },
+                  "varName": {
+                    "type": ["string", "null"]
+                  },
+                  "varNameI18n": {
+                    "type": ["string", "null"]
+                  },
+                  "varSchema": {
+                    "type": ["object", "null"],
+                    "required": [],
+                    "properties": {}
+                  },
+                  "varSig": {
+                    "type": ["string", "null"]
+                  },
+                  "varType": {
+                    "type": ["string", "null"]
+                  },
+                  "varUnit": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "relatedSimulation": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "evalTemplate": {
+              "type": "object",
+              "required": [],
+              "properties": {
+                "scenarioEvalIndexes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "scenarioEvalIndexVars": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [],
+                          "properties": {
+                            "access": {
+                              "type": "number"
+                            },
+                            "i18nLabels": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "required": [],
+                                "properties": {
+                                  "transtgt": {
+                                    "type": "string"
+                                  },
+                                  "uuid": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "stdCode": {
+                              "type": "string"
+                            },
+                            "varDecorator": {
+                              "type": "string"
+                            },
+                            "varDecoratorSettings": {
+                              "type": "object",
+                              "required": [],
+                              "properties": {}
+                            },
+                            "varDefault": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "varIndexCode": {
+                              "type": "number"
+                            },
+                            "varKeyword": {
+                              "type": "string"
+                            },
+                            "varName": {
+                              "type": "string"
+                            },
+                            "varNameI18n": {
+                              "type": "string"
+                            },
+                            "varSchema": {
+                              "type": "object",
+                              "required": [],
+                              "properties": {}
+                            },
+                            "varSig": {
+                              "type": "string"
+                            },
+                            "varType": {
+                              "type": "string"
+                            },
+                            "varUnit": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "formations": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "formationMembers": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "agentOffsetx": {
+                          "type": ["number", "null"]
+                        },
+                        "agentOffsety": {
+                          "type": ["number", "null"]
+                        },
+                        "agentOffsetz": {
+                          "type": ["number", "null"]
+                        },
+                        "memberIndex": {
+                          "type": ["number", "null"]
+                        }
+                      }
+                    }
+                  },
+                  "formationPattern": {
+                    "type": ["number", "null"]
+                  }
+                }
+              }
+            },
+            "runningPatterns": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "patternAgentUpdates": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "patternAgentAzimuth": {
+                          "type": ["number", "null"]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "stopCond": {
+        "type": ["object", "null"],
+        "required": [],
+        "properties": {
+          "loopTimes": {
+            "type": ["number", "null"]
+          },
+          "stopCondType": {
+            "type": ["number", "null"]
+          }
+        }
+      },
+      "subagents": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "childVolume": {
+              "type": ["number", "null"]
+            },
+            "childVolumeOffsets": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "offsetpitch0": {
+                    "type": ["number", "null"]
+                  },
+                  "offsetroll0": {
+                    "type": ["number", "null"]
+                  },
+                  "offsetx0": {
+                    "type": ["number", "null"]
+                  },
+                  "offsety0": {
+                    "type": ["number", "null"]
+                  },
+                  "offsetyaw0": {
+                    "type": ["number", "null"]
+                  },
+                  "offsetz0": {
+                    "type": ["number", "null"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "useCount": {
+        "type": ["number", "null"]
+      },
+      "vardefs": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "access": {
+              "type": ["number", "null"]
+            },
+            "i18nLabels": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "transtgt": {
+                    "type": ["string", "null"]
+                  },
+                  "uuid": {
+                    "type": ["string", "null"]
+                  }
+                }
+              }
+            },
+            "stdCode": {
+              "type": ["string", "null"]
+            },
+            "varDecorator": {
+              "type": ["string", "null"]
+            },
+            "varDecoratorSettings": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {}
+            },
+            "varDefault": {
+              "type": ["array", "null"],
+              "items": {
+                "type": ["string", "null"]
+              }
+            },
+            "varIndexCode": {
+              "type": ["number", "null"]
+            },
+            "varKeyword": {
+              "type": ["string", "null"]
+            },
+            "varName": {
+              "type": ["string", "null"]
+            },
+            "varNameI18n": {
+              "type": ["string", "null"]
+            },
+            "varSchema": {
+              "type": ["object", "null"],
+              "required": [],
+              "properties": {}
+            },
+            "varSig": {
+              "type": ["string", "null"]
+            },
+            "varType": {
+              "type": ["string", "null"]
+            },
+            "varUnit": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      },
+      "waypoints": {
+        "type": ["array", "null"],
+        "items": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "wps": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "pitch": {
+                    "type": ["number", "null"]
+                  },
+                  "roll": {
+                    "type": ["number", "null"]
+                  },
+                  "speed": {
+                    "type": ["number", "null"]
+                  },
+                  "useExt": {
+                    "type": ["number", "null"]
+                  },
+                  "yaw": {
+                    "type": ["number", "null"]
+                  },
+                  "yawEx": {
+                    "type": ["number", "null"]
+                  }
+                }
+              }
+            },
+            "wpsFrame": {
+              "type": ["number", "null"]
+            },
+            "wpsGenTimeConsumed": {
+              "type": ["number", "null"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

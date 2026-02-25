@@ -1,0 +1,595 @@
+{
+    "doctrines": [
+        {
+            "doctKeyword": "TargetAssignment",
+            "doctName": "Target Assignment",
+            "doctNameI18n": "目标分配",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw26RAlcLiXYe4a",
+            "doctOwnerAgentId": "224147497020428295",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "SWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "period",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "TargetAllocFollow",
+                            "timeOffset": 0,
+                            "inputVar": "{\"TargetHandle\":\"$$TargetFusionId\",\"FollowHandle\":\"$$SelectedAgentId\"}"
+                        },
+                        {
+                            "subject": "$$SelectedAgentId",
+                            "keyword": "Launch",
+                            "timeOffset": 50,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\",\"TargetLoc_lon\":$$TargetFusionLocation_lon,\"TargetLoc_lat\":$$TargetFusionLocation_lat,\"TargetLoc_hgt\":$$TargetFusionLocation_hgt,\"TargetLoc_ref\":$$TargetFusionLocation_ref,\"TargetLoc_simtime\":$$TargetFusionLocation_simtime}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "THREAT"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetAssignment",
+            "doctName": "Target Assignment",
+            "doctNameI18n": "目标分配",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi1uw26RAlcLiXYe4a",
+            "doctOwnerAgentId": "224826586061196839",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "ALT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "period",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "TargetAllocFollow",
+                            "timeOffset": 0,
+                            "inputVar": "{\"TargetHandle\":\"$$TargetFusionId\",\"FollowHandle\":\"$$SelectedAgentId\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "THREAT"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw26RAlcLiXYt0a",
+            "doctOwnerAgentId": "223893773738786850",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw26RAlcLiXYt1a",
+            "doctOwnerAgentId": "223893773738786851",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw37RAlcLiXYt2a",
+            "doctOwnerAgentId": "223893773738786852",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw47RAlcLiXYt3a",
+            "doctOwnerAgentId": "223893773738786853",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw57RAlcLiXYt4a",
+            "doctOwnerAgentId": "223893773738786854",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw67RAlcLiXYt5a",
+            "doctOwnerAgentId": "223893773738786855",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw67RAlcLiXYt6a",
+            "doctOwnerAgentId": "223893773738786856",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw67RAlcLiXYt7a",
+            "doctOwnerAgentId": "223893773738786857",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw67RAlcLiXYt8a",
+            "doctOwnerAgentId": "223893773738786858",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw67RAlcLiXYt9a",
+            "doctOwnerAgentId": "223893773738786859",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        },
+        {
+            "doctKeyword": "TargetLaunch",
+            "doctName": "Target Launch",
+            "doctNameI18n": "发射",
+            "i18n": {},
+            "doctSignature": "doctsig_crzi0uw67RAlcLiXYt6a",
+            "doctOwnerAgentId": "223893773738786860",
+            "doctActions": [
+                {
+                    "handlingAgentFileters": [
+                        "MWT"
+                    ],
+                    "handlingAgentSelectorVer": "1.0",
+                    "repeatStatus": "once",
+                    "handlingAgentSelector": [
+                        "RandomAvailableSelect"
+                    ],
+                    "handlingAgentActions": [
+                        {
+                            "subject": "$$Self",
+                            "keyword": "Launch",
+                            "timeOffset": 0,
+                            "inputVar": "{\"LaunchWpk\":\"LaunchingWpk\"}"
+                        }
+                    ]
+                }
+            ],
+            "doctTargetCgntvEMSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvSWSigFeats": [
+                "*"
+            ],
+            "doctTargetCgntvIFFs": [
+                "*"
+            ],
+            "doctTimeCondition": [
+                "IMMED"
+            ],
+            "doctRangeCondition": {
+                "rangeLowerLimit": 50000.0,
+                "rangeHigherLimit": 80000.0,
+                "rangeExpression": "range < 80000.0 and range > 50000.0"
+            }
+        }
+    ]
+}

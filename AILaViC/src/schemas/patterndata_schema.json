@@ -1,0 +1,597 @@
+{
+  "type": "array",
+  "description": "包含多个 Agent 运行样式对象的数组",
+  "items": {
+    "type": "object",
+    "description": "代表一个 Agent 运行样式对象",
+    "required": [
+      "patternSig",
+      "patternName",
+      "patternAgents"
+    ],
+    "properties": {
+      "audit": {
+        "type": "object",
+        "description": "建改人员建改时间",
+        "required": [],
+        "properties": {
+          "createdBy": {
+            "type": "string",
+            "description": "创建该审计信息的人员"
+          },
+          "createdById": {
+            "type": "string",
+            "description": "创建该审计信息的人员的 ID"
+          },
+          "createdOn": {
+            "type": "string",
+            "description": "审计信息的创建时间"
+          },
+          "startBy": {
+            "type": "string",
+            "description": "启动相关操作的人员"
+          },
+          "startById": {
+            "type": "string",
+            "description": "启动相关操作的人员的 ID"
+          },
+          "startTime": {
+            "type": "string",
+            "description": "相关操作的启动时间"
+          },
+          "stopBy": {
+            "type": "string",
+            "description": "停止相关操作的人员"
+          },
+          "stopById": {
+            "type": "string",
+            "description": "停止相关操作的人员的 ID"
+          },
+          "stopTime": {
+            "type": "string",
+            "description": "相关操作的停止时间"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "更新该审计信息的人员"
+          },
+          "updatedById": {
+            "type": "string",
+            "description": "更新该审计信息的人员的 ID"
+          },
+          "updatedOn": {
+            "type": "string",
+            "description": "审计信息的更新时间"
+          }
+        }
+      },
+      "patternAgents": {
+        "type": "array",
+        "description": "参与运行样式的 agent 列表",
+        "items": {
+          "type": "object",
+          "description": "运行样式中的单个 Agent 对象",
+          "required": [],
+          "properties": {
+            "agentEntityId": {
+              "type": "string",
+              "description": "Agent 的实体 ID"
+            },
+            "agentIcon": {
+              "type": "string",
+              "description": "Agent 的图标"
+            },
+            "agentId": {
+              "type": "string",
+              "description": "Agent 的 ID"
+            },
+            "agentInstId": {
+              "type": "string",
+              "description": "Agent 的实例 ID"
+            },
+            "agentKey": {
+              "type": "string",
+              "description": "Agent 的关键标识"
+            },
+            "agentLabel": {
+              "type": "string",
+              "description": "Agent 的标签"
+            },
+            "agentNote": {
+              "type": "string",
+              "description": "关于 Agent 的备注"
+            },
+            "asmOffsets": {
+              "type": "object",
+              "description": "Agent 的偏移量相关信息",
+              "required": [],
+              "properties": {
+                "offsetpitch0": {
+                  "type": "number",
+                  "description": "偏移量 - 俯仰角 0"
+                },
+                "offsetroll0": {
+                  "type": "number",
+                  "description": "偏移量 - 翻滚角 0"
+                },
+                "offsetx0": {
+                  "type": "number",
+                  "description": "偏移量 - X 轴 0"
+                },
+                "offsety0": {
+                  "type": "number",
+                  "description": "偏移量 - Y 轴 0"
+                },
+                "offsetyaw0": {
+                  "type": "number",
+                  "description": "偏移量 - 偏航角 0"
+                },
+                "offsetz0": {
+                  "type": "number",
+                  "description": "偏移量 - Z 轴 0"
+                }
+              }
+            },
+            "asmParentPath": {
+              "type": "string",
+              "description": "Agent 的父路径"
+            },
+            "azimuth": {
+              "type": "integer",
+              "description": "Agent 的方位角"
+            },
+            "clusterCodes": {
+              "type": "array",
+              "description": "Agent 的集群代码列表",
+              "items": {
+                "type": "string",
+                "description": "单个集群代码"
+              }
+            },
+            "freelanceable": {
+              "type": "boolean",
+              "description": "Agent 是否可自由行动"
+            },
+            "freelanceableDynamics": {
+              "type": "array",
+              "description": "Agent 自由行动的动态设置列表",
+              "items": {
+                "type": "object",
+                "description": "单个自由行动动态设置对象",
+                "required": [],
+                "properties": {
+                  "dynAsDefault": {
+                    "type": "boolean",
+                    "description": "是否作为默认动态设置"
+                  },
+                  "dynKeyword": {
+                    "type": "string",
+                    "description": "动态设置的关键字"
+                  },
+                  "dynPluginName": {
+                    "type": "string",
+                    "description": "动态设置的插件名称"
+                  },
+                  "dynSettings": {
+                    "type": "object",
+                    "description": "动态设置的详细信息",
+                    "required": [],
+                    "properties": {
+                      "pluginDefaultSettings": {
+                        "type": "string",
+                        "description": "插件的默认设置"
+                      },
+                      "pluginName": {
+                        "type": "string",
+                        "description": "插件的名称"
+                      },
+                      "pluginNote": {
+                        "type": "string",
+                        "description": "关于插件的备注"
+                      },
+                      "pluginNoteI18n": {
+                        "type": "string",
+                        "description": "关于插件备注的国际化内容"
+                      },
+                      "pluginSignature": {
+                        "type": "string",
+                        "description": "插件的签名"
+                      }
+                    }
+                  },
+                  "initPathName": {
+                    "type": "string",
+                    "description": "初始路径名称"
+                  }
+                }
+              }
+            },
+            "iffcode": {
+              "type": "string",
+              "description": "Agent 的敌我识别代码"
+            },
+            "instanceName": {
+              "type": "string",
+              "description": "Agent 的实例名称"
+            },
+            "locatable": {
+              "type": "boolean",
+              "description": "Agent 是否可定位"
+            },
+            "locatableDynamics": {
+              "type": "array",
+              "description": "Agent 定位的动态设置列表",
+              "items": {
+                "type": "string",
+                "description": "单个定位动态设置"
+              }
+            },
+            "missionable": {
+              "type": "boolean",
+              "description": "Agent 是否可执行任务"
+            },
+            "missionableDynamics": {
+              "type": "array",
+              "description": "Agent 执行任务的动态设置列表",
+              "items": {
+                "type": "object",
+                "description": "单个任务动态设置对象",
+                "required": [],
+                "properties": {
+                  "dynAsDefault": {
+                    "type": "boolean",
+                    "description": "是否作为默认任务动态设置"
+                  },
+                  "dynKeyword": {
+                    "type": "string",
+                    "description": "任务动态设置的关键字"
+                  },
+                  "dynPluginName": {
+                    "type": "string",
+                    "description": "任务动态设置的插件名称"
+                  },
+                  "dynSettings": {
+                    "type": "object",
+                    "description": "任务动态设置的详细信息",
+                    "required": [],
+                    "properties": {
+                      "pluginDefaultSettings": {
+                        "type": "string",
+                        "description": "插件的默认设置"
+                      },
+                      "pluginName": {
+                        "type": "string",
+                        "description": "插件的名称"
+                      },
+                      "pluginNote": {
+                        "type": "string",
+                        "description": "关于插件的备注"
+                      },
+                      "pluginNoteI18n": {
+                        "type": "string",
+                        "description": "关于插件备注的国际化内容"
+                      },
+                      "pluginSignature": {
+                        "type": "string",
+                        "description": "插件的签名"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "navigatable": {
+              "type": "boolean",
+              "description": "Agent 是否可导航"
+            },
+            "navigatableDynamics": {
+              "type": "array",
+              "description": "Agent 导航的动态设置列表",
+              "items": {
+                "type": "object",
+                "description": "单个导航动态设置对象",
+                "required": [],
+                "properties": {
+                  "dynAsDefault": {
+                    "type": "boolean",
+                    "description": "是否作为默认导航动态设置"
+                  },
+                  "dynKeyword": {
+                    "type": "string",
+                    "description": "导航动态设置的关键字"
+                  },
+                  "dynPluginName": {
+                    "type": "string",
+                    "description": "导航动态设置的插件名称"
+                  },
+                  "dynSettings": {
+                    "type": "object",
+                    "description": "导航动态设置的详细信息",
+                    "required": [],
+                    "properties": {
+                      "pluginDefaultSettings": {
+                        "type": "string",
+                        "description": "插件的默认设置"
+                      },
+                      "pluginName": {
+                        "type": "string",
+                        "description": "插件的名称"
+                      },
+                      "pluginNote": {
+                        "type": "string",
+                        "description": "关于插件的备注"
+                      },
+                      "pluginNoteI18n": {
+                        "type": "string",
+                        "description": "关于插件备注的国际化内容"
+                      },
+                      "pluginSignature": {
+                        "type": "string",
+                        "description": "插件的签名"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "ncycles": {
+              "type": "integer",
+              "description": "Agent 的循环次数"
+            },
+            "order": {
+              "type": "integer",
+              "description": "Agent 的顺序"
+            },
+            "speed0": {
+              "type": "integer",
+              "description": "Agent 的初始速度"
+            },
+            "waypoints": {
+              "type": "array",
+              "description": "Agent 的航点列表",
+              "items": {
+                "type": "object",
+                "description": "单个航点对象",
+                "required": [],
+                "properties": {
+                  "agentId": {
+                    "type": "string",
+                    "description": "关联的 Agent ID"
+                  },
+                  "patternSig": {
+                    "type": "string",
+                    "description": "航点模式的指纹"
+                  },
+                  "wps": {
+                    "type": "array",
+                    "description": "航点的详细设置列表",
+                    "items": {
+                      "type": "object",
+                      "description": "单个航点详细设置对象",
+                      "required": [],
+                      "properties": {
+                        "pitch": {
+                          "type": "number",
+                          "description": "航点的俯仰角"
+                        },
+                        "roll": {
+                          "type": "number",
+                          "description": "航点的翻滚角"
+                        },
+                        "speed": {
+                          "type": "number",
+                          "description": "航点的速度"
+                        },
+                        "useExt": {
+                          "type": "integer",
+                          "description": "是否使用扩展设置"
+                        },
+                        "wpsCore": {
+                          "type": "array",
+                          "description": "航点的核心设置列表",
+                          "items": {
+                            "type": ["string", "number"],
+                            "description": "单个航点核心设置"
+                          }
+                        },
+                        "yaw": {
+                          "type": "number",
+                          "description": "航点的偏航角"
+                        },
+                        "yawEx": {
+                          "type": "number",
+                          "description": "航点的扩展偏航角"
+                        }
+                      }
+                    }
+                  },
+                  "wpsFrame": {
+                    "type": "integer",
+                    "description": "航点的坐标系"
+                  },
+                  "wpsGenFences": {
+                    "type": "array",
+                    "description": "航点生成的围栏列表",
+                    "items": {
+                      "type": "string",
+                      "description": "单个航点生成的围栏"
+                    }
+                  },
+                  "wpsGenPOIs": {
+                    "type": "array",
+                    "description": "航点生成的兴趣点列表",
+                    "items": {
+                      "type": "string",
+                      "description": "单个航点生成的兴趣点"
+                    }
+                  },
+                  "wpsGenTimeConsumed": {
+                    "type": "integer",
+                    "description": "航点生成所消耗的时间"
+                  },
+                  "wpsKey": {
+                    "type": "string",
+                    "description": "航点的关键标识"
+                  },
+                  "wpsKeyword": {
+                    "type": "string",
+                    "description": "航点的关键字"
+                  },
+                  "wpsPathPlanner": {
+                    "type": "string",
+                    "description": "航点的路径规划器"
+                  },
+                  "wpsTalk": {
+                    "type": "array",
+                    "description": "航点的通信信息列表",
+                    "items": {
+                      "type": "string",
+                      "description": "单个航点的通信信息"
+                    }
+                  },
+                  "wpsUsage": {
+                    "type": "string",
+                    "description": "航点的使用方式"
+                  }
+                }
+              }
+            },
+            "waypointsIndexActive": {
+              "type": "integer",
+              "description": "当前激活的航点索引"
+            }
+          }
+        }
+      },
+      "patternName": {
+        "type": "string",
+        "description": "运行样式名称"
+      },
+      "patternNameI18n": {
+        "type": "string",
+        "description": "运行样式英文名称"
+      },
+      "patternNote": {
+        "type": "string",
+        "description": "运行样式描述"
+      },
+      "patternSig": {
+        "type": "string",
+        "description": "运行样式指纹"
+      },
+      "timelines": {
+        "type": "array",
+        "description": "时间线对象",
+        "items": {
+          "type": "object",
+          "description": "单个时间线对象",
+          "required": [],
+          "properties": {
+            "timeEventAgentId": {
+              "type": "string",
+              "description": "时间事件关联的 Agent ID"
+            },
+            "timeEventAgentInfo": {
+              "type": "object",
+              "description": "时间事件关联的 Agent 信息",
+              "required": [],
+              "properties": {}
+            },
+            "timeEvents": {
+              "type": "array",
+              "description": "时间事件列表",
+              "items": {
+                "type": "object",
+                "description": "单个时间事件对象",
+                "required": [],
+                "properties": {
+                  "axnsTimeOut": {
+                    "type": "array",
+                    "description": "操作超时设置列表",
+                    "items": {
+                      "type": "object",
+                      "description": "单个操作超时设置对象",
+                      "required": [],
+                      "properties": {
+                        "axnCondGate": {
+                          "type": "array",
+                          "description": "操作条件门列表",
+                          "items": {
+                            "type": "string",
+                            "description": "单个操作条件门"
+                          }
+                        },
+                        "axnDefaultParams": {
+                          "type": "object",
+                          "description": "操作的默认参数",
+                          "required": [],
+                          "properties": {}
+                        },
+                        "axnDefaultParamsExt": {
+                          "type": "array",
+                          "description": "操作的扩展默认参数列表",
+                          "items": {
+                            "type": "string",
+                            "description": "单个操作的扩展默认参数"
+                          }
+                        },
+                        "axnKeyword": {
+                          "type": "string",
+                          "description": "操作的关键字"
+                        },
+                        "axnQueryDialog": {
+                          "type": "boolean",
+                          "description": "是否显示操作查询对话框"
+                        },
+                        "axnTimingOffset": {
+                          "type": "integer",
+                          "description": "操作的时间偏移量"
+                        }
+                      }
+                    }
+                  },
+                  "baseEventType": {
+                    "type": "string",
+                    "description": "基本事件类型"
+                  },
+                  "timeEventDependencies": {
+                    "type": "array",
+                    "description": "时间事件的依赖关系列表",
+                    "items": {
+                      "type": "string",
+                      "description": "单个时间事件依赖关系"
+                    }
+                  },
+                  "timeEventEnd": {
+                    "type": "string",
+                    "description": "时间事件的结束时间"
+                  },
+                  "timeEventId": {
+                    "type": "string",
+                    "description": "时间事件的 ID"
+                  },
+                  "timeEventName": {
+                    "type": "string",
+                    "description": "时间事件的名称"
+                  },
+                  "timeEventPayloads": {
+                    "type": "array",
+                    "description": "时间事件的有效负载列表",
+                    "items": {
+                      "type": "string",
+                      "description": "单个时间事件有效负载"
+                    }
+                  },
+                  "timeEventStart": {
+                    "type": "string",
+                    "description": "时间事件的开始时间"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

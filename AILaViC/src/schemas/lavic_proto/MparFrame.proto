@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package msg.MparFrame;
+
+
+
+message msg_MparFrame 
+{
+    bytes TargetPos = 1;
+    bytes TargetVel = 2;
+    bytes TargetRCS = 3;
+}

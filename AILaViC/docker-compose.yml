@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ailavic-app:
+    build: .
+    volumes:
+      - .:/app
+    env_file: .env
+    command: python src/main.py
+
+  vector-db:
+    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./knowledge_base/vector_db:/chroma/chroma
+
+  # mcp-server-simulator:
+  #   image: ...

@@ -1,0 +1,442 @@
+{
+    "checksums": [
+        {
+            "endIndex": -3,
+            "endianness": 0,
+            "matchingMsgkey": "",
+            "param": "PARAM_checksum",
+            "plugin": "aosk_checksum_ccitt_16",
+            "priority": 0,
+            "settings": {
+                "crcOption": 0
+            },
+            "settingsjos": "{\"crcOption\":0}",
+            "startIndex": 2
+        }
+    ],
+    "enums": [
+        {
+            "bits": [
+            ],
+            "byBits": false,
+            "byDefault": "fe3e",
+            "bytes": [
+                {
+                    "bytes": "fe3e",
+                    "category": "Frame_head",
+                    "note": "报文头常数枚举"
+                }
+            ],
+            "default": "fe3e",
+            "name": "ENUM_head",
+            "note": "Frame_head",
+            "width": 2
+        },
+        {
+            "bits": [
+            ],
+            "byBits": false,
+            "byDefault": "0000",
+            "bytes": [
+                {
+                    "bytes": "0000",
+                    "category": "消息键",
+                    "note": "心跳包"
+                },
+                {
+                    "bytes": "0001",
+                    "category": "消息键",
+                    "note": "目标坐标经纬高"
+                }
+            ],
+            "default": "0000",
+            "name": "ENUM_msgkey",
+            "note": "消息键",
+            "width": 2
+        }
+    ],
+    "fillers": [
+    ],
+    "frameLength": -1,
+    "frameLengthIndices": [
+        2,
+        3
+    ],
+    "frameTemplates": [
+        {
+            "msgkey": "0000",
+            "msgkeyFillers": [
+            ],
+            "msgkeyNote": "/心跳包(00:00)",
+            "msgkeyParts": [
+                "0000"
+            ],
+            "paramseq": [
+                {
+                    "byteIdx": 0,
+                    "name": "PARAM_head",
+                    "paramIdx": 0
+                },
+                {
+                    "byteIdx": 2,
+                    "name": "PARAM_length",
+                    "paramIdx": 1
+                },
+                {
+                    "byteIdx": 4,
+                    "name": "PARAM_msgkey",
+                    "paramIdx": 2
+                },
+                {
+                    "byteIdx": 6,
+                    "name": "PARAM_checksum",
+                    "paramIdx": 3
+                }
+            ]
+        },
+        {
+            "msgkey": "0001",
+            "msgkeyFillers": [
+            ],
+            "msgkeyNote": "/目标坐标经纬高(00:01)",
+            "msgkeyParts": [
+                "0001"
+            ],
+            "paramseq": [
+                {
+                    "byteIdx": 0,
+                    "name": "PARAM_head",
+                    "paramIdx": 0
+                },
+                {
+                    "byteIdx": 2,
+                    "name": "PARAM_length",
+                    "paramIdx": 1
+                },
+                {
+                    "byteIdx": 4,
+                    "name": "PARAM_msgkey",
+                    "paramIdx": 2
+                },
+                {
+                    "byteIdx": 6,
+                    "name": "PARAM_lon",
+                    "paramIdx": 3
+                },
+                {
+                    "byteIdx": 10,
+                    "name": "PARAM_lat",
+                    "paramIdx": 4
+                },
+                {
+                    "byteIdx": 14,
+                    "name": "PARAM_hgt",
+                    "paramIdx": 5
+                },
+                {
+                    "byteIdx": 18,
+                    "name": "PARAM_ref",
+                    "paramIdx": 6
+                },
+                {
+                    "byteIdx": 19,
+                    "name": "PARAM_time",
+                    "paramIdx": 7
+                },
+                {
+                    "byteIdx": 23,
+                    "name": "PARAM_checksum",
+                    "paramIdx": 8
+                }
+            ]
+        }
+    ],
+    "keyedName": "FRAME_red_general_protocol__R1IDL",
+    "msgkeyByteIndices": [
+        4,
+        5
+    ],
+    "msgkeyByteStartIndices": [
+        4
+    ],
+    "note": "RED通用协议",
+    "params": [
+        {
+            "byteEnums": {
+                "name": "ENUM_head"
+            },
+            "defval": "0000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_head",
+            "nameexport": "",
+            "note": "",
+            "order": -1,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "",
+                "paramName": "PARAM_head",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 4
+            },
+            "type": "VARIANT16",
+            "unit": "",
+            "width": 2
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "0000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_length",
+            "nameexport": "",
+            "note": "报文长度",
+            "order": 10,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "报文长度",
+                "paramName": "PARAM_length",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 0,
+                "valueExtra": "",
+                "valueType": 2
+            },
+            "type": "UINT16",
+            "unit": "",
+            "width": 2
+        },
+        {
+            "byteEnums": {
+                "name": "ENUM_msgkey"
+            },
+            "defval": "0000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_msgkey",
+            "nameexport": "",
+            "note": "消息键",
+            "order": 20,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "消息键",
+                "paramName": "PARAM_msgkey",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 4
+            },
+            "type": "VARIANT16",
+            "unit": "",
+            "width": 2
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "0000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_checksum",
+            "nameexport": "",
+            "note": "校验",
+            "order": 999,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "EmptyNote",
+                "paramName": "PARAM_checksum",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 0,
+                "valueExtra": "",
+                "valueType": 0
+            },
+            "type": "VARIANT16",
+            "unit": "",
+            "width": 2
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "00000000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_lon",
+            "nameexport": "",
+            "note": "经度",
+            "order": 30,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "经度",
+                "paramName": "PARAM_lon",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 2
+            },
+            "type": "LONG32",
+            "unit": "1e-7°",
+            "width": 4
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "00000000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_lat",
+            "nameexport": "",
+            "note": "纬度",
+            "order": 40,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "经度",
+                "paramName": "PARAM_lat",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 2
+            },
+            "type": "LONG32",
+            "unit": "1e-7°",
+            "width": 4
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "00000000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_hgt",
+            "nameexport": "",
+            "note": "高度",
+            "order": 50,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "经度",
+                "paramName": "PARAM_hgt",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 2
+            },
+            "type": "LONG32",
+            "unit": "1e-3m",
+            "width": 4
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "00",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_ref",
+            "nameexport": "",
+            "note": "高度参考",
+            "order": 60,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "经度",
+                "paramName": "PARAM_ref",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 2
+            },
+            "type": "UINT8",
+            "unit": "",
+            "width": 1
+        },
+        {
+            "byteEnums": {
+            },
+            "defval": "00000000",
+            "dynamicSignificant": false,
+            "endianness": 0,
+            "name": "PARAM_time",
+            "nameexport": "",
+            "note": "时间",
+            "order": 70,
+            "scale": 1,
+            "schema": {
+            },
+            "schemajos": "{}",
+            "sugar": {
+                "gseq": true,
+                "multiplier": 1,
+                "note": "时间",
+                "paramName": "PARAM_time",
+                "schema": {
+                },
+                "schemajos": "{}",
+                "type": 3,
+                "valueExtra": "",
+                "valueType": 2
+            },
+            "type": "LONG32",
+            "unit": "ms",
+            "width": 4
+        }
+    ],
+    "payloadLengthIndices": [
+    ],
+    "payloadRangeIndices": [
+    ],
+    "timeStamp": 1717491712
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package msg.SimParamsInfo;
+
+
+message msg_SimTimestampInfo {
+    string utc_timestamp_begin= 1;
+    string utc_timestamp_cur= 2;
+    double sim_timestamp= 3;
+    double physics_timestamp = 4;
+    double step_pos_update_cost=5;
+    double step_complete_update_cost=6;
+    double step_call_freq_dt=8;
+    double step_pos_update_cost_avg=9;
+    double step_complete_update_avg=10;
+    double step_call_freq_avg=11;
+}
+
+message msg_SimParamsInfo
+{
+    int32 step_interval = 1;
+    double step_dt = 2;
+    double step_freq = 3;
+    double one_second_sim_step_second = 4;
+    int32 agentinstance_num=5;
+    msg_SimTimestampInfo simtimestamp=6;
+    double speed=7;
+}
+
+message msg_BinaryData
+{
+    uint64 packindex=1;
+    int32 binarysize = 2;
+    uint64 timestamp = 3;
+    bytes binarydata = 4;
+}
+
+message msg_BinaryData_Array 
+{
+    uint64 packindex=1;
+    repeated msg_BinaryData binarydatas = 2;
+}

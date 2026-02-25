@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package msg.CommStackFrameResultElement;
+
+message msg_CommStackFrameResultElement 
+{
+    string src_agent = 1;
+    string dst_agent = 2;
+    string engine_keyed_name = 3;
+    float ber = 4;
+    float fer = 5;
+    string  framehextext = 6;
+    uint32 packindex = 7;
+}

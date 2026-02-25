@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "doctrines": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "doctKeyword": {
+              "type": "string",
+              "description": "The keyword of the doctrine. e.g. TargetAssignment",
+              "pattern": "^[A-Z][a-zA-Z0-9_]+$"
+            },
+            "doctName": {
+              "type": "string"
+            },
+            "doctNameI18n": {
+              "type": "string"
+            },
+            "i18n": {
+              "type": "object"
+            },
+            "doctSignature": {
+              "type": "string",
+              "description": "The signature of the doctrine. e.g. doctsig_crzi0uw26RAlcLiXYe4a",
+              "pattern": "doctsig_[a-zA-Z0-9]{6,25}"
+            },
+            "doctOwnerAgentId": {
+              "type": "string",
+              "description": "The signature of the owner agent. e.g. 224147497020428295",
+              "pattern": "^[0-9]{6,18}$"
+            },
+            "doctActions": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "handlingAgentFileters": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "handlingAgentSelectorVer": {
+                      "type": "string"
+                    },
+                    "handlingAgentSelector": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "handlingAgentActions": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "subject": {
+                              "type": "string"
+                            },
+                            "keyword": {
+                              "type": "string"
+                            },
+                            "timeOffset": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "inputVar": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "subject",
+                            "keyword",
+                            "timeOffset",
+                            "inputVar"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "handlingAgentFileters",
+                    "handlingAgentSelectorVer",
+                    "handlingAgentSelector",
+                    "handlingAgentActions"
+                  ]
+                }
+              ]
+            },
+            "doctTargetCgntvEMSigFeats": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "doctTargetCgntvSWSigFeats": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "doctTargetCgntvIFFs": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "doctTimeCondition": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "doctRangeCondition": {
+              "type": "object",
+              "properties": {
+                "rangeLowerLimit": {
+                  "type": "number"
+                },
+                "rangeHigherLimit": {
+                  "type": "number"
+                },
+                "rangeExpression": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "rangeLowerLimit",
+                "rangeHigherLimit",
+                "rangeExpression"
+              ]
+            }
+          },
+          "required": [
+            "doctKeyword",
+            "doctName",
+            "doctNameI18n",
+            "i18n",
+            "doctSignature",
+            "doctOwnerAgentId",
+            "doctActions",
+            "doctTargetCgntvEMSigFeats",
+            "doctTargetCgntvSWSigFeats",
+            "doctTargetCgntvIFFs",
+            "doctTimeCondition",
+            "doctRangeCondition"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "doctrines"
+  ]
+}

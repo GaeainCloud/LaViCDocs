@@ -1,0 +1,192 @@
+syntax = "proto3";
+
+package msg.AgentPositionInfo;
+
+enum E_DISPLAY_MODE {
+    E_DISPLAY_MODE_ENTITY=0;
+    E_DISPLAY_MODE_WAVE=1;
+    E_DISPLAY_MODE_INTERSECTION=2;
+    E_DISPLAY_MODE_ECHO=3;
+};
+
+enum E_EVENT_MODE
+{
+    E_EVENT_MODE_NULL=0;
+    E_EVENT_MODE_ADD=1;
+    E_EVENT_MODE_REMOVE=2;
+    E_EVENT_MODE_UPDATE=3;
+};
+
+message msg_transdata_entityposinfo
+{
+    string PARAM_pos_pack_index=1;
+    string PARAM_timestamp=2;
+    string PARAM_sim_timestamp=3;
+    uint32 PARAM_sensor_property=4;
+    string   PARAM_pos_hexidx=5;
+    double   PARAM_longitude=6;
+    double   PARAM_latitude=7;
+    double   PARAM_amsl=8;
+    double   PARAM_terrain_elevation=9;
+    int32   PARAM_ref=10;
+    float PARAM_roll=11;
+    float PARAM_pitch=12;
+    float PARAM_yaw=13;
+    int32   PARAM_speed=14;
+    int32 param_reserved1=15;
+    int32 param_reserved2=16; 
+    int32 param_reserved3=17; 
+    int32 param_reserved4=18; 
+    int32 param_reserved5=19; 
+    int32 param_reserved6=20; 
+    int32   PARAM_attached=21;
+    string PARAM_attached_agentid=22;
+};
+
+message msg_transentityhexidxpostdata 
+{
+    string uildsrc=1;
+    string uilddst=2;    
+    E_DISPLAY_MODE eDdisplayMode=3;
+    msg_transdata_entityposinfo entityinfo=4;    
+};
+
+
+message msg_transentityhexidxpostdata_array 
+{
+    repeated msg_transentityhexidxpostdata transentityhexidxpostdata = 1; 
+};
+
+message msg_transdata_sensorposinfo
+{
+    string PARAM_sensor_pack_index=1;
+    string PARAM_timestamp=2;
+    string PARAM_sim_timestamp=3;
+    string PARAM_source_sensingmediaid=4;
+    uint32 PARAM_elecmag_wave_properties=5;
+    uint32 PARAM_sound_wave_properties=6;
+    int32  PARAM_wave_freq_mean_sgnfcnt=7;
+    int32  PARAM_wave_freq_std_dvtn_sgnfcnt=8;
+    uint32 PARAM_wave_freq_distbtn=9;
+    uint32 PARAM_wave_frequency_scale=10;
+    uint32 PARAM_wave_usage=11;
+    uint32 PARAM_wave_snd_rcv=12;
+    uint32 PARAM_wave_silent_time_gap=13;
+    uint32 PARAM_wave_field_media_id=14;
+    string PARAM_wave_modsig_id=15;
+
+    double PARAM_wave_power_in_watts=16;
+    uint32 PARAM_wave_propagation_model=17;
+
+    double PARAM_wave_direction_pitch=18;
+    double PARAM_wave_direction_azimuth=19;
+    uint32 PARAM_wave_gaingraph=20;
+    double PARAM_wave_direction_radius=21;
+};
+
+
+message msg_TYPE_POLYGON_PT
+{
+    double   PARAM_longitude=1;
+    double   PARAM_latitude=2;
+    double   PARAM_amsl=3;
+    double   PARAM_terrain_elevation=4;
+    int32   PARAM_ref=5;
+};
+
+message msg_transdata_param_seq_hexidx_hgt
+{
+    double   PARAM_seq_hexidx_hgt = 1;
+    double   PARAM_seq_hexidx_hgt0 = 2;
+    double   PARAM_seq_hexidx_hgtn = 3;
+    int32   PARAM_wave_info_entropy = 4;
+};
+
+message msg_transdata_param_seq_hexidx
+{
+    string  PARAM_seq_hexidx_element = 1;
+    msg_transdata_param_seq_hexidx_hgt  PARAM_seq_hexidx_hgt = 2;
+};
+
+
+message msg_transentityhexidxdata
+{
+    string uildsrc=1;
+    string uilddst=2;
+    E_DISPLAY_MODE eDdisplayMode=3;
+    msg_transdata_sensorposinfo sensorinfo=4;
+    repeated msg_transdata_param_seq_hexidx hexidxslist = 5;
+    repeated msg_TYPE_POLYGON_PT polygonlist=6;
+};
+
+message msg_transdata_eventInfo
+{
+    string m_sensorid=1;
+    string m_entityid=2;
+    string m_sensingmediaid=3;
+    msg_transdata_entityposinfo m_sensorposinfo=4;
+    msg_transdata_entityposinfo m_entityposinfo=5;
+    msg_transdata_sensorposinfo m_sensorproprety=6;
+    bool m_entityisSensorProprety=7;
+    msg_transdata_sensorposinfo m_entityproprety=8;
+    double m_distance=9;
+    string m_timestamp=10;
+    
+    msg_transdata_param_seq_hexidx_hgt  m_sensor_hgt_range = 11;
+    double m_entity_hgt=12;
+};
+
+message msg_transeventdata
+{
+    E_EVENT_MODE eventType=1;
+    msg_transdata_eventInfo eventifo=2;
+};
+
+message msg_transeventlistdata
+{
+    E_EVENT_MODE eventType=1;
+    repeated msg_transeventdata eventlist=2;
+};
+
+message msg_transeventlistdatasimple
+{
+    E_EVENT_MODE eventType=1;
+    msg_transeventdata event=2;
+};
+
+message msg_transeventlistdatasimple_array
+{
+    repeated msg_transeventlistdatasimple transeventlistdatasimple=1;
+};
+
+message msg_transdata_smd
+{
+    string m_sensorid=1;
+    string m_fieldid=2;
+    string m_sensingmediaid=3;
+    double radius = 4;
+    double lat = 5;
+    double lon = 6;
+    double direction_pitch = 7;
+    double direction_azimuth = 8;
+    int32 usage_type = 9;
+    double dpch = 10;
+    double dazm = 11;
+    double pch  = 12;
+    double azm  = 13;
+    bool bvalid = 14;
+};
+
+message msg_transprejusdgmentline
+{
+    string targetindex=1;
+    string handlekey=2;
+    string modelname=3;
+    int32 total_index=4;
+    int32 series_index=5;    
+    int32 cl_r=6;
+    int32 cl_g=7;
+    int32 cl_b=8;
+    msg_TYPE_POLYGON_PT srclocation=9;    
+    repeated msg_TYPE_POLYGON_PT prejudmentline=10;
+};

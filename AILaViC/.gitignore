@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
+.idea/
+.vscode/
+*.log
+logs/
+knowledge_base/vector_db/
+knowledge_base/docs/LaViC v2.0产品手册.docx

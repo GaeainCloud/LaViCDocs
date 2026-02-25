@@ -1,0 +1,40 @@
+var loophandleagentids = fun(handlers_,targetid_,vrtlocation_){
+    var sendprotocol=fun(handleagentid,vrtlocation_){
+        var cmmstkUsage = "General";
+        var engineKeyedName = "FRAME_red_general_protocol__R1IDL";
+        var frameHexTxt = "fe3e1900000100000000000000000000000000000000000912";
+        var param_names = Strings(["PARAM_lon","PARAM_lat","PARAM_hgt","PARAM_ref","PARAM_time"]);
+        var param_values = Ids([vrtlocation_.lon*10000000, 
+                                            vrtlocation_.lat*10000000, 
+                                            vrtlocation_.hgt*1000, 
+                                            vrtlocation_.ref,
+                                            vrtlocation_.sim_timestamp]);
+        //print(param_values);
+        frame_set(frameHexTxt, engineKeyedName, param_names, param_values);
+        Agent.comm_publish(handleagentid,cmmstkUsage,engineKeyedName,frameHexTxt); 
+    };
+
+   var it2 = handlers_.begin();
+   while(it2 != handlers_.end())
+   {
+       var handleagentid = deref(it2).first;
+       var agent = system_other_agent(handleagentid);
+       if(system_exists(agent)){
+           agent.variables["targetid"]=to_string(targetid_);
+       }
+       sendprotocol(handleagentid,vrtlocation_);
+       ++(it2);
+   }
+};
+var it = Agent.targets.begin();
+while(it != Agent.targets.end())
+{
+    var targetid = deref(it).first;
+    var handlers = deref(it).second;
+    var vrtlocation = Agent.targets_location(targetid);
+    //print(targetid);
+    //print(handlers);
+    //print(vrtlocation);
+    loophandleagentids(handlers,targetid,vrtlocation);
+    ++(it);
+}
