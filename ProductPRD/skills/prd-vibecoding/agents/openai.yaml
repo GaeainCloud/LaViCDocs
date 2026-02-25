@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD VibeCoding"
+  short_description: "Build standard PRD markdown and diagram HTML outputs."
+  default_prompt: "Use $prd-vibecoding to convert my rough feature notes into a complete PRD markdown and matching diagram-first HTML review page."

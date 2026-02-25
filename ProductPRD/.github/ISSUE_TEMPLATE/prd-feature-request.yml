@@ -1,0 +1,137 @@
+name: "PRD Feature Request"
+description: "提出一个新需求，按统一 PRD + HTML 流程图规范生成产物"
+title: "[PRD] <功能名称>"
+labels: ["prd", "feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请按模板完整填写。本仓库要求产出：
+        - `PRD_<topic>.md`
+        - `prd-<topic>.html`（图驱动评审页，含 Mermaid）
+
+  - type: input
+    id: product_name
+    attributes:
+      label: 产品名称
+      placeholder: 例如 LaViC MCP 探索分析能力
+    validations:
+      required: true
+
+  - type: input
+    id: project_code
+    attributes:
+      label: 项目代号
+      placeholder: 例如 LAVIC-MCP-STORY2
+    validations:
+      required: true
+
+  - type: textarea
+    id: necessity
+    attributes:
+      label: 论证必要性
+      description: 至少包含用户价值、业务价值、时机价值
+      placeholder: |
+        1) 目标用户已普遍使用 AI 工具...
+        2) 可替代复杂 GUI 操作...
+        3) 抢占未来生态位...
+    validations:
+      required: true
+
+  - type: textarea
+    id: users_jobs
+    attributes:
+      label: 目标用户与核心任务（JTBD）
+      placeholder: 用户是谁？用 LaViC + MCP 要完成什么？
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope_in
+    attributes:
+      label: In Scope
+      placeholder: 本次明确要做哪些
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope_out
+    attributes:
+      label: Out of Scope
+      placeholder: 本次明确不做哪些
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: 功能需求列表（REQ-*）
+      description: 每条至少写 标题 + 目标 + 验收标准
+      placeholder: |
+        REQ-001:
+        - 标题：
+        - 目标：
+        - 验收标准：
+
+        REQ-002:
+        - 标题：
+        - 目标：
+        - 验收标准：
+    validations:
+      required: true
+
+  - type: textarea
+    id: nfr
+    attributes:
+      label: 非功能要求（性能/稳定性/安全）
+      placeholder: 例如 接口P95<3s, 可用性99.9%, Token不入日志
+    validations:
+      required: true
+
+  - type: textarea
+    id: ai_boundary
+    attributes:
+      label: AI 边界与兜底
+      placeholder: 能做/不能做/失败兜底
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagrams
+    attributes:
+      label: 必要流程图清单
+      description: 至少包含 业务流程图、架构图、时序图、状态机
+      placeholder: |
+        - 业务闭环流程图
+        - 系统架构图
+        - 关键时序图
+        - 状态机
+    validations:
+      required: true
+
+  - type: textarea
+    id: milestones
+    attributes:
+      label: 里程碑与上线计划
+      placeholder: 日期 + 阶段目标
+    validations:
+      required: true
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: 风险与待确认问题
+      placeholder: 技术风险、业务风险、依赖风险、待决策项
+    validations:
+      required: true
+
+  - type: dropdown
+    id: output_required
+    attributes:
+      label: 交付要求
+      options:
+        - "必须同时更新 MD + HTML（推荐）"
+        - "仅更新 MD"
+        - "仅更新 HTML"
+    validations:
+      required: true

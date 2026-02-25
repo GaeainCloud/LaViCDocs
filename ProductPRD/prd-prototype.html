@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRD 交互原型模板（VibeCoding）</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --panel: #fffdf8;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #0f766e;
+      --accent: #c2410c;
+      --line: #e7e2d8;
+      --ok: #166534;
+      --warn: #9a3412;
+      --err: #991b1b;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, #ede6d8 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, #d9efe8 0%, transparent 40%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+      background: rgba(244, 241, 234, 0.8);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .badge {
+      background: #ecfeff;
+      color: #155e75;
+      border: 1px solid #a5f3fc;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 12px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 18px auto;
+      padding: 0 16px 24px;
+      display: grid;
+      grid-template-columns: 250px 1fr 330px;
+      gap: 14px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel h3 {
+      margin: 0;
+      font-size: 14px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .nav-list {
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav-item {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: left;
+      background: #fff;
+      cursor: pointer;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-1px);
+      border-color: #c8d9d3;
+    }
+
+    .nav-item.active {
+      border-color: var(--primary);
+      background: #f0fdfa;
+    }
+
+    .req {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .screen {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 620px;
+    }
+
+    .screen-header {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .screen-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .status-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px dashed var(--line);
+      background: #fff;
+    }
+
+    .status-tab {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .status-tab.active { border-color: var(--accent); color: var(--accent); }
+
+    .screen-body {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-ghost {
+      border-color: var(--line);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .muted { color: var(--muted); font-size: 13px; }
+
+    .feedback {
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .feedback.ok { background: #ecfdf5; color: var(--ok); border: 1px solid #bbf7d0; }
+    .feedback.warn { background: #fff7ed; color: var(--warn); border: 1px solid #fed7aa; }
+    .feedback.err { background: #fef2f2; color: var(--err); border: 1px solid #fecaca; }
+
+    .detail {
+      padding: 12px 14px;
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .detail-block {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .detail h4 {
+      margin: 0 0 6px;
+      font-size: 13px;
+    }
+
+    .footer {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid var(--line);
+      background: #fff;
+      margin-right: 4px;
+    }
+
+    .skeleton {
+      height: 14px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #eee, #f7f7f7, #eee);
+      background-size: 200% 100%;
+      animation: move 1.5s infinite;
+      margin: 8px 0;
+    }
+
+    @keyframes move {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
+
+    @media (max-width: 980px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .screen { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">PRD 交互原型模板</div>
+      <div>
+        <span class="badge">需求追踪可点击</span>
+        <span class="badge">AI时代PRD</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside class="panel">
+      <h3>流程导航</h3>
+      <div class="nav-list" id="navList"></div>
+    </aside>
+
+    <main class="panel screen">
+      <div class="screen-header">
+        <div>
+          <div class="screen-title" id="screenTitle">-</div>
+          <div class="muted" id="screenSubtitle">-</div>
+        </div>
+        <div id="reqTag" class="tag">REQ-XXX</div>
+      </div>
+
+      <div>
+        <div class="status-tabs" id="statusTabs"></div>
+        <div class="screen-body" id="screenBody"></div>
+      </div>
+
+      <div class="footer" id="footerInfo">-</div>
+    </main>
+
+    <section class="panel">
+      <h3>需求说明面板</h3>
+      <div class="detail" id="detailPanel"></div>
+    </section>
+  </div>
+
+  <script>
+    const states = ["normal", "empty", "error", "no_auth"];
+
+    const pages = [
+      {
+        key: "login",
+        name: "登录页",
+        reqId: "REQ-001",
+        subtitle: "手机号验证码登录",
+        objective: "降低注册门槛，提高首登转化。",
+        rules: [
+          "验证码 60 秒不可重复发送",
+          "单手机号每日最多发送 10 次",
+          "触发风控需图形验证"
+        ],
+        acceptance: [
+          "合法手机号可收到验证码",
+          "倒计时期间按钮不可重复点击",
+          "错误验证码有明确提示"
+        ],
+        points: ["手机号输入框", "获取验证码按钮", "登录按钮"],
+        render(state) {
+          const map = {
+            normal: `
+              <div class="card">
+                <strong>欢迎登录</strong>
+                <p class="muted">请输入手机号并验证</p>
+                <div class="row">
+                  <button class="btn btn-primary">发送验证码</button>
+                  <button class="btn btn-ghost">图形验证</button>
+                </div>
+                <div class="feedback ok" style="margin-top:10px;">验证码发送成功，请查收短信。</div>
+              </div>
+            `,
+            empty: `
+              <div class="card">
+                <strong>欢迎登录</strong>
+                <p class="muted">手机号不能为空</p>
+                <div class="feedback warn">请输入手机号后再发送验证码。</div>
+              </div>
+            `,
+            error: `
+              <div class="card">
+                <strong>欢迎登录</strong>
+                <div class="feedback err">网络异常，验证码发送失败，请稍后重试。</div>
+              </div>
+            `,
+            no_auth: `
+              <div class="card">
+                <strong>欢迎登录</strong>
+                <div class="feedback warn">该账号存在风险，请先完成人机验证。</div>
+                <div class="row"><button class="btn btn-ghost">立即验证</button></div>
+              </div>
+            `
+          };
+          return map[state];
+        }
+      },
+      {
+        key: "assistant",
+        name: "AI 助手页",
+        reqId: "REQ-002",
+        subtitle: "智能问答与追问",
+        objective: "提升问题解决率，减少人工介入。",
+        rules: [
+          "低置信度优先澄清再回答",
+          "高风险问题展示免责声明",
+          "无法回答时提供转人工入口"
+        ],
+        acceptance: [
+          "首轮响应 P95 < 4 秒",
+          "每条回答显示引用来源",
+          "高风险内容可拦截并引导人工"
+        ],
+        points: ["问题输入框", "来源引用区域", "转人工按钮"],
+        render(state) {
+          const map = {
+            normal: `
+              <div class="card">
+                <strong>你可以这样提问：</strong>
+                <p class="muted">“如何开通企业版并配置权限？”</p>
+                <div class="feedback ok">已生成回答，附带 3 条来源引用，可继续追问。</div>
+                <div class="row">
+                  <button class="btn btn-primary">继续追问</button>
+                  <button class="btn btn-ghost">查看来源</button>
+                </div>
+              </div>
+            `,
+            empty: `
+              <div class="card">
+                <strong>AI 助手</strong>
+                <div class="feedback warn">请输入问题后提交。</div>
+              </div>
+            `,
+            error: `
+              <div class="card">
+                <strong>AI 助手</strong>
+                <div class="feedback err">请求超时，请稍后重试。</div>
+                <div class="row"><button class="btn btn-ghost">重试</button></div>
+              </div>
+            `,
+            no_auth: `
+              <div class="card">
+                <strong>AI 助手</strong>
+                <div class="feedback warn">当前问题涉及高风险领域，请转人工处理。</div>
+                <div class="row"><button class="btn btn-primary">转人工</button></div>
+              </div>
+            `
+          };
+          return map[state];
+        }
+      },
+      {
+        key: "workbench",
+        name: "工作台页",
+        reqId: "REQ-003",
+        subtitle: "任务列表筛选",
+        objective: "帮助用户快速定位待办任务。",
+        rules: [
+          "支持按状态/优先级/时间筛选",
+          "筛选条件可重置",
+          "空数据展示引导"
+        ],
+        acceptance: [
+          "筛选响应时间 < 1 秒",
+          "空状态可一键创建任务",
+          "权限不足时不展示敏感任务"
+        ],
+        points: ["筛选器", "任务列表", "重置按钮"],
+        render(state) {
+          const map = {
+            normal: `
+              <div class="card">
+                <strong>任务列表（3）</strong>
+                <p class="muted">按“高优先级 + 今日到期”筛选</p>
+                <div class="row">
+                  <span class="tag">任务A</span>
+                  <span class="tag">任务B</span>
+                  <span class="tag">任务C</span>
+                </div>
+              </div>
+            `,
+            empty: `
+              <div class="card">
+                <strong>任务列表（0）</strong>
+                <div class="feedback warn">当前筛选条件下暂无任务。</div>
+                <div class="row"><button class="btn btn-primary">新建任务</button></div>
+              </div>
+            `,
+            error: `
+              <div class="card">
+                <strong>任务列表</strong>
+                <div class="feedback err">数据加载失败，请检查网络后重试。</div>
+              </div>
+            `,
+            no_auth: `
+              <div class="card">
+                <strong>任务列表</strong>
+                <div class="feedback warn">你没有查看该任务集的权限。</div>
+              </div>
+            `
+          };
+          return map[state];
+        }
+      }
+    ];
+
+    const labels = {
+      normal: "正常态",
+      empty: "空态",
+      error: "异常态",
+      no_auth: "权限不足"
+    };
+
+    let currentPage = pages[0];
+    let currentState = "normal";
+
+    const navList = document.getElementById("navList");
+    const statusTabs = document.getElementById("statusTabs");
+    const screenTitle = document.getElementById("screenTitle");
+    const screenSubtitle = document.getElementById("screenSubtitle");
+    const reqTag = document.getElementById("reqTag");
+    const screenBody = document.getElementById("screenBody");
+    const detailPanel = document.getElementById("detailPanel");
+    const footerInfo = document.getElementById("footerInfo");
+
+    function renderNav() {
+      navList.innerHTML = pages.map(page => `
+        <button class="nav-item ${currentPage.key === page.key ? "active" : ""}" data-key="${page.key}">
+          <div><strong>${page.name}</strong></div>
+          <div class="req">${page.reqId}</div>
+        </button>
+      `).join("");
+
+      navList.querySelectorAll(".nav-item").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = pages.find(p => p.key === btn.dataset.key);
+          currentPage = target;
+          currentState = "normal";
+          paint();
+        });
+      });
+    }
+
+    function renderStatusTabs() {
+      statusTabs.innerHTML = states.map(state => `
+        <button class="status-tab ${currentState === state ? "active" : ""}" data-state="${state}">
+          ${labels[state]}
+        </button>
+      `).join("");
+
+      statusTabs.querySelectorAll(".status-tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentState = btn.dataset.state;
+          paint();
+        });
+      });
+    }
+
+    function renderDetail() {
+      detailPanel.innerHTML = `
+        <div class="detail-block">
+          <h4>需求追踪</h4>
+          <div><strong>${currentPage.reqId}</strong>（建议与 PRD 主文档同 ID）</div>
+        </div>
+        <div class="detail-block">
+          <h4>目标</h4>
+          <div>${currentPage.objective}</div>
+        </div>
+        <div class="detail-block">
+          <h4>业务规则</h4>
+          ${currentPage.rules.map(item => `<div>• ${item}</div>`).join("")}
+        </div>
+        <div class="detail-block">
+          <h4>验收标准</h4>
+          ${currentPage.acceptance.map(item => `<div>• ${item}</div>`).join("")}
+        </div>
+        <div class="detail-block">
+          <h4>交互点位</h4>
+          ${currentPage.points.map(item => `<span class="tag">${item}</span>`).join("")}
+        </div>
+      `;
+    }
+
+    function paint() {
+      renderNav();
+      renderStatusTabs();
+      screenTitle.textContent = currentPage.name;
+      screenSubtitle.textContent = `${currentPage.subtitle} | 当前状态：${labels[currentState]}`;
+      reqTag.textContent = currentPage.reqId;
+
+      if (currentState === "error") {
+        screenBody.innerHTML = `
+          <div class="card">
+            <div class="skeleton" style="width:70%"></div>
+            <div class="skeleton" style="width:50%"></div>
+            <div class="skeleton" style="width:85%"></div>
+          </div>
+          ${currentPage.render(currentState)}
+        `;
+      } else {
+        screenBody.innerHTML = currentPage.render(currentState);
+      }
+
+      renderDetail();
+      footerInfo.textContent = `页面：${currentPage.name} | 需求ID：${currentPage.reqId} | 状态：${labels[currentState]} | 可用于评审演示与需求追踪`;
+    }
+
+    paint();
+  </script>
+</body>
+</html>

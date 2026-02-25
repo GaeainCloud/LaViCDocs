@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaViC MCP Story1 - PRD 流程图看板</title>
+  <style>
+    :root {
+      --bg: #eef4f6;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --line: #d8e2e8;
+      --primary: #0f766e;
+      --accent: #b45309;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, #dcecf0 0%, transparent 44%),
+        radial-gradient(circle at 90% 90%, #e7f0df 0%, transparent 40%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(6px);
+      background: rgba(238, 244, 246, 0.86);
+    }
+
+    .topbar-inner {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #b6e8de;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #115e59;
+      padding: 2px 10px;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
+    .layout {
+      max-width: 1260px;
+      margin: 16px auto;
+      padding: 0 16px 24px;
+      display: grid;
+      grid-template-columns: 260px 1fr 340px;
+      gap: 14px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel h3 {
+      margin: 0;
+      padding: 12px 14px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .nav-list {
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav-item {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-1px);
+      border-color: #c8d9d3;
+    }
+
+    .nav-item.active {
+      border-color: var(--primary);
+      background: #f0fdfa;
+    }
+
+    .nav-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .main {
+      min-height: 700px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+    }
+
+    .header {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      margin-right: 4px;
+      background: #fff;
+    }
+
+    .toolbar {
+      border-bottom: 1px dashed var(--line);
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tool {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .tool.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: #fff7ed;
+    }
+
+    .diagram-wrap {
+      padding: 14px;
+      overflow: auto;
+      background: linear-gradient(180deg, #fcfdfd 0%, #f8fafb 100%);
+    }
+
+    .diagram-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+      min-height: 500px;
+    }
+
+    .diagram-meta {
+      margin-bottom: 8px;
+    }
+
+    .notice {
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      color: #9a3412;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .detail {
+      padding: 12px 14px;
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .block {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .block h4 {
+      margin: 0 0 6px;
+      font-size: 13px;
+    }
+
+    .footer {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      background: #fff;
+    }
+
+    @media (max-width: 1020px) {
+      .layout { grid-template-columns: 1fr; }
+      .main { min-height: auto; }
+      .diagram-card { min-height: 360px; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">LaViC + MCP Story1 流程图看板</div>
+      <div>
+        <span class="badge">图驱动 PRD</span>
+        <span class="badge">评审专用</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="panel">
+      <h3>图目录</h3>
+      <div class="nav-list" id="navList"></div>
+    </aside>
+
+    <main class="panel main">
+      <div class="header">
+        <div class="title" id="diagramTitle">-</div>
+        <div class="muted" id="diagramSubtitle">-</div>
+        <div id="diagramTags" style="margin-top:8px"></div>
+      </div>
+      <div class="toolbar" id="toolbar"></div>
+      <div class="diagram-wrap">
+        <div class="diagram-card">
+          <div class="diagram-meta muted" id="diagramMeta">-</div>
+          <div id="diagramHost"></div>
+          <div class="notice" id="renderNotice" style="display:none;">
+            当前浏览器无法加载 Mermaid 资源，请联网后刷新页面。
+          </div>
+        </div>
+      </div>
+      <div class="footer" id="footer">-</div>
+    </main>
+
+    <section class="panel">
+      <h3>图说明与验收</h3>
+      <div class="detail" id="detail"></div>
+    </section>
+  </div>
+
+  <script>
+    const diagrams = [
+      {
+        id: "DF-001",
+        key: "business-flow",
+        title: "业务闭环流程图",
+        subtitle: "查询 -> 控制 -> 下载 -> 分析 -> 结论",
+        tags: ["REQ-001", "REQ-002", "REQ-003", "REQ-004"],
+        meta: "用于评审 Story1 是否形成完整可执行闭环。",
+        purpose: "让评审方一眼确认核心业务路径是否闭环。",
+        inputs: ["自然语言需求", "模型/想定查询条件"],
+        outputs: ["可执行想定对象", "分析结论", "可追溯记录"],
+        acceptance: ["每个环节都有可调用工具", "失败路径可回退重试", "输出可以进入复盘文档"],
+        risk: ["查询不全导致错误对象", "下载失败导致分析中断"],
+        mermaid: `
+flowchart LR
+  A[用户提出分析目标] --> B[查询模型/想定\nlist_models list_scenarios]
+  B --> C{是否找到可执行对象}
+  C -- 否 --> B
+  C -- 是 --> D[控制想定运行\nstart pause resume stop]
+  D --> E[下载运行记录\ndownload_record_data]
+  E --> F[探索性分析输出]
+  F --> G[结论与建议]
+  G --> H[沉淀复用模板]
+        `
+      },
+      {
+        id: "DF-002",
+        key: "user-journey",
+        title: "用户旅程图",
+        subtitle: "从任务发起到结论复用",
+        tags: ["用户体验", "评审重点"],
+        meta: "用于对齐角色触点、决策点和情绪变化。",
+        purpose: "确认用户最关键的时间成本与认知负担是否下降。",
+        inputs: ["分析人员意图", "候选场景/模型"],
+        outputs: ["结构化结论", "复用策略"],
+        acceptance: ["每一阶段都能被自然语言驱动", "异常有明确反馈"],
+        risk: ["中途切换上下文导致流程中断"],
+        mermaid: `
+journey
+  title LaViC + MCP Story1 用户旅程
+  section 发现
+    明确分析目标: 4: 用户
+    提问查询案例: 4: 用户, AI助手
+  section 执行
+    控制想定运行: 3: 用户, MCP
+    获取运行记录: 3: 用户, MCP
+  section 分析
+    读取数据并生成发现: 4: 用户, AI助手
+    追问细化结论: 4: 用户, AI助手
+  section 沉淀
+    输出报告并复用模板: 5: 用户, 团队
+        `
+      },
+      {
+        id: "DF-003",
+        key: "system-architecture",
+        title: "系统架构图",
+        subtitle: "客户端、MCP、LaViC API、数据与分析模块",
+        tags: ["REQ-005", "架构"],
+        meta: "用于对齐系统边界、依赖和数据流。",
+        purpose: "明确哪些能力在 MCP，哪些能力在 LaViC Core。",
+        inputs: ["MCP 客户端配置", "LaViC API Token"],
+        outputs: ["受控调用链", "本地可分析数据"],
+        acceptance: ["路径与配置一致", "Token 不落日志", "调用链可观测"],
+        risk: ["配置路径错误", "Token 过期"],
+        mermaid: `
+graph TD
+  U[用户] --> C[AI助手客户端\nTrae Claude Cursor]
+  C --> M[MCP Server\nsrc/server.py]
+  M --> API[LaViC Core API]
+  API --> SVC1[Scenario Service]
+  API --> SVC2[Model Service]
+  API --> SVC3[Record Service]
+  SVC3 --> FS[本地文件系统\nZIP解压目录]
+  FS --> ANA[探索分析模块]
+  ANA --> C
+        `
+      },
+      {
+        id: "DF-004",
+        key: "sequence",
+        title: "关键时序图",
+        subtitle: "一次完整任务的调用顺序",
+        tags: ["REQ-001", "REQ-002", "REQ-003", "REQ-004"],
+        meta: "用于验证接口编排顺序和返回关键字段。",
+        purpose: "减少联调中对先后顺序和上下文传递的歧义。",
+        inputs: ["用户自然语言请求", "scenario_id/model_id"],
+        outputs: ["状态回执", "记录文件", "分析结论"],
+        acceptance: ["每一步都有可观测返回", "失败时可定位到具体调用"],
+        risk: ["并发导致上下文污染"],
+        mermaid: `
+sequenceDiagram
+  participant U as 用户
+  participant A as AI助手
+  participant M as MCP Server
+  participant L as LaViC API
+  participant F as 文件系统
+
+  U->>A: 查询模型和想定
+  A->>M: list_models/list_scenarios
+  M->>L: 请求列表
+  L-->>M: 返回候选对象
+  M-->>A: 列表结果
+
+  U->>A: 启动想定
+  A->>M: control_scenario(start)
+  M->>L: 控制请求
+  L-->>M: 运行状态
+  M-->>A: 状态回执
+
+  U->>A: 下载运行记录
+  A->>M: download_record_data
+  M->>L: 拉取ZIP
+  L-->>M: ZIP文件流
+  M->>F: 解压并落盘
+  F-->>M: 文件路径
+  M-->>A: 下载结果
+
+  U->>A: 做探索分析
+  A-->>U: 输出结论与建议
+        `
+      },
+      {
+        id: "DF-005",
+        key: "state-machine",
+        title: "想定运行状态机",
+        subtitle: "start / pause / resume / stop 的合法路径",
+        tags: ["REQ-002", "状态机"],
+        meta: "用于明确控制动作边界和错误提示策略。",
+        purpose: "避免非法状态转换导致控制失败。",
+        inputs: ["当前状态", "控制动作"],
+        outputs: ["新状态", "操作审计日志"],
+        acceptance: ["非法动作返回明确错误", "合法动作均可执行"],
+        risk: ["并发控制导致状态竞争"],
+        mermaid: `
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> Running: start
+  Running --> Paused: pause
+  Paused --> Running: resume
+  Running --> Stopped: stop
+  Paused --> Stopped: stop
+  Stopped --> [*]
+
+  note right of Idle
+    仅 Idle 可 start
+  end note
+        `
+      },
+      {
+        id: "DF-006",
+        key: "deployment-flow",
+        title: "部署与接入流程图",
+        subtitle: "对外分发与本地接通步骤",
+        tags: ["REQ-005", "部署"],
+        meta: "用于指导其他用户按 README 快速接通。",
+        purpose: "保障 30 分钟内接入成功率。",
+        inputs: ["项目压缩包", "Python 3.10+", "有效 Token"],
+        outputs: ["MCP 服务可用", "客户端可调用工具"],
+        acceptance: ["分发包不含 .env", "JSON 配置路径准确", "启动日志无错误"],
+        risk: ["环境差异引发编码/路径问题"],
+        mermaid: `
+flowchart TD
+  A[打包 LaViCMCP 项目\n排除 .env 和 __pycache__] --> B[安装依赖\npip install -r requirements.txt]
+  B --> C[复制 .env.example 为 .env]
+  C --> D[填写 API_BASE_URL USER_ID TOKEN]
+  D --> E[在客户端写入 MCP JSON 配置]
+  E --> F[启动 src/server.py]
+  F --> G{启动成功?}
+  G -- 否 --> H[检查路径 Token 编码]
+  H --> E
+  G -- 是 --> I[执行 list_models 验证]
+        `
+      }
+    ];
+
+    let current = diagrams[0];
+
+    const navList = document.getElementById("navList");
+    const toolbar = document.getElementById("toolbar");
+    const diagramTitle = document.getElementById("diagramTitle");
+    const diagramSubtitle = document.getElementById("diagramSubtitle");
+    const diagramTags = document.getElementById("diagramTags");
+    const diagramMeta = document.getElementById("diagramMeta");
+    const diagramHost = document.getElementById("diagramHost");
+    const detail = document.getElementById("detail");
+    const footer = document.getElementById("footer");
+    const renderNotice = document.getElementById("renderNotice");
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: "loose",
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#e6fffb",
+        primaryTextColor: "#1f2937",
+        primaryBorderColor: "#0f766e",
+        lineColor: "#0f766e",
+        secondaryColor: "#fff7ed",
+        tertiaryColor: "#f8fafc"
+      }
+    });
+
+    function renderNav() {
+      navList.innerHTML = diagrams.map(d => `
+        <button class="nav-item ${d.key === current.key ? "active" : ""}" data-key="${d.key}">
+          <strong>${d.title}</strong>
+          <div class="nav-hint">${d.id}</div>
+        </button>
+      `).join("");
+
+      navList.querySelectorAll(".nav-item").forEach(btn => {
+        btn.addEventListener("click", () => {
+          current = diagrams.find(x => x.key === btn.dataset.key);
+          paint();
+        });
+      });
+    }
+
+    function renderToolbar() {
+      toolbar.innerHTML = diagrams.map(d => `
+        <button class="tool ${d.key === current.key ? "active" : ""}" data-key="${d.key}">${d.id}</button>
+      `).join("");
+
+      toolbar.querySelectorAll(".tool").forEach(btn => {
+        btn.addEventListener("click", () => {
+          current = diagrams.find(x => x.key === btn.dataset.key);
+          paint();
+        });
+      });
+    }
+
+    async function renderMermaid(definition) {
+      const escaped = definition.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      diagramHost.innerHTML = `<pre class="mermaid">${escaped}</pre>`;
+      try {
+        await mermaid.run({ nodes: [diagramHost.querySelector(".mermaid")] });
+        renderNotice.style.display = "none";
+      } catch (e) {
+        renderNotice.style.display = "block";
+      }
+    }
+
+    function renderDetail() {
+      detail.innerHTML = `
+        <div class="block">
+          <h4>图编号</h4>
+          <div><strong>${current.id}</strong></div>
+        </div>
+        <div class="block">
+          <h4>目的</h4>
+          <div>${current.purpose}</div>
+        </div>
+        <div class="block">
+          <h4>输入</h4>
+          ${(current.inputs || []).map(x => `<div>• ${x}</div>`).join("")}
+        </div>
+        <div class="block">
+          <h4>输出</h4>
+          ${(current.outputs || []).map(x => `<div>• ${x}</div>`).join("")}
+        </div>
+        <div class="block">
+          <h4>验收要点</h4>
+          ${(current.acceptance || []).map(x => `<div>• ${x}</div>`).join("")}
+        </div>
+        <div class="block">
+          <h4>风险提示</h4>
+          ${(current.risk || []).map(x => `<div>• ${x}</div>`).join("")}
+        </div>
+      `;
+    }
+
+    async function paint() {
+      renderNav();
+      renderToolbar();
+      diagramTitle.textContent = current.title;
+      diagramSubtitle.textContent = current.subtitle;
+      diagramMeta.textContent = current.meta;
+      diagramTags.innerHTML = (current.tags || []).map(x => `<span class="tag">${x}</span>`).join("");
+      renderDetail();
+      footer.textContent = `${current.id} | ${current.title} | 用于评审流程与架构一致性`;
+      await renderMermaid(current.mermaid);
+    }
+
+    paint();
+  </script>
+</body>
+</html>

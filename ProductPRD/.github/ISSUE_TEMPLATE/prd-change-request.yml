@@ -1,0 +1,62 @@
+name: "PRD Change Request"
+description: "对现有 PRD/HTML 进行变更，保持需求追踪一致"
+title: "[PRD-CHANGE] <变更主题>"
+labels: ["prd", "change"]
+body:
+  - type: input
+    id: target_md
+    attributes:
+      label: 目标 Markdown 文件
+      placeholder: 例如 PRD_LaViC_MCP_Story1.md
+    validations:
+      required: true
+
+  - type: input
+    id: target_html
+    attributes:
+      label: 目标 HTML 文件
+      placeholder: 例如 prd-lavic-mcp-story1.html
+    validations:
+      required: true
+
+  - type: textarea
+    id: change_reason
+    attributes:
+      label: 变更原因
+      placeholder: 为什么要改（业务/技术/风险）
+    validations:
+      required: true
+
+  - type: textarea
+    id: impacted_reqs
+    attributes:
+      label: 影响的需求ID
+      placeholder: 例如 REQ-001, REQ-003
+    validations:
+      required: true
+
+  - type: textarea
+    id: change_detail
+    attributes:
+      label: 具体改动点
+      placeholder: 修改哪些章节、哪些图、哪些验收条款
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_update
+    attributes:
+      label: 验收标准是否变化
+      placeholder: 若变化，请写新旧对比
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sync_check
+    attributes:
+      label: MD/HTML 是否同步更新
+      options:
+        - "是，已同步"
+        - "否，需要协助同步"
+    validations:
+      required: true
