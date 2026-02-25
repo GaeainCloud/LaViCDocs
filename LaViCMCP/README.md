@@ -1,56 +1,52 @@
 # LaViC MCP Server
 
-这是一个用于通过自然语言控制 LaViC 仿真系统的 MCP (Model Context Protocol) 服务器。
+用于通过 MCP 协议控制 LaViC 仿真系统，支持查询、控制、数据下载与倍速调整。
 
-它允许您使用 AI 助手（如 Trae, Claude Desktop, Cursor）来：
-- 查询和筛选想定案例
-- 查询仿真模型
-- 启动、暂停、恢复、停止想定运行
-- 下载运行记录数据
+## 功能
 
-## 目录结构
+- `list_scenarios`: 查询想定（分页、`fetch_all`，默认 `simulationTag=1`）
+- `list_models`: 查询模型（关键词、模型案例过滤、`fetch_all`）
+- `control_scenario`: 想定控制（`start/pause/resume/stop`）
+- `set_simulation_speed`: 设置运行中的仿真倍速
+- `download_record_data`: 下载并解压运行记录 ZIP
 
-```text
-LaViC-MCP/
-├── src/
-│   └── server.py          # 核心 MCP 服务器代码
-├── scripts/               # 临时工具脚本和测试代码
-├── .env.example           # 配置文件模板
-├── requirements.txt       # Python 依赖包
-└── README.md              # 本说明文档
-```
+## 运行要求
+
+- Python 3.10+
+- 与 LaViC 服务在同一局域网（LAN）或可路由互通网络
+- 有效的 `LAVIC_USER_ID` 和 `LAVIC_API_TOKEN`
 
 ## 快速开始
 
-### 1. 环境准备
-
-确保已安装 Python 3.10+。
+1. 安装依赖
 
 ```bash
-# 克隆或下载本项目后，安装依赖
 pip install -r requirements.txt
 ```
 
-### 2. 配置文件
-
-复制 `.env.example` 为 `.env`，并填入您的 LaViC 配置信息：
+2. 创建配置
 
 ```bash
 cp .env.example .env
 ```
 
-在 `.env` 文件中填入：
-- `LAVIC_API_BASE_URL`: LaViC Core API 地址
-- `LAVIC_USER_ID`: 您的用户 ID
-- `LAVIC_API_TOKEN`: 您的 API Token (admin-Token)
+`.env` 必填：
+- `LAVIC_USER_ID`
+- `LAVIC_API_TOKEN`
 
-### 3. 在 MCP 客户端中使用
+`LAVIC_API_BASE_URL` 默认固定为：
+`http://192.168.31.218:7980/api/v1/lavic-core`  
+通常无需填写；仅在地址变更时覆盖该值。
 
-#### Claude Desktop / Trae 配置
+3. 运行连通性自检
 
-在您的 MCP 配置文件中（通常是 `claude_desktop_config.json` 或 AI 助手的 MCP 设置），添加以下内容：
+```bash
+python scripts/self_check.py
+```
 
-**注意：请将路径替换为您本地的实际绝对路径。**
+返回 `[RESULT] Self-check passed.` 表示配置与接口连通正常。
+
+4. 配置 MCP 客户端
 
 ```json
 {
@@ -58,7 +54,7 @@ cp .env.example .env
     "lavic-control": {
       "command": "python",
       "args": [
-        "D:/Path/To/LaViC-MCP/src/server.py"
+        "/ABSOLUTE/PATH/TO/lavicmcp/src/server.py"
       ],
       "env": {
         "PYTHONUTF8": "1"
@@ -68,14 +64,14 @@ cp .env.example .env
 }
 ```
 
-### 4. 功能列表
+## 工程规范说明
 
-- **list_scenarios**: 列出想定案例（支持分页和 `fetch_all`）
-- **list_models**: 列出仿真模型（支持关键词搜索、`is_model_case` 筛选）
-- **control_scenario**: 控制想定（start, pause, resume, stop）
-- **download_record_data**: 下载运行记录数据（自动解压 ZIP）
+- 启动时会校验必要环境变量，缺失则直接报错退出。
+- 网络请求具备超时控制，下载接口包含重试。
+- `fetch_all` 分页拉取过程中遇错会返回错误与已拉取数量，不再静默返回部分结果。
+- `.gitignore` 默认排除 `.env`、`__pycache__`、`.venv` 与数据目录。
 
 ## 常见问题
 
-- **数据不全？** 使用 `fetch_all=True` 参数可以让 AI 自动拉取所有分页数据。
-- **无法连接？** 请检查 `.env` 中的 Token 是否过期，以及 API 地址是否可达。
+- `No running record found`：目标想定当前不在运行，先 `start` 或显式传 `record_id`。
+- 下载返回 `400`：该记录可能没有可导出结果（常见于 `Unstart` 或刚启动即停止）。

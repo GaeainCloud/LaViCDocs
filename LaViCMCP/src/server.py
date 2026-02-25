@@ -1,10 +1,10 @@
 import asyncio
 import json
 import logging
-import sys
 import os
+import time
 import requests
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Any
 from dotenv import load_dotenv
 
 from mcp.server import Server
@@ -12,8 +12,6 @@ from mcp.server.stdio import stdio_server
 from mcp.types import (
     Tool,
     TextContent,
-    ImageContent,
-    EmbeddedResource,
 )
 
 # Configure logging
@@ -25,61 +23,114 @@ load_dotenv()
 
 # Configuration
 API_BASE_URL = os.getenv("LAVIC_API_BASE_URL", "http://192.168.31.218:7980/api/v1/lavic-core")
-DEFAULT_USER_ID = os.getenv("LAVIC_USER_ID", "1")
+DEFAULT_USER_ID = os.getenv("LAVIC_USER_ID", "")
 API_TOKEN = os.getenv("LAVIC_API_TOKEN", "")
 
 app = Server("lavic-mcp")
 
-def make_request(method: str, endpoint: str, params: dict = None, json_data: dict = None, user_id: str = None, return_raw: bool = False) -> Any:
+def normalize_token(token: str) -> tuple[str, str]:
+    """
+    Return both raw JWT and Authorization header value.
+    Accepts either:
+    - <jwt>
+    - admin-Token=<jwt>
+    """
+    token = (token or "").strip()
+    if token.startswith("admin-Token="):
+        raw = token.split("=", 1)[1].strip()
+        return raw, token
+    return token, (f"admin-Token={token}" if token else "")
+
+def validate_runtime_config() -> list[str]:
+    """
+    Validate required runtime configuration.
+    Returns a list of validation errors.
+    """
+    errors: list[str] = []
+    if not API_BASE_URL:
+        errors.append("LAVIC_API_BASE_URL is required")
+    if not DEFAULT_USER_ID:
+        errors.append("LAVIC_USER_ID is required")
+    if not API_TOKEN:
+        errors.append("LAVIC_API_TOKEN is required")
+    return errors
+
+def make_request(
+    method: str,
+    endpoint: str,
+    params: dict = None,
+    json_data: dict = None,
+    user_id: str = None,
+    return_raw: bool = False,
+    timeout: int = 30,
+    retries: int = 1,
+    backoff_seconds: float = 0.5,
+) -> Any:
     """
     通用 API 请求函数
     """
     url = f"{API_BASE_URL}{endpoint}"
-    # Correct Authorization format: Authorization: admin-Token=<token>
+    raw_token, auth_token = normalize_token(API_TOKEN)
+    # Compatibility headers:
+    # - Authorization: admin-Token=<token>
+    # - X-token: <token>
     headers = {
         "X-UserId": user_id or DEFAULT_USER_ID,
         "Content-Type": "application/json",
-        "Authorization": f"admin-Token={API_TOKEN}"
+        "Authorization": auth_token,
+        "X-token": raw_token,
     }
     
-    try:
-        response = requests.request(method, url, params=params, json=json_data, headers=headers)
-        response.raise_for_status()
-        if return_raw:
-            return response
-            
-        # Handle SSE (Server-Sent Events) responses
-        content_type = response.headers.get("Content-Type", "")
-        if "text/event-stream" in content_type:
-            for line in response.text.splitlines():
-                if line.startswith("data:"):
-                    try:
-                        return json.loads(line[5:])
-                    except json.JSONDecodeError:
-                        pass
-                        
-        # Default JSON handling
+    for attempt in range(retries + 1):
         try:
-            return response.json()
-        except json.JSONDecodeError:
-            # If not JSON and not handled SSE, return text or empty dict
-            if response.text.strip():
-                return {"message": response.text}
-            return {}
+            response = requests.request(
+                method,
+                url,
+                params=params,
+                json=json_data,
+                headers=headers,
+                timeout=timeout,
+            )
+            response.raise_for_status()
+            if return_raw:
+                return response
 
-    except requests.exceptions.RequestException as e:
-        error_msg = str(e)
-        status_code = getattr(e.response, 'status_code', None)
-        try:
-            error_body = e.response.json() if e.response else None
-        except:
-            error_body = e.response.text if e.response else None
-            
-        return {
-            "error": error_msg, 
-            "status_code": status_code,
-            "details": error_body
-        }
+            # Handle SSE (Server-Sent Events) responses
+            content_type = response.headers.get("Content-Type", "")
+            if "text/event-stream" in content_type:
+                for line in response.text.splitlines():
+                    if line.startswith("data:"):
+                        try:
+                            return json.loads(line[5:])
+                        except json.JSONDecodeError:
+                            pass
+
+            # Default JSON handling
+            try:
+                return response.json()
+            except json.JSONDecodeError:
+                # If not JSON and not handled SSE, return text or empty dict
+                if response.text.strip():
+                    return {"message": response.text}
+                return {}
+
+        except requests.exceptions.RequestException as e:
+            is_last = attempt >= retries
+            if not is_last:
+                time.sleep(backoff_seconds * (attempt + 1))
+                continue
+            error_msg = str(e)
+            status_code = getattr(e.response, "status_code", None)
+            try:
+                error_body = e.response.json() if e.response else None
+            except Exception:
+                error_body = e.response.text if e.response else None
+
+            return {
+                "error": error_msg,
+                "status_code": status_code,
+                "details": error_body,
+            }
 
 def get_running_record_sig(sim_id: str, user_id: str = None) -> Optional[str]:
     """
@@ -122,7 +173,7 @@ async def list_tools() -> List[Tool]:
                     "page": {"type": "integer", "description": "Page number (default 1)", "default": 1},
                     "size": {"type": "integer", "description": "Page size (default 10)", "default": 10},
                     "fetch_all": {"type": "boolean", "description": "If true, fetches all pages. Overrides page/size.", "default": False},
-                    "simulation_tag": {"type": "string", "description": "Filter by simulation tag (Integer). '1' for System/Admin Scenarios (including MicroScenarios), empty for User Scenarios."},
+                    "simulation_tag": {"type": "string", "description": "Filter by simulation tag (Integer). Default '1' for System/Admin Scenarios (including MicroScenarios). Pass empty string for User Scenarios.", "default": "1"},
                     "user_id": {"type": "string", "description": "Optional User ID override"}
                 }
             },
@@ -173,6 +224,21 @@ async def list_tools() -> List[Tool]:
                 "required": ["record_id"]
             },
         ),
+        Tool(
+            name="set_simulation_speed",
+            description="Set running simulation speed multiplier via engine progress control.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "simulation_id": {"type": "string", "description": "Simulation ID"},
+                    "speed": {"type": "integer", "description": "Speed multiplier, e.g. 10 for 10x"},
+                    "record_id": {"type": "string", "description": "Optional running record ID (recordSig). If omitted, it will auto-detect."},
+                    "user_id": {"type": "string", "description": "Optional User ID override"},
+                    "timeout_seconds": {"type": "integer", "description": "Request timeout for engine control API", "default": 20}
+                },
+                "required": ["simulation_id", "speed"]
+            },
+        ),
     ]
 
 @app.call_tool()
@@ -182,10 +248,10 @@ async def call_tool(name: str, arguments: Any) -> List[TextContent]:
         size = arguments.get("size", 10)
         fetch_all = arguments.get("fetch_all", False)
         user_id = arguments.get("user_id")
-        simulation_tag = arguments.get("simulation_tag")
+        simulation_tag = arguments.get("simulation_tag", "1")
         
         params = {"pageNum": page, "pageSize": size}
-        if simulation_tag:
+        if simulation_tag is not None and str(simulation_tag) != "":
             params["simulationTag"] = simulation_tag
             
         if fetch_all:
@@ -198,7 +264,13 @@ async def call_tool(name: str, arguments: Any) -> List[TextContent]:
                 result = make_request("GET", "/getAllSysOfSysStep", params=params, user_id=user_id)
                 
                 if not result or result.get("code") != 200:
-                    break
+                    return [TextContent(type="text", text=json.dumps({
+                        "success": False,
+                        "message": "Failed while fetching paginated scenarios.",
+                        "page": current_page,
+                        "last_response": result,
+                        "partial_count": len(all_content)
+                    }, ensure_ascii=False, indent=2))]
                     
                 data = result.get("data", {})
                 content = data.get("content", [])
@@ -248,7 +320,13 @@ async def call_tool(name: str, arguments: Any) -> List[TextContent]:
                 result = make_request("GET", "/getAllAgent", params=params, user_id=user_id)
                 
                 if not result or result.get("code") != 200:
-                    break
+                    return [TextContent(type="text", text=json.dumps({
+                        "success": False,
+                        "message": "Failed while fetching paginated models.",
+                        "page": current_page,
+                        "last_response": result,
+                        "partial_count": len(all_content)
+                    }, ensure_ascii=False, indent=2))]
                     
                 data = result.get("data", {})
                 content = data.get("content", [])
@@ -326,7 +404,15 @@ async def call_tool(name: str, arguments: Any) -> List[TextContent]:
         
         # Make request with raw response
         try:
-            result = make_request("POST", "/getRecordData", params={"recordSig": record_id}, user_id=user_id, return_raw=True)
+            result = make_request(
+                "POST",
+                "/getRecordData",
+                params={"recordSig": record_id},
+                user_id=user_id,
+                return_raw=True,
+                timeout=120,
+                retries=2,
+            )
             
             # Check if it's an error dict (from exception handler in make_request)
             if isinstance(result, dict) and "error" in result:
@@ -363,10 +449,59 @@ async def call_tool(name: str, arguments: Any) -> List[TextContent]:
                 "error": str(e)
             }, ensure_ascii=False, indent=2))]
 
+    elif name == "set_simulation_speed":
+        sim_id = arguments.get("simulation_id")
+        speed = arguments.get("speed")
+        record_id = arguments.get("record_id")
+        user_id = arguments.get("user_id")
+        timeout_seconds = arguments.get("timeout_seconds", 20)
+
+        try:
+            speed_int = int(speed)
+            if speed_int <= 0:
+                raise ValueError("speed must be > 0")
+        except Exception:
+            return [TextContent(type="text", text=json.dumps({
+                "success": False,
+                "message": f"Invalid speed: {speed}. It must be a positive integer."
+            }, ensure_ascii=False, indent=2))]
+
+        if not record_id:
+            record_id = get_running_record_sig(sim_id, user_id)
+            if not record_id:
+                return [TextContent(type="text", text=json.dumps({
+                    "success": False,
+                    "message": f"No running record found for simulation {sim_id}. Please provide record_id explicitly."
+                }, ensure_ascii=False, indent=2))]
+
+        payload = {
+            "ctrltype": "prgctrl",
+            "ctrlparam": str(speed_int),
+            "recordSig": record_id,
+            "simid": sim_id,
+        }
+
+        result = make_request(
+            "POST",
+            "/progressCtrl",
+            json_data=payload,
+            user_id=user_id,
+            timeout=int(timeout_seconds),
+        )
+        return [TextContent(type="text", text=json.dumps({
+            "success": result.get("success", False) if isinstance(result, dict) else False,
+            "request": payload,
+            "response": result
+        }, ensure_ascii=False, indent=2))]
+
     else:
         raise ValueError(f"Unknown tool: {name}")
 
 async def main():
+    errors = validate_runtime_config()
+    if errors:
+        logger.error("Invalid runtime configuration: %s", "; ".join(errors))
+        raise RuntimeError("Invalid runtime configuration. Please check .env values.")
     async with stdio_server() as (read, write):
         await app.run(read, write, app.create_initialization_options())
 

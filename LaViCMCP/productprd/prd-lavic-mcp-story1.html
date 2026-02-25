@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRD - LaViC MCP 探索分析能力（Story1）</title>
+  <style>
+    body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; margin: 24px auto; max-width: 980px; line-height: 1.6; color: #1f2937; }
+    h1,h2,h3 { color: #111827; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; }
+    pre { background: #111827; color: #f9fafb; padding: 12px; border-radius: 8px; overflow: auto; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+    th, td { border: 1px solid #d1d5db; padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #f9fafb; }
+    .meta { color: #4b5563; }
+  </style>
+</head>
+<body>
+  <h1>PRD - LaViC MCP 探索分析能力（Story1）</h1>
+  <p class="meta">文档用途：作为当前实现版本的需求与验收基线。<br/>版本：v0.2.0（与当前代码对齐）<br/>更新时间：2026-02-25</p>
+
+  <hr/>
+
+  <h2>1. 目标与范围</h2>
+  <h3>1.1 Story1 目标</h3>
+  <p>通过自然语言完成一条可执行闭环：</p>
+  <ul>
+    <li>查询模型/想定</li>
+    <li>控制想定运行</li>
+    <li>下载运行记录并解压</li>
+    <li>基于导出数据进行探索性分析</li>
+  </ul>
+
+  <h3>1.2 In Scope（当前版本）</h3>
+  <ul>
+    <li>模型/想定查询（支持分页与 <code>fetch_all</code>）</li>
+    <li>想定控制（<code>start/pause/resume/stop</code>）</li>
+    <li>运行记录下载与 ZIP 解压</li>
+    <li>会话内探索性分析输出（由助手基于导出数据生成）</li>
+    <li>想定倍速控制（<code>set_simulation_speed</code>）</li>
+  </ul>
+
+  <h3>1.3 Out of Scope（当前版本）</h3>
+  <ul>
+    <li>自动化分析引擎（独立脚本/报表服务）</li>
+    <li>完整审计平台与指标看板</li>
+    <li>多用户并发控制仲裁</li>
+  </ul>
+
+  <hr/>
+
+  <h2>2. 功能需求（与代码一致）</h2>
+  <table>
+    <thead>
+      <tr><th>需求ID</th><th>模块</th><th>标题</th><th>对应能力</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>REQ-001</td><td>查询</td><td>查询模型案例与想定案例</td><td><code>list_models</code>、<code>list_scenarios</code></td></tr>
+      <tr><td>REQ-002</td><td>控制</td><td>控制想定运行状态</td><td><code>control_scenario</code></td></tr>
+      <tr><td>REQ-003</td><td>数据获取</td><td>下载运行记录并直接用于分析</td><td><code>download_record_data</code></td></tr>
+      <tr><td>REQ-004</td><td>分析</td><td>基于运行数据输出探索性结论</td><td>会话分析流程</td></tr>
+      <tr><td>REQ-005</td><td>接入配置</td><td>标准化 MCP 部署与配置</td><td><code>README.md</code> + <code>.env.example</code></td></tr>
+      <tr><td>REQ-006</td><td>仿真控制增强</td><td>调整运行中的仿真倍速</td><td><code>set_simulation_speed</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>REQ-001 查询模型案例与想定案例</h3>
+  <ul>
+    <li>支持关键词筛选（模型）</li>
+    <li>支持分页</li>
+    <li>支持 <code>fetch_all=True</code> 拉全量</li>
+    <li>想定查询默认 <code>simulationTag=1</code>（可传空字符串切换用户想定）</li>
+  </ul>
+  <p><strong>验收标准</strong></p>
+  <ol>
+    <li>可返回模型/想定列表。</li>
+    <li>返回包含关键字段（如 <code>simulationSig</code>/<code>agentKey</code>、名称、状态）。</li>
+    <li>分页场景下可完整拉取。</li>
+  </ol>
+
+  <h3>REQ-002 控制想定运行（start/pause/resume/stop）</h3>
+  <ul>
+    <li>支持动作：<code>start</code>、<code>pause</code>、<code>resume</code>、<code>stop</code></li>
+    <li><code>pause/resume/stop</code> 未显式传 <code>record_id</code> 时，自动尝试定位运行记录</li>
+  </ul>
+  <p><strong>验收标准</strong></p>
+  <ol>
+    <li>四类动作均可发起。</li>
+    <li>无可用运行记录时返回明确错误信息。</li>
+    <li>返回原始接口响应用于追踪。</li>
+  </ol>
+
+  <h3>REQ-003 下载运行记录并用于分析</h3>
+  <ul>
+    <li>调用 <code>/getRecordData</code> 下载 ZIP</li>
+    <li>自动解压到本地目录</li>
+    <li>返回本地路径与文件列表</li>
+  </ul>
+  <p><strong>验收标准</strong></p>
+  <ol>
+    <li>下载成功后可获得可解析文件。</li>
+    <li>ZIP 自动解压成功。</li>
+    <li>失败时返回错误码/错误信息。</li>
+  </ol>
+
+  <h3>REQ-004 探索性分析输出</h3>
+  <ul>
+    <li>当前由会话层完成，不作为独立 MCP 工具</li>
+    <li>最低输出结构：数据概览、关键发现、结论</li>
+    <li>支持继续追问迭代</li>
+  </ul>
+  <p><strong>验收标准</strong></p>
+  <ol>
+    <li>输出包含“概览/发现/结论”。</li>
+    <li>可关联到输入记录或文件路径。</li>
+    <li>支持追问补充分析。</li>
+  </ol>
+
+  <h3>REQ-005 标准化部署与客户端配置</h3>
+  <ul>
+    <li>提供 <code>.env.example</code></li>
+    <li>README 提供最小可用接入步骤</li>
+    <li>发布时排除 <code>.env</code> 与 <code>__pycache__</code></li>
+  </ul>
+  <p><strong>验收标准</strong></p>
+  <ol>
+    <li>新用户可按 README 完成接入。</li>
+    <li>配置项覆盖 <code>base_url/user_id/token</code>。</li>
+  </ol>
+
+  <h3>REQ-006 仿真倍速控制</h3>
+  <ul>
+    <li>新增 <code>set_simulation_speed</code></li>
+    <li>参数：<code>simulation_id</code>、<code>speed</code>、可选 <code>record_id</code></li>
+    <li>自动定位运行记录（可选）</li>
+  </ul>
+  <p><strong>验收标准</strong></p>
+  <ol>
+    <li>可下发倍速控制请求。</li>
+    <li>参数非法（如 <code>speed&lt;=0</code>）时返回明确错误。</li>
+  </ol>
+
+  <hr/>
+
+  <h2>3. 工具与代码映射</h2>
+  <table>
+    <thead>
+      <tr><th>MCP工具</th><th>代码入口</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>list_scenarios</code></td><td><code>src/server.py</code></td><td>查询想定，支持分页/全量/标签过滤</td></tr>
+      <tr><td><code>list_models</code></td><td><code>src/server.py</code></td><td>查询模型，支持关键词与模型案例过滤</td></tr>
+      <tr><td><code>control_scenario</code></td><td><code>src/server.py</code></td><td>控制想定生命周期</td></tr>
+      <tr><td><code>download_record_data</code></td><td><code>src/server.py</code></td><td>下载并解压运行记录</td></tr>
+      <tr><td><code>set_simulation_speed</code></td><td><code>src/server.py</code></td><td>设置仿真倍速</td></tr>
+    </tbody>
+  </table>
+
+  <hr/>
+
+  <h2>4. 运行与配置要求</h2>
+  <h3>4.1 环境变量</h3>
+  <ul>
+    <li><code>LAVIC_API_BASE_URL</code></li>
+    <li><code>LAVIC_USER_ID</code></li>
+    <li><code>LAVIC_API_TOKEN</code></li>
+  </ul>
+
+  <h3>4.2 MCP 客户端配置（示例）</h3>
+  <pre><code>{
+  "mcpServers": {
+    "lavic-control": {
+      "command": "python",
+      "args": [
+        "/ABSOLUTE/PATH/TO/lavicmcp/src/server.py"
+      ],
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}</code></pre>
+
+  <hr/>
+
+  <h2>5. 当前版本说明</h2>
+  <ul>
+    <li>本文档是“与现有代码一致”的 Story1 版本。</li>
+    <li>需要增强的后续能力：
+      <ul>
+        <li>控制动作的显式状态机校验</li>
+        <li>下载自动重试策略</li>
+        <li>独立分析模块与标准化报表</li>
+        <li>trace_id / 耗时 / 结果码等可观测性字段</li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
