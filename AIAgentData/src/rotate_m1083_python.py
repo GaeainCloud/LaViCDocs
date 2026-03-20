@@ -3,7 +3,10 @@ import numpy as np
 import os
 
 # Define path
-model_path = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads\M1083_A1P2_Truck_AI_Rodin.glb"
+model_path = os.path.join(
+    os.getenv("AIALAVIC_DOWNLOADS_DIR", os.path.join(os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models")), "downloads")),
+    "M1083_A1P2_Truck_AI_Rodin.glb",
+)
 
 if not os.path.exists(model_path):
     print(f"Error: File not found at {model_path}")

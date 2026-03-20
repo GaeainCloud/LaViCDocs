@@ -3,7 +3,10 @@ import json
 import os
 
 # Update path to the correct file
-excel_path = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\06_11新车辆仿真模型信息.xlsx"
+excel_path = os.path.join(
+    os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models")),
+    "06_11新车辆仿真模型信息.xlsx",
+)
 
 if not os.path.exists(excel_path):
     print(f"File not found: {excel_path}")

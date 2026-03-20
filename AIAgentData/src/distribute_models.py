@@ -2,7 +2,7 @@
 import os
 import shutil
 
-base_dir = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
+base_dir = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
 downloads_dir = os.path.join(base_dir, "downloads")
 
 models = [

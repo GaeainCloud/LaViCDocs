@@ -4,7 +4,7 @@ import math
 
 # Define the models to process
 # Using absolute paths to be safe
-base_dir = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
+base_dir = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
 models = [
     "大疆Matrice 300RTK无人机",
     "纵横CW-15无人机",

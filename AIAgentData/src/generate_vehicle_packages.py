@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import uuid
+import copy
 import military_symbol
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
@@ -19,6 +20,7 @@ TEMPLATE_JSON_PATH = os.path.join(PROJECT_ROOT, "examples", "01vehicleAgent.json
 SOURCE_GLB_PLACEHOLDER = os.path.join(MODELS_DIR, "亿航EH216-S无人机", "亿航EH216-S无人机", "亿航EH216-S无人机_AI_Rodin.glb")
 SOURCE_PNG_PLACEHOLDER = os.path.join(MODELS_DIR, "亿航EH216-S无人机", "亿航EH216-S无人机", "亿航EH216-S无人机.png")
 DOWNLOADS_DIR = os.path.join(MODELS_DIR, "downloads")
+ALLOW_PLACEHOLDER = os.getenv("AIALAVIC_ALLOW_PLACEHOLDER", "0") == "1"
 
 # Model Mapping (Index in Excel -> English Name & Symbol Desc)
 MODEL_MAPPING = {
@@ -94,7 +96,7 @@ def main():
         os.makedirs(assets_dir)
 
         # Prepare Agent Data
-        agent_data = template_data # Keep it as a list if the template is a list
+        agent_data = copy.deepcopy(template_data)
         if isinstance(agent_data, list):
             current_agent = agent_data[0]
         else:
@@ -129,27 +131,27 @@ def main():
         if os.path.exists(downloaded_glb):
             print(f"  Using downloaded GLB: {downloaded_glb}")
             shutil.copy(downloaded_glb, os.path.join(assets_dir, glb_name))
-        elif os.path.exists(SOURCE_GLB_PLACEHOLDER):
-            print(f"  Warning: Downloaded GLB not found, using placeholder.")
+        elif ALLOW_PLACEHOLDER and os.path.exists(SOURCE_GLB_PLACEHOLDER):
+            print(f"  Warning: Downloaded GLB not found, using placeholder due to AIALAVIC_ALLOW_PLACEHOLDER=1.")
             shutil.copy(SOURCE_GLB_PLACEHOLDER, os.path.join(assets_dir, glb_name))
         else:
-            print(f"  Warning: Source GLB not found at {SOURCE_GLB_PLACEHOLDER}")
-            # Create dummy
-            with open(os.path.join(assets_dir, glb_name), 'w') as f:
-                f.write("dummy glb")
+            print(f"  Error: Missing GLB for {en_name}. Expected {downloaded_glb}.")
+            if not ALLOW_PLACEHOLDER:
+                print("  Hint: set AIALAVIC_ALLOW_PLACEHOLDER=1 to allow fallback placeholders.")
+            continue
 
         # 2. Thumbnail PNG
         if os.path.exists(downloaded_png):
             print(f"  Using downloaded PNG: {downloaded_png}")
             shutil.copy(downloaded_png, os.path.join(assets_dir, png_name))
-        elif os.path.exists(SOURCE_PNG_PLACEHOLDER):
-             print(f"  Warning: Downloaded PNG not found, using placeholder.")
+        elif ALLOW_PLACEHOLDER and os.path.exists(SOURCE_PNG_PLACEHOLDER):
+             print(f"  Warning: Downloaded PNG not found, using placeholder due to AIALAVIC_ALLOW_PLACEHOLDER=1.")
              shutil.copy(SOURCE_PNG_PLACEHOLDER, os.path.join(assets_dir, png_name))
         else:
-             print(f"  Warning: Source PNG not found at {SOURCE_PNG_PLACEHOLDER}")
-             # Create dummy
-             with open(os.path.join(assets_dir, png_name), 'w') as f:
-                f.write("dummy png")
+             print(f"  Error: Missing PNG for {en_name}. Expected {downloaded_png}.")
+             if not ALLOW_PLACEHOLDER:
+                 print("  Hint: set AIALAVIC_ALLOW_PLACEHOLDER=1 to allow fallback placeholders.")
+             continue
 
         # 3. Military Symbol
         generate_mil_symbol(en_name, symbol_desc, assets_dir)

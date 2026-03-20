@@ -10,7 +10,7 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 }
 
-DEST_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads"
+DEST_DIR = os.getenv("AIALAVIC_DOWNLOADS_DIR", os.path.join(os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models")), "downloads"))
 os.makedirs(DEST_DIR, exist_ok=True)
 DEST_FILE = os.path.join(DEST_DIR, "M1083_A1P2_Truck.png")
 

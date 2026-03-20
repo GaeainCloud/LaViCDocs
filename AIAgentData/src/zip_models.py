@@ -9,7 +9,11 @@ def zip_model_folders(models_dir):
         print(f"Error: Directory not found: {models_dir}")
         return
 
-    dirs = [d for d in items if os.path.isdir(os.path.join(models_dir, d)) and d != "assets"]
+    dirs = [
+        d
+        for d in items
+        if os.path.isdir(os.path.join(models_dir, d)) and d not in {"assets", "downloads"}
+    ]
 
     print(f"Found directories to zip: {dirs}")
 
@@ -36,7 +40,6 @@ def zip_model_folders(models_dir):
 
 if __name__ == "__main__":
     print(f"Running zip_models.py from {__file__}")
-    # base_dir = r"D:\AIProduct\GAEALaViC\AIAgentData\models"
-    base_dir = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
+    base_dir = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
     print(f"Base dir is: {base_dir}")
     zip_model_folders(base_dir)

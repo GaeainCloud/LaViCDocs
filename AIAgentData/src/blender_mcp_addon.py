@@ -21,9 +21,10 @@ import os.path as osp
 from contextlib import redirect_stdout, suppress
 
 # Proxy Configuration
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+PROXY_URL = os.getenv("AIALAVIC_PROXY_URL", "").strip()
+if PROXY_URL:
+    os.environ["HTTP_PROXY"] = PROXY_URL
+    os.environ["HTTPS_PROXY"] = PROXY_URL
 os.environ["NO_PROXY"] = "localhost,127.0.0.1"
 
 bl_info = {
@@ -36,7 +37,7 @@ bl_info = {
     "category": "Interface",
 }
 
-RODIN_FREE_TRIAL_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
+RODIN_FREE_TRIAL_KEY = os.getenv("RODIN_FREE_TRIAL_KEY", "").strip()
 
 # Add User-Agent as required by Poly Haven API
 REQ_HEADERS = requests.utils.default_headers()
@@ -2406,6 +2407,9 @@ class BLENDERMCP_OT_SetFreeTrialHyper3DAPIKey(bpy.types.Operator):
     bl_label = "Set Free Trial API Key"
 
     def execute(self, context):
+        if not RODIN_FREE_TRIAL_KEY:
+            self.report({'ERROR'}, "RODIN_FREE_TRIAL_KEY is not configured in environment.")
+            return {'CANCELLED'}
         context.scene.blendermcp_hyper3d_api_key = RODIN_FREE_TRIAL_KEY
         context.scene.blendermcp_hyper3d_mode = 'MAIN_SITE'
         self.report({'INFO'}, "API Key set successfully!")

@@ -14,20 +14,16 @@ from reportlab.graphics import renderPM
 from download_helper import fetch_image_via_helper
 import trimesh
 import numpy as np
+from runtime_config import apply_proxy_env, get_downloads_dir, get_models_dir, get_project_root, require_env
 
 # --- Configuration ---
-BASE_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData"
-MODELS_DIR = os.path.join(BASE_DIR, "models")
-DOWNLOADS_DIR = os.path.join(MODELS_DIR, "downloads")
+BASE_DIR = get_project_root()
+MODELS_DIR = get_models_dir()
+DOWNLOADS_DIR = get_downloads_dir()
 EXCEL_PATH = os.path.join(MODELS_DIR, "12_15新战斗机仿真模型信息.xlsx")
 TEMPLATE_JSON_PATH = os.path.join(BASE_DIR, "examples", "02aircraftAgent.json")
 
-RODIN_API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-PROXY_URL = "http://127.0.0.1:7897"
-
-# Set Proxy
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+apply_proxy_env()
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -212,7 +208,7 @@ def generate_glb_rodin(model_name, search_term, image_path):
         image_path = None
 
     headers = {
-        "Authorization": f"Bearer {RODIN_API_KEY}",
+        "Authorization": f"Bearer {require_env('RODIN_API_KEY')}",
         "User-Agent": "blender-mcp"
     }
     

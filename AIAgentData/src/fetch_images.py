@@ -6,13 +6,11 @@ from PIL import Image
 from io import BytesIO
 import time
 import random
+from runtime_config import apply_proxy_env, get_downloads_dir
 
-# Proxy Configuration
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+apply_proxy_env()
 
-DOWNLOAD_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads"
+DOWNLOAD_DIR = get_downloads_dir()
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 # Candidate sources - mix of Pages to scrape and Direct Image URLs

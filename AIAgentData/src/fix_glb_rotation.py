@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 # Use raw string for Windows path
-BASE_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData"
+BASE_DIR = os.getenv("AIALAVIC_BASE_DIR", os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 DOWNLOADS_DIR = os.path.join(MODELS_DIR, "downloads")
 
@@ -20,15 +20,11 @@ def rotate_glb(model_name):
     # Target in models folder
     dst_path = os.path.join(MODELS_DIR, model_name, model_name, f"{model_name}_AI_Rodin.glb")
     
-    # If source doesn't exist, check if target exists and use it (warning: might be double rotated if we aren't careful, but we assume downloads has originals)
+    # Skip if source doesn't exist to keep rotation idempotent.
     if not os.path.exists(src_path):
         print(f"[Warning] Source not found at {src_path}")
-        if os.path.exists(dst_path):
-            print(f"  Fallback: Using existing target {dst_path} (Risk of double rotation!)")
-            src_path = dst_path
-        else:
-            print(f"  Skipping {model_name}: No file found.")
-            return
+        print(f"  Skipping {model_name}: No source file found in downloads.")
+        return
 
     print(f"Processing {model_name}...")
     try:

@@ -2,13 +2,13 @@ import requests
 import json
 import time
 import os
+from runtime_config import get_downloads_dir, require_env
 
-API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-IMAGE_PATH = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads\M1083_A1P2_Truck.png"
-OUTPUT_GLB = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads\M1083_A1P2_Truck_AI_Rodin.glb"
+IMAGE_PATH = os.path.join(get_downloads_dir(), "M1083_A1P2_Truck.png")
+OUTPUT_GLB = os.path.join(get_downloads_dir(), "M1083_A1P2_Truck_AI_Rodin.glb")
 
 HEADERS = {
-    "Authorization": f"Bearer {API_KEY}",
+    "Authorization": f"Bearer {require_env('RODIN_API_KEY')}",
     "User-Agent": "blender-mcp"
 }
 

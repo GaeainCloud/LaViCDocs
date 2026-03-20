@@ -1,11 +1,18 @@
 import os
 import json
 import subprocess
+import sys
 import trimesh
 import numpy as np
 
 def rotate_m1083():
-    target_file = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\M1083_A1P2_Truck\M1083_A1P2_Truck\M1083_A1P2_Truck_AI_Rodin.glb"
+    models_dir = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
+    target_file = os.path.join(
+        models_dir,
+        "M1083_A1P2_Truck",
+        "M1083_A1P2_Truck",
+        "M1083_A1P2_Truck_AI_Rodin.glb",
+    )
     if os.path.exists(target_file):
         print(f"Rotating {target_file}...")
         try:
@@ -37,7 +44,11 @@ def fix_agent_json(models_dir):
         print(f"Error: Directory not found: {models_dir}")
         return
 
-    dirs = [d for d in items if os.path.isdir(os.path.join(models_dir, d)) and d != "assets"]
+    dirs = [
+        d
+        for d in items
+        if os.path.isdir(os.path.join(models_dir, d)) and d not in {"assets", "downloads"}
+    ]
 
     print(f"Found directories to process: {dirs}")
 
@@ -136,10 +147,7 @@ if __name__ == "__main__":
     # Rotate M1083 model first
     rotate_m1083()
 
-    # base_dir = r"D:\AIProduct\GAEALaViC\AIAgentData\models"
-    # Get models dir relative to this script
-    # base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "models")
-    base_dir = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
+    base_dir = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
     
     print("Starting agent.json fix...")
     fix_agent_json(base_dir)
@@ -147,4 +155,4 @@ if __name__ == "__main__":
     print("\nStarting re-zipping...")
     # Call the zip script
     zip_script = os.path.join(os.path.dirname(__file__), "zip_models.py")
-    subprocess.run(["python", zip_script], cwd=os.path.dirname(base_dir))
+    subprocess.run([sys.executable, zip_script], cwd=os.path.dirname(base_dir), check=True)

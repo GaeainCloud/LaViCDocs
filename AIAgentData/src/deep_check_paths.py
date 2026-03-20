@@ -2,7 +2,7 @@ import json
 import zipfile
 import os
 
-MODELS_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
+MODELS_DIR = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
 PACKAGES = [
     "J-20_Mighty_Dragon",
     "F-22_Raptor",

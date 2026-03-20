@@ -8,21 +8,15 @@ import trimesh
 import numpy as np
 import random
 import math
+from runtime_config import apply_proxy_env, get_models_dir
 
-# Proxy Configuration
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
-
-# Configuration
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODELS_DIR = os.path.join(BASE_DIR, "..", "models")
-ASSETS_DIR = os.path.join(MODELS_DIR, "assets")
+apply_proxy_env()
+MODELS_DIR = get_models_dir()
+ALLOW_PLACEHOLDER = os.getenv("AIALAVIC_ALLOW_PLACEHOLDER", "0") == "1"
 
 # Drone Configuration
 DRONE_CONFIGS = {
-    "亿航EH216-S无人机.json": {
-        "name": "亿航EH216-S无人机",
+    "亿航EH216-S无人机": {
         "type": "multicopter",
         "urls": [
             "https://evtol.news/ehang-216/",
@@ -30,8 +24,7 @@ DRONE_CONFIGS = {
             "https://businessaviation.aero/directory/electrified-aircraft/all-electric-aircraft/all-electric-evtol/ehang-eh216-s"
         ]
     },
-    "峰飞CarrayAll无人机.json": {
-        "name": "峰飞CarrayAll无人机",
+    "峰飞CarrayAll无人机": {
         "type": "fixed_wing_vtol",
         "urls": [
             "https://evtol.news/autoflight-carryall",
@@ -39,8 +32,7 @@ DRONE_CONFIGS = {
             "https://evtolinsights.com/autoflight-carryall-achieves-all-three-key-flight-approvals/"
         ]
     },
-    "沃飞长空AE200.json": {
-        "name": "沃飞长空AE200",
+    "沃飞长空AE200": {
         "type": "fixed_wing_vtol",
         "urls": [
             "https://zgh.com/media-center/news/2025-09-29/?lang=en",
@@ -48,8 +40,7 @@ DRONE_CONFIGS = {
             "https://aamnation.com/en/2025/10/08/aerofugia-begins-production-of-ae200-100-evtol-prototype/"
         ]
     },
-    "纵横CW-15.json": {
-        "name": "纵横CW-15",
+    "纵横CW-15无人机": {
         "type": "fixed_wing_vtol",
         "urls": [
             "https://www.jouav.com/blog/long-range-drone.html",
@@ -210,8 +201,8 @@ def generate_placeholder_image(text):
     draw.text(position, text, fill=(255, 255, 255), font=font)
     return image
 
-def generate_drone_glb(filename, drone_type="multicopter"):
-    print(f"Generating {drone_type} GLB model: {filename}")
+def generate_drone_glb(output_path, drone_type="multicopter"):
+    print(f"Generating {drone_type} GLB model: {output_path}")
     
     # Colors
     dark_grey = [40, 40, 40, 255]
@@ -318,18 +309,20 @@ def generate_drone_glb(filename, drone_type="multicopter"):
     # Combine all parts
     mesh = trimesh.util.concatenate(parts)
     
-    path = os.path.join(ASSETS_DIR, filename)
-    mesh.export(path)
-    return path
+    mesh.export(output_path)
+    return output_path
 
-def process_drone(json_filename, config):
-    print(f"\nProcessing {config['name']}...")
-    agent_path = os.path.join(MODELS_DIR, json_filename)
+def process_drone(model_name, config):
+    print(f"\nProcessing {model_name}...")
+    model_dir = os.path.join(MODELS_DIR, model_name)
+    assets_dir = os.path.join(model_dir, model_name)
+    ensure_dir(assets_dir)
+    agent_path = os.path.join(model_dir, "agent.json")
     
     # 1. Handle Image
-    base_name = config['name']
+    base_name = model_name
     png_filename = f"{base_name}.png"
-    png_path = os.path.join(ASSETS_DIR, png_filename)
+    png_path = os.path.join(assets_dir, png_filename)
     
     # Search keywords derived from name or URL parts
     keywords = [base_name.split('无人机')[0], "drone", "evtol"]
@@ -340,6 +333,10 @@ def process_drone(json_filename, config):
     
     image = fetch_web_image(config['urls'], keywords)
     if image is None:
+        if not ALLOW_PLACEHOLDER:
+            raise RuntimeError(
+                f"Failed to fetch image for {base_name}. Set AIALAVIC_ALLOW_PLACEHOLDER=1 to allow placeholder output."
+            )
         print("Failed to fetch real image, using placeholder.")
         image = generate_placeholder_image(base_name)
     
@@ -350,9 +347,10 @@ def process_drone(json_filename, config):
     print(f"Saved image to {png_path}")
     
     # 2. Handle GLB
-    glb_filename = f"{base_name}.glb"
-    generate_drone_glb(glb_filename, config['type'])
-    print(f"Saved GLB to {os.path.join(ASSETS_DIR, glb_filename)}")
+    glb_filename = f"{base_name}_AI_Rodin.glb"
+    glb_path = os.path.join(assets_dir, glb_filename)
+    generate_drone_glb(glb_path, config['type'])
+    print(f"Saved GLB to {glb_path}")
     
     # 3. Update JSON
     if os.path.exists(agent_path):
@@ -360,7 +358,7 @@ def process_drone(json_filename, config):
             try:
                 data = json.load(f)
             except json.JSONDecodeError:
-                print(f"Error: Invalid JSON in {json_filename}")
+                print(f"Error: Invalid JSON in {agent_path}")
                 return
 
         # Handle list structure (single agent in list)
@@ -374,8 +372,8 @@ def process_drone(json_filename, config):
         else:
             agent = data
 
-        rel_png = f"assets/{png_filename}"
-        rel_glb = f"assets/{glb_filename}"
+        rel_png = f"{model_name}/{png_filename}"
+        rel_glb = f"{model_name}/{glb_filename}"
         
         agent['modelUrlSymbols'] = [
             {
@@ -386,24 +384,31 @@ def process_drone(json_filename, config):
         ]
         agent['modelUrlSlim'] = rel_glb
         agent['modelUrlFat'] = rel_glb
+        if "model" in agent:
+            agent["model"]["modelName"] = agent.get("agentName", model_name)
+            if "thumbnail" in agent["model"]:
+                agent["model"]["thumbnail"]["url"] = rel_png
+                agent["model"]["thumbnail"]["ossSig"] = png_filename
+            if "dimModelUrls" in agent["model"] and agent["model"]["dimModelUrls"]:
+                for dim in agent["model"]["dimModelUrls"]:
+                    dim["url"] = rel_glb
+                    dim["ossSig"] = glb_filename
         
         # Write back
         to_write = [agent] if is_list else agent
         
         with open(agent_path, 'w', encoding='utf-8') as f:
             json.dump(to_write, f, indent=2, ensure_ascii=False)
-        print(f"Updated {json_filename}")
+        print(f"Updated {agent_path}")
     else:
-        print(f"Error: {json_filename} not found!")
+        print(f"Error: {agent_path} not found!")
 
 def main():
-    ensure_dir(ASSETS_DIR)
-    
-    for json_filename, config in DRONE_CONFIGS.items():
+    for model_name, config in DRONE_CONFIGS.items():
         try:
-            process_drone(json_filename, config)
+            process_drone(model_name, config)
         except Exception as e:
-            print(f"Critical error processing {json_filename}: {e}")
+            print(f"Critical error processing {model_name}: {e}")
 
 if __name__ == "__main__":
     main()

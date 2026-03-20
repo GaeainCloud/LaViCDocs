@@ -1,12 +1,12 @@
 import requests
 import os
+from runtime_config import get_downloads_dir, require_env
 
-API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-OUTPUT_GLB = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads\M1083_A1P2_Truck_AI_Rodin.glb"
+OUTPUT_GLB = os.path.join(get_downloads_dir(), "M1083_A1P2_Truck_AI_Rodin.glb")
 TASK_UUID = "8de7952e-49c8-44d3-b22b-6cb698bf1460"
 
 HEADERS = {
-    "Authorization": f"Bearer {API_KEY}",
+    "Authorization": f"Bearer {require_env('RODIN_API_KEY')}",
     "User-Agent": "blender-mcp"
 }
 

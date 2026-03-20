@@ -9,19 +9,15 @@ from PIL import Image
 import military_symbol
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
+from runtime_config import apply_proxy_env, get_downloads_dir, get_models_dir, require_env
 
 # --- Configuration ---
 MODEL_NAME = "RIM-161_SM-3"
 READABLE_NAME = "RIM-161 Standard Missile 3"
 SYMBOL_DESC = "Friendly Air Defense Missile" # Or "Friendly Missile"
-DOWNLOADS_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads"
-FINAL_MODELS_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
-RODIN_API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-
-# Proxy Config
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+DOWNLOADS_DIR = get_downloads_dir()
+FINAL_MODELS_DIR = get_models_dir()
+apply_proxy_env()
 
 # Search URLs for Images
 IMAGE_URLS = [
@@ -156,7 +152,7 @@ def generate_glb(image_path):
     # if os.path.exists(output_glb): return output_glb
     
     headers = {
-        "Authorization": f"Bearer {RODIN_API_KEY}",
+        "Authorization": f"Bearer {require_env('RODIN_API_KEY')}",
         "User-Agent": "blender-mcp"
     }
     

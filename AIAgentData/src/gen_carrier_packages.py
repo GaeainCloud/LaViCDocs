@@ -13,22 +13,16 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
 import trimesh
 import numpy as np
+from runtime_config import apply_proxy_env, get_downloads_dir, get_models_dir, get_project_root, require_env
 
 # --- Configuration ---
-# Use raw strings for paths
-BASE_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData"
-MODELS_DIR = os.path.join(BASE_DIR, "models")
-DOWNLOADS_DIR = os.path.join(MODELS_DIR, "downloads")
+BASE_DIR = get_project_root()
+MODELS_DIR = get_models_dir()
+DOWNLOADS_DIR = get_downloads_dir()
 EXCEL_PATH = os.path.join(MODELS_DIR, "16_21新舰载机仿真模型信息.xlsx")
 TEMPLATE_JSON_PATH = os.path.join(BASE_DIR, "examples", "02aircraftAgent.json")
 
-# RODIN API
-RODIN_API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-PROXY_URL = "http://127.0.0.1:7897"
-
-# Set Proxy
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+apply_proxy_env()
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -171,7 +165,7 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
         return None
         
     headers = {
-        "Authorization": f"Bearer {RODIN_API_KEY}",
+        "Authorization": f"Bearer {require_env('RODIN_API_KEY')}",
         "User-Agent": "blender-mcp"
     }
     
@@ -608,25 +602,13 @@ def main():
             }
             df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
-        target_models = [
-            # "J-35舰载机",
-            # "F/A-18E/F超级大黄蜂",
-            # "Su-33海侧卫舰载机",
-            # "阵风M舰载机",
-            # "F-14D超级雄猫舰载机",
-            # "J-15飞鲨舰载机",
-            # "J-10C猛龙",
-            # "J10C战斗机",
-            # "BZK-005侦察机",
-            # "无侦-7侦察机",
-            # "空警-500",
-            # "空警-600",
-            # "E-3G预警机",
-            # "E-2D预警机",
-            # "A-50U预警机",
-            # "KC-46A加油机",
-            "KC-135加油机"
-        ]
+        target_env = os.getenv("AIALAVIC_CARRIER_TARGETS", "").strip()
+        if target_env:
+            target_models = {name.strip() for name in target_env.split(",") if name.strip()}
+            print(f"Using AIALAVIC_CARRIER_TARGETS filter: {sorted(target_models)}")
+        else:
+            target_models = set(NAME_MAP.keys())
+            print("Using default target set from NAME_MAP.")
         
         for _, row in df.iterrows():
             if row['文本'].strip() in target_models:

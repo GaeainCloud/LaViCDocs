@@ -1,7 +1,7 @@
 import os
 import shutil
 
-base_dir = r"D:\AIProduct\GAEALaViC\AIAgentData\models"
+base_dir = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
 old_name = "纵横CW-15"
 new_name = "纵横CW-15无人机"
 

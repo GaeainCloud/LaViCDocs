@@ -3,15 +3,13 @@ import sys
 import requests
 from PIL import Image
 from io import BytesIO
+from runtime_config import apply_proxy_env, get_downloads_dir
 
 print("Starting download_helper.py...")
 
-# Proxy Configuration
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+apply_proxy_env()
 
-DOWNLOADS_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads"
+DOWNLOADS_DIR = get_downloads_dir()
 if not os.path.exists(DOWNLOADS_DIR):
     os.makedirs(DOWNLOADS_DIR)
 

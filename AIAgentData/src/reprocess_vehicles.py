@@ -15,7 +15,7 @@ VEHICLES = [
     # "Dongfeng-15_Missile_Launcher" # 可选，如果用户是指那5个英文名的
 ]
 
-BASE_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
+BASE_DIR = os.getenv("AIALAVIC_MODELS_DIR", os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models"))
 
 def process_and_package(model_name):
     print(f"Processing {model_name}...")
