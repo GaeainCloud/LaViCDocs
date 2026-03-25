@@ -4,7 +4,16 @@ import zipfile
 import json
 from pathlib import Path
 from typing import Optional, Dict, Any
-from config.settings import settings
+
+try:
+    from config.settings import settings
+except ModuleNotFoundError:
+    import sys
+
+    project_root = Path(__file__).resolve().parents[2]
+    if str(project_root) not in sys.path:
+        sys.path.append(str(project_root))
+    from config.settings import settings
 
 class FileHandler:
     @staticmethod

@@ -160,14 +160,14 @@ class PhysicsProbe:
                     severity="INFO",
                     code="PHY_SUMMARY_PASS",
                     message=summary_msg,
-                    entity_id=f"{entity.instanceName} ({entity.agentName})"
+                    entity_id=f"{entity.instanceName} ({getattr(entity, 'agentName', entity.instanceName)})"
                 ))
             else:
                 issues.append(AuditIssue(
                     severity="INFO",
                     code="PHY_SUMMARY_FAIL",
                     message=summary_msg,
-                    entity_id=f"{entity.instanceName} ({entity.agentName})"
+                    entity_id=f"{entity.instanceName} ({getattr(entity, 'agentName', entity.instanceName)})"
                 ))
             
         # Determine status
@@ -183,7 +183,13 @@ class PhysicsProbe:
 
     def _identify_entity_type(self, entity: AgentInstance) -> Tuple[str, Dict[str, Any]]:
         """根据 agentType 和 agentDesc 推断实体物理属性"""
-        text = (f"{entity.agentType} {entity.agentDesc} {entity.instanceName} {entity.agentName} {entity.agentKeyword}").lower()
+        text = (
+            f"{entity.agentType} "
+            f"{getattr(entity, 'agentDesc', '')} "
+            f"{entity.instanceName} "
+            f"{getattr(entity, 'agentName', '')} "
+            f"{getattr(entity, 'agentKeyword', '')}"
+        ).lower()
         
         # Priority order for checking: Check containers (ground/ship) before contents (missiles)
         priority = ["ship", "ground", "aircraft", "hypersonic_missile", "missile", "human"]
@@ -212,13 +218,10 @@ class PhysicsProbe:
         waypoints = []
         for group in entity.waypoints:
             for wp in group.wps:
-                # 假设 wpsCore 格式: [lon, lat, alt, val1, time, ...]
-                if len(wp.wpsCore) >= 5:
-                    t = wp.wpsCore[4]
-                    pos = (wp.wpsCore[0], wp.wpsCore[1], wp.wpsCore[2])
+                parsed = self._extract_wp_time_pos(wp.wpsCore)
+                if parsed:
+                    t, pos = parsed
                     waypoints.append({"time": t, "pos": pos})
-                elif len(wp.wpsCore) == 4:
-                    pass 
         
         waypoints.sort(key=lambda x: x["time"])
         
@@ -263,7 +266,7 @@ class PhysicsProbe:
                 issues.append(AuditIssue(
                     severity="CRITICAL",
                     code="PHY_KIN_SPEED_LIMIT",
-                    message=f"CRITICAL Speed Violation. Calculated: {speed:.1f} m/s, Limit: {max_speed:.1f} m/s.",
+                    message=f"CRITICAL Speed Violation. Calculated: {speed:.1f} m/s, Limit: {max_speed:.1f} m/s. Entity exceeded physical speed limit.",
                     location=f"Entity:{entity.instanceName} Time:{curr['time']}->{next_wp['time']}",
                     entity_id=entity.instanceName,
                     time_step=f"T+{curr['time']}s",
@@ -319,7 +322,7 @@ class PhysicsProbe:
                     issues.append(AuditIssue(
                         severity="CRITICAL",
                         code="PHY_KIN_G_FORCE",
-                        message=f"CRITICAL G-Force Violation. Calculated: {g_force:.1f}G, Limit: {max_g}G.",
+                        message=f"CRITICAL G-Force Violation. Calculated: {g_force:.1f}G, Limit: {max_g}G. Exceeded structural G-Force limit.",
                         location=f"Entity:{entity.instanceName} Time:{curr['time']}",
                         entity_id=entity.instanceName,
                         time_step=f"T+{curr['time']}s",
@@ -413,7 +416,8 @@ class PhysicsProbe:
                 # wpsCore: [lon, lat, alt, ...]
                 if len(wp.wpsCore) >= 3:
                     alt = wp.wpsCore[2]
-                    time_val = wp.wpsCore[4] if len(wp.wpsCore) >= 5 else 0
+                    parsed = self._extract_wp_time_pos(wp.wpsCore)
+                    time_val = parsed[0] if parsed else 0
                     
                     if alt > stats["max_alt_obs"]: stats["max_alt_obs"] = alt
                     if alt < stats["min_alt_obs"]: stats["min_alt_obs"] = alt
@@ -476,9 +480,9 @@ class PhysicsProbe:
         waypoints = []
         for group in entity.waypoints:
             for wp in group.wps:
-                if len(wp.wpsCore) >= 5:
-                    t = wp.wpsCore[4]
-                    pos = (wp.wpsCore[0], wp.wpsCore[1], wp.wpsCore[2])
+                parsed = self._extract_wp_time_pos(wp.wpsCore)
+                if parsed:
+                    t, pos = parsed
                     waypoints.append({"time": t, "pos": pos})
         
         waypoints.sort(key=lambda x: x["time"])
@@ -544,10 +548,10 @@ class PhysicsProbe:
         waypoints = []
         for group in entity.waypoints:
             for wp in group.wps:
-                if len(wp.wpsCore) >= 5:
-                    waypoints.append((wp.wpsCore[4], wp.wpsCore[0], wp.wpsCore[1], wp.wpsCore[2]))
-                elif len(wp.wpsCore) == 4:
-                    pass
+                parsed = self._extract_wp_time_pos(wp.wpsCore)
+                if parsed:
+                    time_val, pos = parsed
+                    waypoints.append((time_val, pos[0], pos[1], pos[2]))
         waypoints.sort()
         if not waypoints: return None
         if len(waypoints) == 1:
@@ -564,4 +568,12 @@ class PhysicsProbe:
                 if t2 == t1: return (x1, y1, z1)
                 factor = (t - t1) / (t2 - t1)
                 return (x1 + (x2 - x1) * factor, y1 + (y2 - y1) * factor, z1 + (z2 - z1) * factor)
+        return None
+
+    def _extract_wp_time_pos(self, wps_core: List[float]) -> Optional[Tuple[float, Tuple[float, float, float]]]:
+        # Compatible with both [lon, lat, alt, time] and [lon, lat, alt, val, time, ...]
+        if len(wps_core) >= 5:
+            return wps_core[4], (wps_core[0], wps_core[1], wps_core[2])
+        if len(wps_core) == 4:
+            return wps_core[3], (wps_core[0], wps_core[1], wps_core[2])
         return None

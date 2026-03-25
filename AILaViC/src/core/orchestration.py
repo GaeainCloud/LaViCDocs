@@ -1,10 +1,18 @@
-from .state_schema import SharedState
+from __future__ import annotations
+
+from typing import Any, Dict
+
+from core.subagent_orchestrator import SubAgentOrchestrator
+
 
 class Orchestrator:
-    def __init__(self):
-        self.workflow = StateGraph(SharedState)
-        # Add nodes and edges here
-        
-    def run(self, initial_state: SharedState):
-        app = self.workflow.compile()
-        return app.invoke(initial_state)
+    """
+    Backward-compatible wrapper.
+    Legacy callers can still import Orchestrator from this module.
+    """
+
+    def __init__(self) -> None:
+        self.impl = SubAgentOrchestrator()
+
+    def run(self, initial_state: Dict[str, Any]) -> Dict[str, Any]:
+        return self.impl.run(initial_state)

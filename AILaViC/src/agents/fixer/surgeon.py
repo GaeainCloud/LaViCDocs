@@ -1,6 +1,13 @@
+from __future__ import annotations
+
+from subagents.services.fix_service import FixService
+
+
 class Surgeon:
     """
-    Fixes JSON based on audit reports.
+    Backward-compatible fixer wrapper.
     """
+
     def heal(self, scenario: dict, issues: list) -> dict:
-        pass
+        fixed, _actions = FixService.apply_safe_fixes(scenario, issues)
+        return fixed

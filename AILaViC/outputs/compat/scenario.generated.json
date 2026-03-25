@@ -1,0 +1,14 @@
+{
+  "simulation": {
+    "simulationName": "AI生成想定-兼容入口测试",
+    "simulationStatus": "DRAFT"
+  },
+  "agentInstances": [],
+  "meta": {
+    "intent": "兼容入口测试",
+    "hints": [
+      "使用通用战术想定模板。"
+    ],
+    "generated_at": "2026-02-27T15:37:38.082674"
+  }
+}

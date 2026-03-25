@@ -1,0 +1,16 @@
+{
+  "simulation": {
+    "simulationName": "AI生成想定-构建一个防空反导演练想定",
+    "simulationStatus": "DRAFT"
+  },
+  "agentInstances": [],
+  "meta": {
+    "intent": "构建一个防空反导演练想定",
+    "hints": [
+      "优先检查探测-拦截链路闭环。",
+      "重点关注弹道与拦截弹时空一致性。",
+      "确保包含阶段目标、触发条件和终止条件。"
+    ],
+    "generated_at": "2026-02-27T15:36:07.391433"
+  }
+}

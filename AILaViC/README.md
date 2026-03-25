@@ -1,21 +1,46 @@
 # AILaViC
 
-AILaViC 是一个基于 LLM 和多智能体的仿真想定编排系统，旨在通过自然语言生成高质量、可运行、逻辑自洽的仿真想定，并通过 MCP 协议在 LaViC 仿真平台上运行。
+AILaViC 是一个面向 LaViC 的仿真想定构建与审计项目。  
+当前版本已按 `subagents` 结构重构：以子代理流水线为主架构，兼容旧 `agents` 接口。
 
-## 项目架构
+## Subagents 架构
 
-- **Auditor First**: 优先实现审计功能，确保生成的想定符合物理、战术和资源完整性要求。
-- **Core Engine**: 基于状态机 (LangGraph) 的智能体编排。
-- **Agents**:
-    - **KnowledgeAgent**: 检索和管理知识。
-    - **CreatorAgent**: 生成战术想定。
-    - **AuditorAgent**: 审计和检查想定。
-    - **FixerAgent**: 修复审计发现的问题。
-    - **OperatorAgent**: 执行仿真任务。
-    - **DebuggerAgent**: 分析和复盘。
+- 编排器: `src/core/subagent_orchestrator.py`
+- 状态模型: `src/subagents/state.py`
+- 子代理:
+  - `KnowledgeSubAgent`: 识别模式（生成/审计）和领域提示
+  - `CreatorSubAgent`: 从意图生成草案，或从 `zip/json/目录` 加载既有想定
+  - `AuditorSubAgent`: 复用 `physics/logic/tactics/complexity/script` 探针执行审计
+  - `FixerSubAgent`: 自动修复常见结构问题并复审
+  - `OperatorSubAgent`: 产出 `scenario.generated.json` 和 `audit.report.json`
+  - `DebuggerSubAgent`: 汇总运行诊断
+- 服务层:
+  - `src/subagents/services/io_service.py`
+  - `src/subagents/services/audit_service.py`
+  - `src/subagents/services/fix_service.py`
+- 兼容层:
+  - `src/core/orchestration.py` 保留 `Orchestrator`（转发到新编排器）
+  - `src/agents/*` 原空实现已改为可用包装器
 
 ## 快速开始
 
-1.  安装依赖: `pip install -r requirements.txt` (or use poetry/pdm)
-2.  配置 `.env`
-3.  运行: `python src/main.py`
+1. 运行意图生成模式：
+
+```bash
+python src/main.py --intent "构建一个防空反导演练想定"
+```
+
+2. 运行既有想定审计模式（zip/json/目录都可以）：
+
+```bash
+python src/main.py \
+  --input "knowledge_base/examples/想定_防空反导-v1.60.9-修复版.zip" \
+  --intent "审计并修复防空反导想定" \
+  --output-dir outputs/ad_audit
+```
+
+3. 保存最终状态：
+
+```bash
+python src/main.py --intent "构建联合演练想定" --state-output outputs/final_state.json
+```

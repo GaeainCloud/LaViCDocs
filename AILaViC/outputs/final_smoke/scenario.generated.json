@@ -1,0 +1,14 @@
+{
+  "simulation": {
+    "simulationName": "AI生成想定-快速生成测试想定",
+    "simulationStatus": "DRAFT"
+  },
+  "agentInstances": [],
+  "meta": {
+    "intent": "快速生成测试想定",
+    "hints": [
+      "确保包含阶段目标、触发条件和终止条件。"
+    ],
+    "generated_at": "2026-02-27T15:37:30.997424"
+  }
+}
