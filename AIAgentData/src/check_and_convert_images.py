@@ -1,27 +1,21 @@
-import os
-from PIL import Image
+from pathlib import Path
 
-DOWNLOAD_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads"
+from config import DOWNLOADS_DIR
+from logger import get_logger
+from utils.image_utils import convert_to_rgb_png
 
-def convert_images():
-    for filename in os.listdir(DOWNLOAD_DIR):
-        file_path = os.path.join(DOWNLOAD_DIR, filename)
-        if os.path.isfile(file_path):
-            try:
-                img = Image.open(file_path)
-                print(f"File: {filename}, Format: {img.format}, Mode: {img.mode}")
-                
-                # Convert to RGB and save as PNG
-                if img.mode != 'RGB':
-                    img = img.convert('RGB')
-                
-                new_filename = os.path.splitext(filename)[0] + ".png"
-                new_path = os.path.join(DOWNLOAD_DIR, new_filename)
-                img.save(new_path, "PNG")
-                print(f"Converted to: {new_filename}")
-                
-            except Exception as e:
-                print(f"Error processing {filename}: {e}")
+log = get_logger(__name__)
+
+def convert_images(download_dir=None):
+    download_dir = Path(download_dir) if download_dir else DOWNLOADS_DIR
+
+    for file_path in download_dir.iterdir():
+        if file_path.is_file():
+            png_path = file_path.with_suffix(".png")
+            # [P2-2] 跳过已经是 PNG 的文件，避免无意义的自转换
+            if file_path.suffix.lower() == ".png":
+                continue
+            convert_to_rgb_png(file_path, png_path)
 
 if __name__ == "__main__":
     convert_images()

@@ -1,3 +1,5 @@
+from logger import get_logger
+log = get_logger(__name__)
 import requests
 import re
 import sys
@@ -7,7 +9,7 @@ def get_wiki_image_url(page_url):
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
         response = requests.get(page_url, headers=headers)
         if response.status_code != 200:
-            print(f"Error fetching {page_url}: Status {response.status_code}")
+            log.info(f"Error fetching {page_url}: Status {response.status_code}")
             return None
         
         # Look for the original file link. 
@@ -25,10 +27,10 @@ def get_wiki_image_url(page_url):
         if match:
             return match.group(1)
             
-        print(f"Could not find image URL in {page_url}")
+        log.info(f"Could not find image URL in {page_url}")
         return None
     except Exception as e:
-        print(f"Exception fetching {page_url}: {e}")
+        log.info(f"Exception fetching {page_url}: {e}")
         return None
 
 if __name__ == "__main__":
@@ -40,6 +42,6 @@ if __name__ == "__main__":
     
     for url in urls:
         img_url = get_wiki_image_url(url)
-        print(f"Page: {url}")
-        print(f"Image: {img_url}")
-        print("-" * 20)
+        log.info(f"Page: {url}")
+        log.info(f"Image: {img_url}")
+        log.info("-" * 20)

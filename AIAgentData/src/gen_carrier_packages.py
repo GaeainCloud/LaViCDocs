@@ -8,27 +8,27 @@ import re
 import math
 import time
 import random
-import military_symbol
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
-import trimesh
-import numpy as np
+from pathlib import Path
 
-# --- Configuration ---
-# Use raw strings for paths
-BASE_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData"
-MODELS_DIR = os.path.join(BASE_DIR, "models")
-DOWNLOADS_DIR = os.path.join(MODELS_DIR, "downloads")
-EXCEL_PATH = os.path.join(MODELS_DIR, "16_21新舰载机仿真模型信息.xlsx")
-TEMPLATE_JSON_PATH = os.path.join(BASE_DIR, "examples", "02aircraftAgent.json")
+from config import (
+    MODELS_DIR as CFG_MODELS_DIR,
+    DOWNLOADS_DIR as CFG_DOWNLOADS_DIR,
+    EXAMPLES_DIR,
+    RODIN_API_KEY,
+    apply_proxy_env,
+)
+from logger import get_logger
+from utils.glb_utils import rotate_glb_to_yup
+from utils.mil_symbol import generate_military_symbol
 
-# RODIN API
-RODIN_API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-PROXY_URL = "http://127.0.0.1:7897"
+# --- Configuration --- [P1-2] 使用 Path 替代 str()
+MODELS_DIR = CFG_MODELS_DIR
+DOWNLOADS_DIR = CFG_DOWNLOADS_DIR
+EXCEL_PATH = MODELS_DIR / "16_21新舰载机仿真模型信息.xlsx"
+TEMPLATE_JSON_PATH = EXAMPLES_DIR / "02aircraftAgent.json"
 
-# Set Proxy
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+apply_proxy_env()
+log = get_logger(__name__)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -110,64 +110,58 @@ def download_image(url_or_urls, save_path):
     headers["Referer"] = "https://www.google.com/"
     
     for url in urls:
-        print(f"Downloading image from {url}...")
+        log.info(f"Downloading image from {url}...")
         for attempt in range(3):
             try:
                 resp = requests.get(url, headers=headers, timeout=30)
                 if resp.status_code == 200:
                     with open(save_path, 'wb') as f:
                         f.write(resp.content)
-                    print("  Download success.")
+                    log.info("  Download success.")
                     return True
                 elif resp.status_code == 429:
                     wait_time = random.uniform(20, 40) * (attempt + 1)
-                    print(f"  Got 429 Too Many Requests. Waiting {wait_time:.1f}s...")
+                    log.info(f"  Got 429 Too Many Requests. Waiting {wait_time:.1f}s...")
                     time.sleep(wait_time)
                     continue
                 else:
-                    print(f"  Failed: {resp.status_code}")
+                    log.info(f"  Failed: {resp.status_code}")
                     # Try next URL if not 429
                     break 
             except Exception as e:
-                print(f"  Error downloading (attempt {attempt+1}): {e}")
+                log.info(f"  Error downloading (attempt {attempt+1}): {e}")
                 time.sleep(2)
                 
     return False
 
-def generate_mil_symbol(sidc, save_path):
-    print(f"Generating symbol {sidc} to {save_path}...")
-    try:
-        symbol = military_symbol.get_symbol_svg_string_from_sidc(sidc)
-        temp_svg = save_path.replace(".png", "_temp.svg")
-        with open(temp_svg, "w", encoding="utf-8") as f:
-            f.write(symbol)
-        drawing = svg2rlg(temp_svg)
-        renderPM.drawToFile(drawing, save_path, fmt="PNG")
-        if os.path.exists(temp_svg):
-            os.remove(temp_svg)
-        return True
-    except Exception as e:
-        print(f"Error generating symbol: {e}")
-        return False
+def gen_mil_symbol_for_carrier(en_name, output_dir):
+    """[P0-3] 使用共享模块生成军标。"""
+    return generate_military_symbol(
+        en_name, "Friendly Fixed Wing", Path(output_dir),
+        fallback_desc="Friendly Rotary Wing Unmanned Aerial Vehicle"
+    )
 
 def generate_glb_via_rodin(prompt, image_path, save_path):
-    print(f"Generating GLB for '{prompt}' via Rodin...")
+    log.info(f"Generating GLB for '{prompt}' via Rodin...")
     
     # Check if GLB exists and is valid (not empty)
     if os.path.exists(save_path) and os.path.getsize(save_path) > 1024:
         # Force overwrite as user requested "re-generate"
-        # print(f"  [INFO] Overwriting existing GLB...")
+        # log.info(f"  [INFO] Overwriting existing GLB...")
         # try:
         #     os.remove(save_path)
         # except:
         #     pass
-        print(f"  GLB exists: {save_path}. Skipping generation.")
+        log.info(f"  GLB exists: {save_path}. Skipping generation.")
         return save_path
-        # print(f"  [INFO] GLB exists, skipping generation: {save_path}")
+        # log.info(f"  [INFO] GLB exists, skipping generation: {save_path}")
         # return save_path
     
     if not image_path or not os.path.exists(image_path):
-        print("  [ERROR] No input image for Rodin.")
+        log.info("  [ERROR] No input image for Rodin.")
+        return None
+    if not RODIN_API_KEY:
+        log.info("  [ERROR] RODIN_API_KEY environment variable not set.")
         return None
         
     headers = {
@@ -183,10 +177,10 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
             ("prompt", (None, f"{prompt}, high quality, realistic 3d asset"))
         ]
         
-        print("  Posting job to Rodin...")
+        log.info("  Posting job to Rodin...")
         resp = requests.post("https://hyperhuman.deemos.com/api/v2/rodin", headers=headers, files=files)
         if resp.status_code not in [200, 201]:
-            print(f"  [ERROR] Rodin Create Failed ({resp.status_code}): {resp.text}")
+            log.info(f"  [ERROR] Rodin Create Failed ({resp.status_code}): {resp.text}")
             return None
             
         data = resp.json()
@@ -194,10 +188,10 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
         sub_key = data.get("jobs", {}).get("subscription_key") or data.get("subscription_key")
         
         if not uuid or not sub_key:
-            print("  [ERROR] Failed to get UUID or Subscription Key")
+            log.info("  [ERROR] Failed to get UUID or Subscription Key")
             return None
             
-        print(f"  Job started. UUID: {uuid}")
+        log.info(f"  Job started. UUID: {uuid}")
         
         # Poll
         for i in range(120): # 10 minutes max
@@ -205,7 +199,7 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
             try:
                 r_status = requests.post("https://hyperhuman.deemos.com/api/v2/status", headers=headers, json={"subscription_key": sub_key}, timeout=10)
                 if r_status.status_code not in [200, 201]:
-                    print(f"  Polling error ({r_status.status_code}): {r_status.text[:100]}... retrying...")
+                    log.info(f"  Polling error ({r_status.status_code}): {r_status.text[:100]}... retrying...")
                     continue
                 
                 s_data = r_status.json()
@@ -214,23 +208,23 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
                 
                 # Only print status every 5th poll to reduce spam, or if it changes
                 if i % 6 == 0:
-                    print(f"  Poll {i}: Statuses: {statuses}")
+                    log.info(f"  Poll {i}: Statuses: {statuses}")
                 
                 if all(s == "Done" for s in statuses):
-                    print("  Rodin Job Completed.")
+                    log.info("  Rodin Job Completed.")
                     break
                 if any(s == "Failed" for s in statuses):
-                    print(f"  [ERROR] Rodin Job Failed. Statuses: {statuses}")
+                    log.info(f"  [ERROR] Rodin Job Failed. Statuses: {statuses}")
                     return None
             except Exception as e:
-                print(f"  Polling exception: {e}, retrying...")
+                log.info(f"  Polling exception: {e}, retrying...")
                 continue
         else:
-            print("  [ERROR] Timeout waiting for Rodin.")
+            log.info("  [ERROR] Timeout waiting for Rodin.")
             return None
             
         # Download with retry
-        print("  Downloading result...")
+        log.info("  Downloading result...")
         time.sleep(10) # Wait a bit for backend to be ready
         
         for attempt in range(10):
@@ -238,13 +232,13 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
                 r_down = requests.post("https://hyperhuman.deemos.com/api/v2/download", headers=headers, json={'task_uuid': uuid})
                 if r_down.status_code in [200, 201]:
                     break
-                print(f"  [WARN] Download init failed ({r_down.status_code}): {r_down.text}. Retrying...")
+                log.info(f"  [WARN] Download init failed ({r_down.status_code}): {r_down.text}. Retrying...")
                 time.sleep(5 + attempt * 2)
             except Exception as e:
-                 print(f"  [WARN] Download init exception: {e}. Retrying...")
+                 log.info(f"  [WARN] Download init exception: {e}. Retrying...")
                  time.sleep(5 + attempt * 2)
         else:
-            print("  [ERROR] Failed to init download after retries.")
+            log.info("  [ERROR] Failed to init download after retries.")
             return None
             
         d_data = r_down.json()
@@ -255,36 +249,23 @@ def generate_glb_via_rodin(prompt, image_path, save_path):
                 break
                 
         if glb_url:
-            print(f"  Downloading GLB from {glb_url}...")
+            log.info(f"  Downloading GLB from {glb_url}...")
             r_glb = requests.get(glb_url, stream=True)
             with open(save_path, 'wb') as f:
                 shutil.copyfileobj(r_glb.raw, f)
-            print(f"  GLB saved to {save_path}")
+            log.info(f"  GLB saved to {save_path}")
             return save_path
         else:
-            print("  [ERROR] No GLB found in download list.")
+            log.info("  [ERROR] No GLB found in download list.")
             return None
             
     except Exception as e:
-        print(f"  [ERROR] Rodin error: {e}")
+        log.info(f"  [ERROR] Rodin error: {e}")
         return None
 
 def process_glb_rotation_strict(file_path):
-    print(f"Standardizing GLB orientation for {os.path.basename(file_path)}...")
-    try:
-        scene = trimesh.load(file_path, force='scene')
-        # 1. Rotate -90 around X (Z-up to Y-up)
-        rot_x = trimesh.transformations.rotation_matrix(np.radians(-90), [1, 0, 0])
-        scene.apply_transform(rot_x)
-        # 2. Rotate 180 around Y (Facing)
-        rot_y = trimesh.transformations.rotation_matrix(np.radians(180), [0, 1, 0])
-        scene.apply_transform(rot_y)
-        data = trimesh.exchange.gltf.export_glb(scene)
-        with open(file_path, 'wb') as f:
-            f.write(data)
-        print("  Orientation fixed (Strict X-90, Y180).")
-    except Exception as e:
-        print(f"  Error fixing orientation: {e}")
+    log.info(f"Standardizing GLB orientation for {os.path.basename(file_path)}...")
+    rotate_glb_to_yup(file_path, file_path)
 
 def create_package(row):
     cn_name = row['文本'].strip()
@@ -293,11 +274,11 @@ def create_package(row):
     attrs = parse_dynamics(row['基本属性'])
     
     if cn_name not in NAME_MAP:
-        print(f"Skipping unknown model: {cn_name}")
+        log.info(f"Skipping unknown model: {cn_name}")
         return
         
     en_name = NAME_MAP[cn_name]
-    print(f"Processing {cn_name} -> {en_name}...")
+    log.info(f"Processing {cn_name} -> {en_name}...")
     
     model_dir = os.path.join(MODELS_DIR, en_name)
     assets_dir = os.path.join(model_dir, en_name)
@@ -343,7 +324,7 @@ def create_package(row):
                     ds["omega_max"] = smart_num(attrs.get('omega_max', ds.get("omega_max", 0.5)))
                 dyn_config["dynSettings"]["pluginDefaultSettings"] = json.dumps(dyn_settings, ensure_ascii=False)
             except Exception as e:
-                print(f"  [WARN] Failed to update nested dynamics: {e}")
+                log.info(f"  [WARN] Failed to update nested dynamics: {e}")
     
     agent['modelUrlSlim'] = f"{en_name}/{en_name}_AI_Rodin.glb"
     agent['modelUrlFat'] = f"{en_name}/{en_name}_AI_Rodin.glb"
@@ -401,13 +382,12 @@ def create_package(row):
         if download_image(img_url, img_download_path):
             shutil.copy(img_download_path, img_dst)
         else:
-            print(f"  [MISSING] Failed to download image for {en_name}")
+            log.info(f"  [MISSING] Failed to download image for {en_name}")
     else:
-        print(f"  [MISSING] No image URL for {en_name}")
+        log.info(f"  [MISSING] No image URL for {en_name}")
         
-    # Symbol
-    sym_dst = os.path.join(assets_dir, f"{en_name}_mil.png")
-    generate_mil_symbol(SIDC_MAP['default'], sym_dst)
+    # Symbol [P0-3] 使用共享模块
+    gen_mil_symbol_for_carrier(en_name, assets_dir)
     
     # GLB
     glb_download_path = os.path.join(DOWNLOADS_DIR, f"{en_name}_AI_Rodin.glb")
@@ -422,7 +402,7 @@ def create_package(row):
         shutil.copy(saved_glb, glb_dst)
         process_glb_rotation_strict(glb_dst)
     else:
-        print(f"  [MISSING] Failed to generate GLB for {en_name}")
+        log.info(f"  [MISSING] Failed to generate GLB for {en_name}")
         
     # 3. Zip
     zip_path = os.path.join(MODELS_DIR, f"{en_name}.zip")
@@ -434,7 +414,7 @@ def create_package(row):
                 rel_path = os.path.relpath(file_path, model_dir)
                 zipf.write(file_path, arcname=rel_path)
                 
-    print(f"  Package created: {zip_path}")
+    log.info(f"  Package created: {zip_path}")
 
 def main():
     try:
@@ -442,7 +422,7 @@ def main():
         
         # Inject J-10C data if not present
         if "J-10C猛龙" not in df['文本'].values:
-            print("Injecting J-10C data...")
+            log.info("Injecting J-10C data...")
             new_row = {
                 '文本': "J-10C猛龙",
                 '感知能力': "装备有源相控阵雷达(AESA)，具备强大的对空、对地、对海探测能力。",
@@ -454,7 +434,7 @@ def main():
             
         # Inject J10C战斗机 data if not present (Copy of J-10C猛龙)
         if "J10C战斗机" not in df['文本'].values:
-            print("Injecting J10C战斗机 data...")
+            log.info("Injecting J10C战斗机 data...")
             new_row = {
                 '文本': "J10C战斗机",
                 '感知能力': "装备有源相控阵雷达(AESA)，具备强大的对空、对地、对海探测能力。",
@@ -466,7 +446,7 @@ def main():
 
         # Inject Su-33 data if not present
         if "Su-33海侧卫舰载机" not in df['文本'].values:
-            print("Injecting Su-33 data...")
+            log.info("Injecting Su-33 data...")
             new_row = {
                 '文本': "Su-33海侧卫舰载机",
                 '感知能力': "装备强大的机载雷达和光电探测系统，具备超视距空战和对海攻击能力。",
@@ -478,7 +458,7 @@ def main():
 
         # Inject F-14D data if not present
         if "F-14D超级雄猫舰载机" not in df['文本'].values:
-            print("Injecting F-14D data...")
+            log.info("Injecting F-14D data...")
             new_row = {
                 '文本': "F-14D超级雄猫舰载机",
                 '感知能力': "装备AN/APG-71雷达和红外搜索跟踪系统(IRST)，具备强大的多目标跟踪和远程截击能力。",
@@ -490,7 +470,7 @@ def main():
 
         # Inject J-15 data if not present
         if "J-15飞鲨舰载机" not in df['文本'].values:
-            print("Injecting J-15 data...")
+            log.info("Injecting J-15 data...")
             new_row = {
                 '文本': "J-15飞鲨舰载机",
                 '感知能力': "装备多普勒脉冲雷达或有源相控阵雷达，具备完善的对空、对海搜索与火控能力。",
@@ -502,7 +482,7 @@ def main():
 
         # Inject BZK-005 data if not present
         if "BZK-005侦察机" not in df['文本'].values:
-            print("Injecting BZK-005 data...")
+            log.info("Injecting BZK-005 data...")
             new_row = {
                 '文本': "BZK-005侦察机",
                 '感知能力': "中高空远程无人侦察机(MALE UAV)，具备全天候侦察能力，配备光电吊舱和卫星通信链路。",
@@ -514,7 +494,7 @@ def main():
 
         # Inject WZ-7 data if not present
         if "无侦-7侦察机" not in df['文本'].values:
-            print("Injecting WZ-7 data...")
+            log.info("Injecting WZ-7 data...")
             new_row = {
                 '文本': "无侦-7侦察机",
                 '感知能力': "配备高性能合成孔径雷达和光电侦察设备，具备高空长航时全天候侦察监视能力。",
@@ -526,7 +506,7 @@ def main():
 
         # Inject KJ-500 data if not present
         if "空警-500" not in df['文本'].values:
-            print("Injecting KJ-500 data...")
+            log.info("Injecting KJ-500 data...")
             new_row = {
                 '文本': "空警-500",
                 '感知能力': "配备数字阵列有源相控阵雷达，实现360度全方位覆盖，具备强大的空中预警、指挥引导和电子侦察能力。",
@@ -538,7 +518,7 @@ def main():
 
         # Inject KJ-600 data if not present
         if "空警-600" not in df['文本'].values:
-            print("Injecting KJ-600 data...")
+            log.info("Injecting KJ-600 data...")
             new_row = {
                 '文本': "空警-600",
                 '感知能力': "配备先进有源相控阵雷达，具备对海对空远程探测能力，可引导舰载机进行超视距攻击。",
@@ -550,7 +530,7 @@ def main():
 
         # Inject E-3G data if not present
         if "E-3G预警机" not in df['文本'].values:
-            print("Injecting E-3G data...")
+            log.info("Injecting E-3G data...")
             new_row = {
                 '文本': "E-3G预警机",
                 '感知能力': "配备AN/APY-2无源相控阵雷达（Block 40/45升级），具备全天候远程空中预警、敌我识别和战场管理能力。",
@@ -562,7 +542,7 @@ def main():
 
         # Inject E-2D data if not present
         if "E-2D预警机" not in df['文本'].values:
-            print("Injecting E-2D data...")
+            log.info("Injecting E-2D data...")
             new_row = {
                 '文本': "E-2D预警机",
                 '感知能力': "配备AN/APY-9有源相控阵雷达，具备“数字四分卫”能力，支持海军综合火控防空（NIFC-CA）和导弹制导。",
@@ -574,7 +554,7 @@ def main():
 
         # Inject A-50U data if not present
         if "A-50U预警机" not in df['文本'].values:
-            print("Injecting A-50U data...")
+            log.info("Injecting A-50U data...")
             new_row = {
                 '文本': "A-50U预警机",
                 '感知能力': "配备Shmel-M有源相控阵雷达，可探测800公里外的空中目标，具备同时跟踪300个目标并引导战斗机拦截的能力。",
@@ -586,7 +566,7 @@ def main():
 
         # Inject KC-46A data if not present
         if "KC-46A加油机" not in df['文本'].values:
-            print("Injecting KC-46A data...")
+            log.info("Injecting KC-46A data...")
             new_row = {
                 '文本': "KC-46A加油机",
                 '感知能力': "配备ALR-69A雷达告警接收机和红外对抗系统，具备全向威胁感知能力；拥有先进的驾驶舱数字显示系统，可实时监控燃油状态和战场态势。",
@@ -598,7 +578,7 @@ def main():
 
         # Inject KC-135 data if not present
         if "KC-135加油机" not in df['文本'].values:
-            print("Injecting KC-135 data...")
+            log.info("Injecting KC-135 data...")
             new_row = {
                 '文本': "KC-135加油机",
                 '感知能力': "配备气象雷达和改进的导航/通信系统，具备全天候飞行能力；拥有现代化的驾驶舱航空电子系统。",
@@ -633,7 +613,7 @@ def main():
                 create_package(row)
         
     except Exception as e:
-        print(f"Error: {e}")
+        log.info(f"Error: {e}")
 
 if __name__ == "__main__":
     main()

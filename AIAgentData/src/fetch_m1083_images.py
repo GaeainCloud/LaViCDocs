@@ -1,3 +1,5 @@
+from logger import get_logger
+log = get_logger(__name__)
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -9,7 +11,7 @@ HEADERS = {
 }
 
 def fetch_images():
-    print(f"Fetching {URL}...")
+    log.info(f"Fetching {URL}...")
     resp = requests.get(URL, headers=HEADERS)
     soup = BeautifulSoup(resp.content, 'html.parser')
     
@@ -20,7 +22,7 @@ def fetch_images():
         full_url = urljoin(URL, src)
         if 'M1083' in full_url or 'FMTV' in full_url:
             images.append(full_url)
-            print(f"Found: {full_url}")
+            log.info(f"Found: {full_url}")
 
     return images
 

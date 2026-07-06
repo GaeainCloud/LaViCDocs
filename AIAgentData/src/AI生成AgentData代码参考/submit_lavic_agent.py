@@ -1,7 +1,14 @@
 import requests
+import sys
+from pathlib import Path
 from langchain_core.messages import AIMessage
-from config import LAVIC_API_SERVER
 from data_types.agent_entry import AgentEntry
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from config import LAVIC_API_SERVER
+from logger import get_logger
+
+log = get_logger(__name__)
 
 def submit_lavic_agent_node(state: dict):
     """
@@ -14,7 +21,7 @@ def submit_lavic_agent_node(state: dict):
         dict: A dictionary containing the updated agent keys.
     """
     node_name = "创建仿真模型"
-    print(f"---Calling {node_name} node---")
+    log.info(f"---Calling {node_name} node---")
     
     messages = state.get("messages", [])
     

@@ -1,8 +1,14 @@
+from logger import get_logger
+log = get_logger(__name__)
 import requests
 import os
 
-API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-OUTPUT_GLB = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models\downloads\M1083_A1P2_Truck_AI_Rodin.glb"
+from config import DOWNLOADS_DIR, apply_proxy_env, require_rodin_api_key
+
+apply_proxy_env()
+
+API_KEY = require_rodin_api_key()
+OUTPUT_GLB = str(DOWNLOADS_DIR / "M1083_A1P2_Truck_AI_Rodin.glb")
 TASK_UUID = "8de7952e-49c8-44d3-b22b-6cb698bf1460"
 
 HEADERS = {
@@ -11,17 +17,17 @@ HEADERS = {
 }
 
 def download_asset(task_uuid):
-    print(f"Downloading asset {task_uuid}...")
+    log.info(f"Downloading asset {task_uuid}...")
     try:
         response = requests.post(
             "https://hyperhuman.deemos.com/api/v2/download",
             headers=HEADERS,
             json={'task_uuid': task_uuid}
         )
-        print(f"Download response code: {response.status_code}")
+        log.info(f"Download response code: {response.status_code}")
         
         if response.status_code not in [200, 201]:
-            print(f"Download init failed: {response.status_code} - {response.text}")
+            log.info(f"Download init failed: {response.status_code} - {response.text}")
             return False
             
         data = response.json()
@@ -32,23 +38,23 @@ def download_asset(task_uuid):
                 break
         
         if not glb_url:
-            print("No GLB found in download list.")
+            log.info("No GLB found in download list.")
             return False
             
-        print(f"Downloading GLB from {glb_url}...")
+        log.info(f"Downloading GLB from {glb_url}...")
         glb_resp = requests.get(glb_url, stream=True)
         if glb_resp.status_code == 200:
             with open(OUTPUT_GLB, 'wb') as f:
                 for chunk in glb_resp.iter_content(chunk_size=8192):
                     f.write(chunk)
-            print(f"Saved to {OUTPUT_GLB}")
+            log.info(f"Saved to {OUTPUT_GLB}")
             return True
         else:
-            print(f"GLB download failed: {glb_resp.status_code}")
+            log.info(f"GLB download failed: {glb_resp.status_code}")
             return False
             
     except Exception as e:
-        print(f"Error downloading: {e}")
+        log.info(f"Error downloading: {e}")
         return False
 
 if __name__ == "__main__":

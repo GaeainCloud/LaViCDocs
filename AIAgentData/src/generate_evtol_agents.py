@@ -1,3 +1,5 @@
+from logger import get_logger
+log = get_logger(__name__)
 import pandas as pd
 import json
 import os
@@ -29,24 +31,24 @@ def main():
     output_dir = os.path.join(base_dir, "models")
     schema_path = os.path.join(base_dir, "src", "校验代码参考", "AgentData_schema.json")
 
-    print(f"Reading Excel from: {excel_path}")
+    log.info(f"Reading Excel from: {excel_path}")
     try:
         df = pd.read_excel(excel_path)
     except Exception as e:
-        print(f"Failed to read Excel: {e}")
+        log.info(f"Failed to read Excel: {e}")
         return
 
-    print(f"Reading Template from: {template_path}")
+    log.info(f"Reading Template from: {template_path}")
     try:
         with open(template_path, 'r', encoding='utf-8') as f:
             template_data = json.load(f)
             # Template is a list, take the first item as the base agent
             base_agent = template_data[0]
     except Exception as e:
-        print(f"Failed to read Template: {e}")
+        log.info(f"Failed to read Template: {e}")
         return
 
-    print(f"Found {len(df)} models in Excel.")
+    log.info(f"Found {len(df)} models in Excel.")
     
     generated_files = []
 
@@ -83,21 +85,21 @@ def main():
         file_path = os.path.join(output_dir, file_name)
         
         # Save JSON
-        print(f"Generating {file_name}...")
+        log.info(f"Generating {file_name}...")
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(agent_data, f, ensure_ascii=False, indent=2)
         
         # Validate
-        print(f"Validating {file_name}...")
+        log.info(f"Validating {file_name}...")
         if validate_agent_data(schema_path, file_path):
-            print(f"SUCCESS: {file_name} generated and validated.")
+            log.info(f"SUCCESS: {file_name} generated and validated.")
             generated_files.append(file_path)
         else:
-            print(f"FAILURE: {file_name} failed validation.")
+            log.info(f"FAILURE: {file_name} failed validation.")
     
-    print("-" * 30)
-    print(f"Total Generated & Validated: {len(generated_files)}")
-    print("Files saved to:", output_dir)
+    log.info("-" * 30)
+    log.info(f"Total Generated & Validated: {len(generated_files)}")
+    log.info("Files saved to:", output_dir)
 
 if __name__ == "__main__":
     main()

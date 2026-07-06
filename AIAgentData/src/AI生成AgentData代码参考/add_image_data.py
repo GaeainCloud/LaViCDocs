@@ -1,7 +1,17 @@
 from tavily import TavilyClient
 import os
+import sys
+from pathlib import Path
 from langchain_core.messages import AIMessage
 from data_types.lavic_agent_data import LavicAgentData
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from config import IMAGE_SEARCH_MAX_CANDIDATES
+from logger import get_logger
+from utils.image_utils import fetch_and_select_best
+
+log = get_logger(__name__)
+
 
 def add_image_data(state):
     """
@@ -32,13 +42,19 @@ def add_image_data(state):
 
     response = client.search(
         query=query,
-        max_results=1,
+        max_results=IMAGE_SEARCH_MAX_CANDIDATES,
         include_images=True
     )
 
     if response and response.get("images"):
-        image_url = response["images"][0]
-        print(f"Image URL for {query}: {image_url}")
+        image_candidates = response["images"][:IMAGE_SEARCH_MAX_CANDIDATES]
+        best = fetch_and_select_best(
+            image_candidates,
+            max_candidates=IMAGE_SEARCH_MAX_CANDIDATES,
+            query=query,
+        )
+        image_url = best.url if best else image_candidates[0]
+        log.info(f"Image URL for {query}: {image_url}")
         if "modelUrlSymbols" not in state['lavicagent_data'] or not state['lavicagent_data']["modelUrlSymbols"]:
             state['lavicagent_data']["modelUrlSymbols"] = []
         

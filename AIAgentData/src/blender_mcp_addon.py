@@ -13,6 +13,7 @@ import traceback
 import os
 import shutil
 import zipfile
+import logging
 from bpy.props import IntProperty, BoolProperty
 import io
 from datetime import datetime
@@ -20,11 +21,29 @@ import hashlib, hmac, base64
 import os.path as osp
 from contextlib import redirect_stdout, suppress
 
-# Proxy Configuration
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+# Proxy Configuration (env-driven)
+PROXY_URL = os.environ.get("HTTP_PROXY", "")
+if PROXY_URL:
+    os.environ["HTTP_PROXY"] = PROXY_URL
+if os.environ.get("HTTPS_PROXY"):
+    os.environ["HTTPS_PROXY"] = os.environ["HTTPS_PROXY"]
 os.environ["NO_PROXY"] = "localhost,127.0.0.1"
+
+# Local logger (avoid external module dependency inside Blender runtime)
+_LOGGER = logging.getLogger("blender_mcp_addon")
+if not _LOGGER.handlers:
+    _handler = logging.StreamHandler()
+    _handler.setFormatter(logging.Formatter("[%(asctime)s] %(levelname)s: %(message)s", "%H:%M:%S"))
+    _LOGGER.addHandler(_handler)
+_LOGGER.setLevel(logging.INFO)
+
+
+def _log(*parts):
+    try:
+        msg = " ".join(str(p) for p in parts)
+    except Exception:
+        msg = str(parts)
+    _LOGGER.info(msg)
 
 bl_info = {
     "name": "Blender MCP",
@@ -36,7 +55,7 @@ bl_info = {
     "category": "Interface",
 }
 
-RODIN_FREE_TRIAL_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
+RODIN_FREE_TRIAL_KEY = os.environ.get("RODIN_FREE_TRIAL_KEY", "")
 
 # Add User-Agent as required by Poly Haven API
 REQ_HEADERS = requests.utils.default_headers()
@@ -52,7 +71,7 @@ class BlenderMCPServer:
 
     def start(self):
         if self.running:
-            print("Server is already running")
+            _log("Server is already running")
             return
 
         self.running = True
@@ -69,9 +88,9 @@ class BlenderMCPServer:
             self.server_thread.daemon = True
             self.server_thread.start()
 
-            print(f"BlenderMCP server started on {self.host}:{self.port}")
+            _log(f"BlenderMCP server started on {self.host}:{self.port}")
         except Exception as e:
-            print(f"Failed to start server: {str(e)}")
+            _log(f"Failed to start server: {str(e)}")
             self.stop()
 
     def stop(self):
@@ -94,11 +113,11 @@ class BlenderMCPServer:
                 pass
             self.server_thread = None
 
-        print("BlenderMCP server stopped")
+        _log("BlenderMCP server stopped")
 
     def _server_loop(self):
         """Main server loop in a separate thread"""
-        print("Server thread started")
+        _log("Server thread started")
         self.socket.settimeout(1.0)  # Timeout to allow for stopping
 
         while self.running:
@@ -106,7 +125,7 @@ class BlenderMCPServer:
                 # Accept new connection
                 try:
                     client, address = self.socket.accept()
-                    print(f"Connected to client: {address}")
+                    _log(f"Connected to client: {address}")
 
                     # Handle client in a separate thread
                     client_thread = threading.Thread(
@@ -119,19 +138,19 @@ class BlenderMCPServer:
                     # Just check running condition
                     continue
                 except Exception as e:
-                    print(f"Error accepting connection: {str(e)}")
+                    _log(f"Error accepting connection: {str(e)}")
                     time.sleep(0.5)
             except Exception as e:
-                print(f"Error in server loop: {str(e)}")
+                _log(f"Error in server loop: {str(e)}")
                 if not self.running:
                     break
                 time.sleep(0.5)
 
-        print("Server thread stopped")
+        _log("Server thread stopped")
 
     def _handle_client(self, client):
         """Handle connected client"""
-        print("Client handler started")
+        _log("Client handler started")
         client.settimeout(None)  # No timeout
         buffer = b''
 
@@ -141,7 +160,7 @@ class BlenderMCPServer:
                 try:
                     data = client.recv(8192)
                     if not data:
-                        print("Client disconnected")
+                        _log("Client disconnected")
                         break
 
                     buffer += data
@@ -158,9 +177,9 @@ class BlenderMCPServer:
                                 try:
                                     client.sendall(response_json.encode('utf-8'))
                                 except:
-                                    print("Failed to send response - client disconnected")
+                                    _log("Failed to send response - client disconnected")
                             except Exception as e:
-                                print(f"Error executing command: {str(e)}")
+                                _log(f"Error executing command: {str(e)}")
                                 traceback.print_exc()
                                 try:
                                     error_response = {
@@ -178,16 +197,16 @@ class BlenderMCPServer:
                         # Incomplete data, wait for more
                         pass
                 except Exception as e:
-                    print(f"Error receiving data: {str(e)}")
+                    _log(f"Error receiving data: {str(e)}")
                     break
         except Exception as e:
-            print(f"Error in client handler: {str(e)}")
+            _log(f"Error in client handler: {str(e)}")
         finally:
             try:
                 client.close()
             except:
                 pass
-            print("Client handler stopped")
+            _log("Client handler stopped")
 
     def execute_command(self, command):
         """Execute a command in the main Blender thread"""
@@ -195,7 +214,7 @@ class BlenderMCPServer:
             return self._execute_command_internal(command)
 
         except Exception as e:
-            print(f"Error executing command: {str(e)}")
+            _log(f"Error executing command: {str(e)}")
             traceback.print_exc()
             return {"status": "error", "message": str(e)}
 
@@ -261,12 +280,12 @@ class BlenderMCPServer:
         handler = handlers.get(cmd_type)
         if handler:
             try:
-                print(f"Executing handler for {cmd_type}")
+                _log(f"Executing handler for {cmd_type}")
                 result = handler(**params)
-                print(f"Handler execution complete")
+                _log(f"Handler execution complete")
                 return {"status": "success", "result": result}
             except Exception as e:
-                print(f"Error in handler: {str(e)}")
+                _log(f"Error in handler: {str(e)}")
                 traceback.print_exc()
                 return {"status": "error", "message": str(e)}
         else:
@@ -277,7 +296,7 @@ class BlenderMCPServer:
     def get_scene_info(self):
         """Get information about the current Blender scene"""
         try:
-            print("Getting scene info...")
+            _log("Getting scene info...")
             # Simplify the scene info to reduce data size
             scene_info = {
                 "name": bpy.context.scene.name,
@@ -301,10 +320,10 @@ class BlenderMCPServer:
                 }
                 scene_info["objects"].append(obj_info)
 
-            print(f"Scene info collected: {len(scene_info['objects'])} objects")
+            _log(f"Scene info collected: {len(scene_info['objects'])} objects")
             return scene_info
         except Exception as e:
-            print(f"Error in get_scene_info: {str(e)}")
+            _log(f"Error in get_scene_info: {str(e)}")
             traceback.print_exc()
             return {"error": str(e)}
 
@@ -767,7 +786,7 @@ class BlenderMCPServer:
                                     with open(include_file_path, "wb") as f:
                                         f.write(include_response.content)
                                 else:
-                                    print(f"Failed to download included file: {include_path}")
+                                    _log(f"Failed to download included file: {include_path}")
 
                         # Import the model into Blender
                         if file_format == "gltf" or file_format == "glb":
@@ -850,13 +869,13 @@ class BlenderMCPServer:
                         img.pack()
 
                     texture_images[map_type] = img
-                    print(f"Loaded texture map: {map_type} - {img.name}")
+                    _log(f"Loaded texture map: {map_type} - {img.name}")
 
                     # Debug info
-                    print(f"Image size: {img.size[0]}x{img.size[1]}")
-                    print(f"Color space: {img.colorspace_settings.name}")
-                    print(f"File format: {img.file_format}")
-                    print(f"Is packed: {bool(img.packed_file)}")
+                    _log(f"Image size: {img.size[0]}x{img.size[1]}")
+                    _log(f"Color space: {img.colorspace_settings.name}")
+                    _log(f"File format: {img.file_format}")
+                    _log(f"Is packed: {bool(img.packed_file)}")
 
             if not texture_images:
                 return {"error": f"No texture images found for: {texture_id}. Please download the texture first."}
@@ -960,21 +979,21 @@ class BlenderMCPServer:
             for map_name in ['color', 'diffuse', 'albedo']:
                 if map_name in texture_nodes:
                     links.new(texture_nodes[map_name].outputs['Color'], principled.inputs['Base Color'])
-                    print(f"Connected {map_name} to Base Color")
+                    _log(f"Connected {map_name} to Base Color")
                     break
 
             # Handle roughness
             for map_name in ['roughness', 'rough']:
                 if map_name in texture_nodes:
                     links.new(texture_nodes[map_name].outputs['Color'], principled.inputs['Roughness'])
-                    print(f"Connected {map_name} to Roughness")
+                    _log(f"Connected {map_name} to Roughness")
                     break
 
             # Handle metallic
             for map_name in ['metallic', 'metalness', 'metal']:
                 if map_name in texture_nodes:
                     links.new(texture_nodes[map_name].outputs['Color'], principled.inputs['Metallic'])
-                    print(f"Connected {map_name} to Metallic")
+                    _log(f"Connected {map_name} to Metallic")
                     break
 
             # Handle normal maps
@@ -984,7 +1003,7 @@ class BlenderMCPServer:
                     normal_map_node.location = (100, 100)
                     links.new(texture_nodes[map_name].outputs['Color'], normal_map_node.inputs['Color'])
                     links.new(normal_map_node.outputs['Normal'], principled.inputs['Normal'])
-                    print(f"Connected {map_name} to Normal")
+                    _log(f"Connected {map_name} to Normal")
                     break
 
             # Handle displacement
@@ -995,7 +1014,7 @@ class BlenderMCPServer:
                     disp_node.inputs['Scale'].default_value = 0.1  # Reduce displacement strength
                     links.new(texture_nodes[map_name].outputs['Color'], disp_node.inputs['Height'])
                     links.new(disp_node.outputs['Displacement'], output.inputs['Displacement'])
-                    print(f"Connected {map_name} to Displacement")
+                    _log(f"Connected {map_name} to Displacement")
                     break
 
             # Handle ARM texture (Ambient Occlusion, Roughness, Metallic)
@@ -1007,12 +1026,12 @@ class BlenderMCPServer:
                 # Connect Roughness (G) if no dedicated roughness map
                 if not any(map_name in texture_nodes for map_name in ['roughness', 'rough']):
                     links.new(separate_rgb.outputs['G'], principled.inputs['Roughness'])
-                    print("Connected ARM.G to Roughness")
+                    _log("Connected ARM.G to Roughness")
 
                 # Connect Metallic (B) if no dedicated metallic map
                 if not any(map_name in texture_nodes for map_name in ['metallic', 'metalness', 'metal']):
                     links.new(separate_rgb.outputs['B'], principled.inputs['Metallic'])
-                    print("Connected ARM.B to Metallic")
+                    _log("Connected ARM.B to Metallic")
 
                 # For AO (R channel), multiply with base color if we have one
                 base_color_node = None
@@ -1036,7 +1055,7 @@ class BlenderMCPServer:
                     links.new(base_color_node.outputs['Color'], mix_node.inputs[1])
                     links.new(separate_rgb.outputs['R'], mix_node.inputs[2])
                     links.new(mix_node.outputs['Color'], principled.inputs['Base Color'])
-                    print("Connected ARM.R to AO mix with Base Color")
+                    _log("Connected ARM.R to AO mix with Base Color")
 
             # Handle AO (Ambient Occlusion) if separate
             if 'ao' in texture_nodes:
@@ -1061,7 +1080,7 @@ class BlenderMCPServer:
                     links.new(base_color_node.outputs['Color'], mix_node.inputs[1])
                     links.new(texture_nodes['ao'].outputs['Color'], mix_node.inputs[2])
                     links.new(mix_node.outputs['Color'], principled.inputs['Base Color'])
-                    print("Connected AO to mix with Base Color")
+                    _log("Connected AO to mix with Base Color")
 
             # CRITICAL: Make sure to clear all existing materials from the object
             while len(obj.data.materials) > 0:
@@ -1111,7 +1130,7 @@ class BlenderMCPServer:
             }
 
         except Exception as e:
-            print(f"Error in set_texture: {str(e)}")
+            _log(f"Error in set_texture: {str(e)}")
             traceback.print_exc()
             return {"error": f"Failed to apply texture: {str(e)}"}
 
@@ -1295,7 +1314,7 @@ class BlenderMCPServer:
         # imported_objects = [obj for obj in bpy.context.view_layer.objects if obj.select_get()]
 
         if not imported_objects:
-            print("Error: No objects were imported.")
+            _log("Error: No objects were imported.")
             return
 
         # Identify the mesh object
@@ -1303,35 +1322,35 @@ class BlenderMCPServer:
 
         if len(imported_objects) == 1 and imported_objects[0].type == 'MESH':
             mesh_obj = imported_objects[0]
-            print("Single mesh imported, no cleanup needed.")
+            _log("Single mesh imported, no cleanup needed.")
         else:
             if len(imported_objects) == 2:
                 empty_objs = [i for i in imported_objects if i.type == "EMPTY"]
                 if len(empty_objs) != 1:
-                    print("Error: Expected an empty node with one mesh child or a single mesh object.")
+                    _log("Error: Expected an empty node with one mesh child or a single mesh object.")
                     return
                 parent_obj = empty_objs.pop()
                 if len(parent_obj.children) == 1:
                     potential_mesh = parent_obj.children[0]
                     if potential_mesh.type == 'MESH':
-                        print("GLB structure confirmed: Empty node with one mesh child.")
+                        _log("GLB structure confirmed: Empty node with one mesh child.")
 
                         # Unparent the mesh from the empty node
                         potential_mesh.parent = None
 
                         # Remove the empty node
                         bpy.data.objects.remove(parent_obj)
-                        print("Removed empty node, keeping only the mesh.")
+                        _log("Removed empty node, keeping only the mesh.")
 
                         mesh_obj = potential_mesh
                     else:
-                        print("Error: Child is not a mesh object.")
+                        _log("Error: Child is not a mesh object.")
                         return
                 else:
-                    print("Error: Expected an empty node with one mesh child or a single mesh object.")
+                    _log("Error: Expected an empty node with one mesh child or a single mesh object.")
                     return
             else:
-                print("Error: Expected an empty node with one mesh child or a single mesh object.")
+                _log("Error: Expected an empty node with one mesh child or a single mesh object.")
                 return
 
         # Rename the mesh if needed
@@ -1340,9 +1359,9 @@ class BlenderMCPServer:
                 mesh_obj.name = mesh_name
                 if mesh_obj.data.name is not None:
                     mesh_obj.data.name = mesh_name
-                print(f"Mesh renamed to: {mesh_name}")
+                _log(f"Mesh renamed to: {mesh_name}")
         except Exception as e:
-            print("Having issue with renaming, give up renaming.")
+            _log("Having issue with renaming, give up renaming.")
 
         return mesh_obj
 
@@ -2198,7 +2217,7 @@ class BlenderMCPServer:
                 "message": "Generation and Import glb succeeded"
             }
         except Exception as e:
-            print(f"An error occurred: {e}")
+            _log(f"An error occurred: {e}")
             return {"error": str(e)}
         
     
@@ -2207,7 +2226,7 @@ class BlenderMCPServer:
     
     def poll_hunyuan_job_status_ai(self, job_id: str):
         """Call the job status API to get the job status"""
-        print(job_id)
+        _log(job_id)
         try:
             secret_id = bpy.context.scene.blendermcp_hunyuan3d_secret_id
             secret_key = bpy.context.scene.blendermcp_hunyuan3d_secret_key
@@ -2323,7 +2342,7 @@ class BlenderMCPServer:
                 if os.path.exists(obj_file_path):
                     os.remove(obj_file_path)
             except Exception as e:
-                print(f"Failed to clean up temporary directory {temp_dir}: {e}")
+                _log(f"Failed to clean up temporary directory {temp_dir}: {e}")
     #endregion
 
 # Blender Addon Preferences
@@ -2597,16 +2616,16 @@ def register():
     bpy.utils.register_class(BLENDERMCP_OT_StopServer)
     bpy.utils.register_class(BLENDERMCP_OT_OpenTerms)
 
-    print("BlenderMCP addon registered")
+    _log("BlenderMCP addon registered")
     
     # Auto-start server after 1 second
     def auto_start_server():
         if not bpy.context.scene.blendermcp_server_running:
-            print("Auto-starting BlenderMCP server...")
+            _log("Auto-starting BlenderMCP server...")
             try:
                 bpy.ops.blendermcp.start_server()
             except Exception as e:
-                print(f"Auto-start failed: {e}")
+                _log(f"Auto-start failed: {e}")
         return None
 
     bpy.app.timers.register(auto_start_server, first_interval=1.0)
@@ -2642,7 +2661,7 @@ def unregister():
     del bpy.types.Scene.blendermcp_hunyuan3d_guidance_scale
     del bpy.types.Scene.blendermcp_hunyuan3d_texture
 
-    print("BlenderMCP addon unregistered")
+    _log("BlenderMCP addon unregistered")
 
 if __name__ == "__main__":
     register()

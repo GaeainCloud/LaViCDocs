@@ -7,27 +7,29 @@ import zipfile
 import re
 import math
 import time
-from bs4 import BeautifulSoup
-import military_symbol
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
+from pathlib import Path
 from download_helper import fetch_image_via_helper
-import trimesh
-import numpy as np
 
-# --- Configuration ---
-BASE_DIR = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData"
-MODELS_DIR = os.path.join(BASE_DIR, "models")
-DOWNLOADS_DIR = os.path.join(MODELS_DIR, "downloads")
-EXCEL_PATH = os.path.join(MODELS_DIR, "12_15新战斗机仿真模型信息.xlsx")
-TEMPLATE_JSON_PATH = os.path.join(BASE_DIR, "examples", "02aircraftAgent.json")
+from config import (
+    MODELS_DIR as CFG_MODELS_DIR,
+    DOWNLOADS_DIR as CFG_DOWNLOADS_DIR,
+    EXAMPLES_DIR,
+    RODIN_API_KEY,
+    apply_proxy_env,
+)
+from logger import get_logger
+from utils.glb_utils import rotate_glb_to_yup
+from utils.image_utils import fetch_and_select_best, scrape_images_from_page
+from utils.mil_symbol import generate_military_symbol
 
-RODIN_API_KEY = "k9TcfFoEhNd9cCPP2guHAHHHkctZHIRhZDywZ1euGUXwihbYLpOjQhofby80NJez"
-PROXY_URL = "http://127.0.0.1:7897"
+# --- Configuration --- [P1-2] 使用 Path 替代 str()
+MODELS_DIR = CFG_MODELS_DIR
+DOWNLOADS_DIR = CFG_DOWNLOADS_DIR
+EXCEL_PATH = MODELS_DIR / "12_15新战斗机仿真模型信息.xlsx"
+TEMPLATE_JSON_PATH = EXAMPLES_DIR / "02aircraftAgent.json"
 
-# Set Proxy
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+apply_proxy_env()
+log = get_logger(__name__)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -80,94 +82,42 @@ def parse_dynamics(text):
     return params
 
 def fetch_image(model_name, search_term):
-    print(f"[{model_name}] Fetching images for '{search_term}'...")
+    log.info(f"[{model_name}] Fetching images for '{search_term}'...")
     ensure_dir(DOWNLOADS_DIR)
     target_path = os.path.join(DOWNLOADS_DIR, f"{model_name}.png")
     
     if os.path.exists(target_path):
-        print(f"[{model_name}] Image already exists.")
+        log.info(f"[{model_name}] Image already exists.")
         return target_path
+    candidates = []
+    candidate_pages = [
+        f"https://duckduckgo.com/html/?q={search_term}",
+        f"https://www.bing.com/images/search?q={search_term}&qft=+filterui:imagesize-large",
+    ]
+    for page in candidate_pages:
+        candidates.extend(scrape_images_from_page(page))
 
-    # Simple Google Search scraping (simulated via known sources or direct duckduckgo/bing api if available, but here scraping generic URLs or using placeholders)
-    # Since I cannot easily scrape Google Images without a complex setup, I will use Wikipedia or specific military sites if possible.
-    # Alternatively, I can try to use the Rodin generated thumbnail if I can't find one? 
-    # But better to try to find one.
-    
-    # I'll use a search query on a site like Bing or similar if accessible, or just try to find via a direct search engine result page parsing.
-    # Given the environment, I'll try a few known sources or just search.
-    
-    search_url = f"https://www.bing.com/images/search?q={search_term}&qft=+filterui:imagesize-large"
-    
-    try:
-        resp = requests.get(search_url, headers=HEADERS, timeout=10)
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.content, 'html.parser')
-            # Bing images are tricky to scrape directly due to JS.
-            # Let's try a simpler approach: Wikipedia API or similar?
-            # Or just assume I can find one on a military site.
-            pass
-    except:
-        pass
+    candidates = list(dict.fromkeys(candidates))
+    best = fetch_and_select_best(candidates, max_candidates=5, query=search_term)
+    if not best:
+        log.info(f"[{model_name}] Image search failed: no suitable candidate found")
+        return None
 
-    # Fallback: Use a generic placeholder if download fails, or try specifically some known URLs.
-    # For now, I'll try to use a specific high-probability URL pattern or just skip and let the user know.
-    # ACTUALLY, I will try to use `requests` to get a few candidates from a search engine result page HTML (duckduckgo html is easier).
-    
-    ddg_url = f"https://duckduckgo.com/html/?q={search_term}"
-    try:
-        resp = requests.get(ddg_url, headers=HEADERS, timeout=10)
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.content, 'html.parser')
-            images = soup.find_all('img', class_='tile--img__img')
-            if images:
-                img_url = "https:" + images[0]['src'] if images[0]['src'].startswith('//') else images[0]['src']
-                # DuckDuckGo images are often thumbnails.
-                # Let's try to get the real URL from the `a` tag `href`.
-                # Actually, simply getting the thumbnail is often "good enough" for a start if resolution > 400.
-                
-                print(f"[{model_name}] Downloading image from {img_url}...")
-                r = requests.get(img_url, headers=HEADERS, timeout=10)
-                if r.status_code == 200:
-                    with open(target_path, 'wb') as f:
-                        f.write(r.content)
-                    return target_path
-    except Exception as e:
-        print(f"[{model_name}] Image search failed: {e}")
-
-    return None
+    with open(target_path, "wb") as f:
+        f.write(best.data)
+    return target_path
 
 def generate_symbol(model_name):
-    print(f"[{model_name}] Generating military symbol...")
+    """[P0-3] 使用共享模块生成军标，替代内联代码。"""
+    log.info(f"[{model_name}] Generating military symbol...")
     target_path = os.path.join(DOWNLOADS_DIR, f"{model_name}_mil.png")
     if os.path.exists(target_path):
         return target_path
-        
-    try:
-        # SIDC for Friend, Air, Fixed Wing, Fighter (2525D)
-        sidc = "10030102011203000000"
-        
-        svg_string = None
-        if hasattr(military_symbol, 'get_symbol_svg_string_from_sidc'):
-            svg_string = military_symbol.get_symbol_svg_string_from_sidc(sidc, style='light', bounding_padding=4)
-        elif hasattr(military_symbol, 'get_symbol_svg_string'):
-             svg_string = military_symbol.get_symbol_svg_string(sidc, style='light', bounding_padding=4)
-        else:
-             # Fallback to name with explicit affiliation
-             svg_string = military_symbol.get_symbol_svg_string_from_name("Friend Fixed Wing Fighter", style='light', bounding_padding=4, use_variants=True)
-        
-        if not svg_string:
-            raise Exception("Could not generate SVG string")
-
-        temp_svg = os.path.join(DOWNLOADS_DIR, f"{model_name}_mil.svg")
-        with open(temp_svg, 'w', encoding='utf-8') as f:
-            f.write(svg_string)
-            
-        drawing = svg2rlg(temp_svg)
-        renderPM.drawToFile(drawing, target_path, fmt="PNG")
-        return target_path
-    except Exception as e:
-        print(f"[{model_name}] Symbol generation failed: {e}")
-        return None
+    result = generate_military_symbol(
+        model_name, "Friendly Fighter", Path(DOWNLOADS_DIR),
+        fallback_desc="Friendly Fixed Wing"
+    )
+    return os.path.join(DOWNLOADS_DIR, result) if result else None
 
 def process_glb_rotation(file_path):
     """
@@ -175,41 +125,25 @@ def process_glb_rotation(file_path):
     1. Rotate -90 around X (Z-up to Y-up)
     2. Rotate 180 around Y (Correct Facing)
     """
-    print(f"Standardizing GLB orientation for {os.path.basename(file_path)}...")
-    try:
-        # Load
-        scene = trimesh.load(file_path, force='scene')
-        
-        # 1. Rotate -90 around X (Z-up to Y-up)
-        # Matrix: [[1,0,0,0],[0,0,1,0],[0,-1,0,0],[0,0,0,1]]
-        rot_x = trimesh.transformations.rotation_matrix(np.radians(-90), [1, 0, 0])
-        scene.apply_transform(rot_x)
-        
-        # 2. Rotate 180 around Y (Facing)
-        # Assuming model needs to be rotated 180 degrees around vertical axis (Y in Y-up system)
-        rot_y = trimesh.transformations.rotation_matrix(np.radians(180), [0, 1, 0])
-        scene.apply_transform(rot_y)
-        
-        # Export
-        data = trimesh.exchange.gltf.export_glb(scene)
-        with open(file_path, 'wb') as f:
-            f.write(data)
-        print("  Orientation fixed.")
-    except Exception as e:
-        print(f"  Error fixing orientation: {e}")
+    log.info(f"Standardizing GLB orientation for {os.path.basename(file_path)}...")
+    rotate_glb_to_yup(file_path, file_path)
 
 def generate_glb_rodin(model_name, search_term, image_path):
-    print(f"[{model_name}] Generating 3D model with Rodin...")
+    log.info(f"[{model_name}] Generating 3D model with Rodin...")
     ensure_dir(DOWNLOADS_DIR)
     target_path = os.path.join(DOWNLOADS_DIR, f"{model_name}_AI_Rodin.glb")
     
     if os.path.exists(target_path):
-        print(f"[{model_name}] GLB already exists.")
+        log.info(f"[{model_name}] GLB already exists.")
         return target_path
 
     if not image_path or not os.path.exists(image_path):
-        print(f"[{model_name}] No image found. Switching to Text-to-3D mode.")
+        log.info(f"[{model_name}] No image found. Switching to Text-to-3D mode.")
         image_path = None
+
+    if not RODIN_API_KEY:
+        log.info("[ERROR] RODIN_API_KEY environment variable not set")
+        return None
 
     headers = {
         "Authorization": f"Bearer {RODIN_API_KEY}",
@@ -228,42 +162,42 @@ def generate_glb_rodin(model_name, search_term, image_path):
         # Use the correct API endpoint
         url = "https://api.hyper3d.com/api/v2/rodin"
         
-        print(f"[{model_name}] Sending request to {url} (Mode: {'Image-to-3D' if image_path else 'Text-to-3D'})...")
+        log.info(f"[{model_name}] Sending request to {url} (Mode: {'Image-to-3D' if image_path else 'Text-to-3D'})...")
         resp = requests.post(url, headers=headers, files=files)
         if resp.status_code not in [200, 201]:
-            print(f"[{model_name}] Rodin Create Failed: {resp.text}")
+            log.info(f"[{model_name}] Rodin Create Failed: {resp.text}")
             return None
             
         data = resp.json()
         uuid = data.get("uuid")
         sub_key = data.get("jobs", {}).get("subscription_key") or data.get("subscription_key")
         
-        print(f"[{model_name}] Job started. UUID: {uuid}")
+        log.info(f"[{model_name}] Job started. UUID: {uuid}")
         
         # Poll
         for _ in range(120): # 10 minutes max
             time.sleep(5)
             r_status = requests.post("https://api.hyper3d.com/api/v2/status", headers=headers, json={"subscription_key": sub_key})
             if r_status.status_code not in [200, 201]:
-                print(f"[{model_name}] Status check failed: {r_status.status_code} - {r_status.text}")
+                log.info(f"[{model_name}] Status check failed: {r_status.status_code} - {r_status.text}")
                 continue
             
             status_data = r_status.json()
-            # print(f"[{model_name}] Status data: {status_data}") # Debug
+            # log.info(f"[{model_name}] Status data: {status_data}") # Debug
             statuses = [j["status"] for j in status_data.get("jobs", [])]
             
             if not statuses:
-                print(f"[{model_name}] No jobs found in status response.")
+                log.info(f"[{model_name}] No jobs found in status response.")
                 continue
 
             if all(s == "Done" for s in statuses):
-                print(f"[{model_name}] Generation Done!")
+                log.info(f"[{model_name}] Generation Done!")
                 break
             if any(s == "Failed" for s in statuses):
-                print(f"[{model_name}] Rodin Job Failed: {statuses}")
+                log.info(f"[{model_name}] Rodin Job Failed: {statuses}")
                 return None
         else:
-            print(f"[{model_name}] Timeout waiting for Rodin.")
+            log.info(f"[{model_name}] Timeout waiting for Rodin.")
             return None
             
         # Download
@@ -282,12 +216,12 @@ def generate_glb_rodin(model_name, search_term, image_path):
             return target_path
             
     except Exception as e:
-        print(f"[{model_name}] Rodin Error: {e}")
+        log.info(f"[{model_name}] Rodin Error: {e}")
         
     return None
 
 def create_package(model_name, cn_name, desc, dynamics_params, assets):
-    print(f"[{model_name}] Creating package...")
+    log.info(f"[{model_name}] Creating package...")
     
     # Structure
     pkg_dir = os.path.join(MODELS_DIR, model_name)
@@ -367,7 +301,7 @@ def create_package(model_name, cn_name, desc, dynamics_params, assets):
         for f in os.listdir(inner_dir):
             zf.write(os.path.join(inner_dir, f), f"{model_name}/{f}")
             
-    print(f"[{model_name}] Package created at {zip_path}")
+    log.info(f"[{model_name}] Package created at {zip_path}")
 
 def main():
     df = pd.read_excel(EXCEL_PATH)
@@ -375,7 +309,7 @@ def main():
     for index, row in df.iterrows():
         cn_name = row['文本']  # Changed from '仿真模型名称'
         if cn_name not in NAME_MAP:
-            print(f"Skipping unknown model: {cn_name}")
+            log.info(f"Skipping unknown model: {cn_name}")
             continue
             
         model_name = NAME_MAP[cn_name]
@@ -393,7 +327,7 @@ def main():
         
         dyn_params = parse_dynamics(row['基本属性']) # Changed from '动力学参数'
         
-        print(f"\nProcessing {model_name}...")
+        log.info(f"\nProcessing {model_name}...")
         
         # 1. Assets
         img_path = fetch_image(model_name, search_term)
@@ -402,7 +336,7 @@ def main():
         # Use symbol as fallback thumbnail if image fetch failed
         real_img_path = img_path
         if not img_path and mil_path:
-            print(f"[{model_name}] Using symbol as thumbnail.")
+            log.info(f"[{model_name}] Using symbol as thumbnail.")
             img_path = mil_path
             
         glb_path = generate_glb_rodin(model_name, search_term, real_img_path)

@@ -1,2 +1,4 @@
+from logger import get_logger
+log = get_logger(__name__)
 import military_symbol
-print(dir(military_symbol))
+log.info(dir(military_symbol))

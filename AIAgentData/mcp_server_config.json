@@ -7,7 +7,17 @@
         "@modelcontextprotocol/server-web-research"
       ],
       "env": {
-        "TAVILY_API_KEY": "YOUR_API_KEY_HERE"
+        "TAVILY_API_KEY": "${TAVILY_API_KEY}"
+      }
+    },
+    "blender-mcp": {
+      "command": "uvx",
+      "args": [
+        "blender-mcp"
+      ],
+      "env": {
+        "BLENDER_MCP_HOST": "127.0.0.1",
+        "BLENDER_MCP_PORT": "9876"
       }
     }
   }

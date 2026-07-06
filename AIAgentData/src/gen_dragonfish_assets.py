@@ -1,3 +1,5 @@
+from logger import get_logger
+log = get_logger(__name__)
 import os
 import military_symbol
 from svglib.svglib import svg2rlg
@@ -14,7 +16,7 @@ def ensure_dir(path):
         os.makedirs(path)
 
 def generate_mil_symbol():
-    print("Generating Military Symbol...")
+    log.info("Generating Military Symbol...")
     desc = "Friendly Fixed Wing Unmanned Aerial Vehicle"
     try:
         svg_string = military_symbol.get_symbol_svg_string_from_name(desc, style='light', bounding_padding=4, use_variants=True)
@@ -26,17 +28,17 @@ def generate_mil_symbol():
         png_path = os.path.join(MODEL_DIR, f"{MODEL_NAME}_mil.png")
         drawing = svg2rlg(svg_path)
         renderPM.drawToFile(drawing, png_path, fmt="PNG")
-        print(f"Saved Military Symbol to {png_path}")
+        log.info(f"Saved Military Symbol to {png_path}")
         
         # Cleanup SVG
         if os.path.exists(svg_path):
             os.remove(svg_path)
             
     except Exception as e:
-        print(f"Error generating symbol: {e}")
+        log.info(f"Error generating symbol: {e}")
 
 def generate_placeholder_thumbnail():
-    print("Generating Placeholder Thumbnail...")
+    log.info("Generating Placeholder Thumbnail...")
     img = Image.new('RGB', (400, 300), color = (73, 109, 137))
     d = ImageDraw.Draw(img)
     # text = MODEL_NAME # PIL default font might not support Chinese
@@ -49,7 +51,7 @@ def generate_placeholder_thumbnail():
     
     png_path = os.path.join(MODEL_DIR, f"{MODEL_NAME}.png")
     img.save(png_path)
-    print(f"Saved Thumbnail to {png_path}")
+    log.info(f"Saved Thumbnail to {png_path}")
 
 if __name__ == "__main__":
     ensure_dir(MODEL_DIR)

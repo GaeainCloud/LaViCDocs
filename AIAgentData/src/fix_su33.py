@@ -1,36 +1,24 @@
-import os
+from logger import get_logger
+log = get_logger(__name__)
 import shutil
-import zipfile
+from pathlib import Path
 
-base_dir = r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models"
-src_png = os.path.join(base_dir, "downloads", "Su-33_Flanker-D.png")
-dst_dir = os.path.join(base_dir, "Su-33_Flanker-D", "Su-33_Flanker-D")
-dst_png = os.path.join(dst_dir, "Su-33_Flanker-D.png")
+from config import MODELS_DIR
+from utils.package_utils import create_flat_zip
 
-# Copy image
-if os.path.exists(src_png):
-    print(f"Copying {src_png} to {dst_png}")
+model = "Su-33_Flanker-D"
+src_png = MODELS_DIR / "downloads" / f"{model}.png"
+dst_dir = MODELS_DIR / model / model
+dst_png = dst_dir / f"{model}.png"
+
+if src_png.exists():
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    log.info(f"Copying {src_png} to {dst_png}")
     shutil.copy(src_png, dst_png)
 else:
-    print(f"Source image not found: {src_png}")
+    log.info(f"Source image not found: {src_png}")
 
-# Re-zip
-zip_path = os.path.join(base_dir, "Su-33_Flanker-D.zip")
-model_root = os.path.join(base_dir, "Su-33_Flanker-D")
-
-print(f"Creating zip: {zip_path}")
-with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-    # Add agent.json
-    agent_json = os.path.join(model_root, "agent.json")
-    if os.path.exists(agent_json):
-        zipf.write(agent_json, arcname="agent.json")
-    
-    # Add assets
-    assets_dir = os.path.join(model_root, "Su-33_Flanker-D")
-    for root, _, files in os.walk(assets_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            rel_path = os.path.relpath(file_path, model_root)
-            zipf.write(file_path, arcname=rel_path)
-            
-print("Done.")
+model_root = MODELS_DIR / model
+zip_path = MODELS_DIR / f"{model}.zip"
+create_flat_zip(model_root, zip_path)
+log.info("Done.")

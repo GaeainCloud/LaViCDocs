@@ -1,3 +1,5 @@
+from logger import get_logger
+log = get_logger(__name__)
 import os
 import json
 import requests
@@ -9,10 +11,9 @@ import numpy as np
 import random
 import math
 
-# Proxy Configuration
-PROXY_URL = "http://127.0.0.1:7897"
-os.environ["HTTP_PROXY"] = PROXY_URL
-os.environ["HTTPS_PROXY"] = PROXY_URL
+from config import apply_proxy_env
+
+apply_proxy_env()
 
 # Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -73,11 +74,11 @@ def fetch_web_image(urls, drone_name_keywords):
     max_score = 0
     
     for url in urls:
-        print(f"[{drone_name_keywords[0]}] Scanning page: {url}")
+        log.info(f"[{drone_name_keywords[0]}] Scanning page: {url}")
         try:
             response = requests.get(url, headers=headers, timeout=15)
             if response.status_code != 200:
-                print(f"  Status {response.status_code} for {url}")
+                log.info(f"  Status {response.status_code} for {url}")
                 continue
             
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -94,7 +95,7 @@ def fetch_web_image(urls, drone_name_keywords):
                             base_url = '/'.join(url.split('/')[:3])
                             img_url = base_url + img_url
                             
-                    # print(f"  Found meta image ({meta_prop}): {img_url}")
+                    # log.info(f"  Found meta image ({meta_prop}): {img_url}")
                     
                     # Basic validation for meta image
                     if any(x in img_url.lower() for x in ['logo', 'icon', 'avatar']):
@@ -109,7 +110,7 @@ def fetch_web_image(urls, drone_name_keywords):
 
             # 2. Check Page Images
             images = soup.find_all('img')
-            # print(f"  Found {len(images)} images on page")
+            # log.info(f"  Found {len(images)} images on page")
             
             for img in images:
                 src = img.get('src') or img.get('data-src') or img.get('data-lazy-src')
@@ -172,28 +173,28 @@ def fetch_web_image(urls, drone_name_keywords):
                             if size < 30000: # Filter small images < 30KB
                                 continue
                         
-                        print(f"  New best candidate (score {score}): {src}")
+                        log.info(f"  New best candidate (score {score}): {src}")
                         max_score = score
                         best_image = src
                     except:
                         continue
                         
         except Exception as e:
-            print(f"Error scanning {url}: {e}")
+            log.info(f"Error scanning {url}: {e}")
             
     if best_image:
-        print(f"Downloading best match: {best_image}")
+        log.info(f"Downloading best match: {best_image}")
         try:
             resp = requests.get(best_image, headers=headers, timeout=15)
             img = Image.open(BytesIO(resp.content))
             return img
         except Exception as e:
-            print(f"Failed to download {best_image}: {e}")
+            log.info(f"Failed to download {best_image}: {e}")
 
     return None
 
 def generate_placeholder_image(text):
-    print("Generating placeholder image...")
+    log.info("Generating placeholder image...")
     width, height = 512, 512
     color = (50, 50, 50)
     image = Image.new('RGB', (width, height), color=color)
@@ -211,7 +212,7 @@ def generate_placeholder_image(text):
     return image
 
 def generate_drone_glb(filename, drone_type="multicopter"):
-    print(f"Generating {drone_type} GLB model: {filename}")
+    log.info(f"Generating {drone_type} GLB model: {filename}")
     
     # Colors
     dark_grey = [40, 40, 40, 255]
@@ -323,7 +324,7 @@ def generate_drone_glb(filename, drone_type="multicopter"):
     return path
 
 def process_drone(json_filename, config):
-    print(f"\nProcessing {config['name']}...")
+    log.info(f"\nProcessing {config['name']}...")
     agent_path = os.path.join(MODELS_DIR, json_filename)
     
     # 1. Handle Image
@@ -340,19 +341,19 @@ def process_drone(json_filename, config):
     
     image = fetch_web_image(config['urls'], keywords)
     if image is None:
-        print("Failed to fetch real image, using placeholder.")
+        log.info("Failed to fetch real image, using placeholder.")
         image = generate_placeholder_image(base_name)
     
     # Convert to RGB and save as PNG
     if image.mode != 'RGB':
         image = image.convert('RGB')
     image.save(png_path, "PNG")
-    print(f"Saved image to {png_path}")
+    log.info(f"Saved image to {png_path}")
     
     # 2. Handle GLB
     glb_filename = f"{base_name}.glb"
     generate_drone_glb(glb_filename, config['type'])
-    print(f"Saved GLB to {os.path.join(ASSETS_DIR, glb_filename)}")
+    log.info(f"Saved GLB to {os.path.join(ASSETS_DIR, glb_filename)}")
     
     # 3. Update JSON
     if os.path.exists(agent_path):
@@ -360,7 +361,7 @@ def process_drone(json_filename, config):
             try:
                 data = json.load(f)
             except json.JSONDecodeError:
-                print(f"Error: Invalid JSON in {json_filename}")
+                log.info(f"Error: Invalid JSON in {json_filename}")
                 return
 
         # Handle list structure (single agent in list)
@@ -369,7 +370,7 @@ def process_drone(json_filename, config):
             if len(data) > 0:
                 agent = data[0]
             else:
-                print("Error: Empty list in JSON")
+                log.info("Error: Empty list in JSON")
                 return
         else:
             agent = data
@@ -392,9 +393,9 @@ def process_drone(json_filename, config):
         
         with open(agent_path, 'w', encoding='utf-8') as f:
             json.dump(to_write, f, indent=2, ensure_ascii=False)
-        print(f"Updated {json_filename}")
+        log.info(f"Updated {json_filename}")
     else:
-        print(f"Error: {json_filename} not found!")
+        log.info(f"Error: {json_filename} not found!")
 
 def main():
     ensure_dir(ASSETS_DIR)
@@ -403,7 +404,7 @@ def main():
         try:
             process_drone(json_filename, config)
         except Exception as e:
-            print(f"Critical error processing {json_filename}: {e}")
+            log.info(f"Critical error processing {json_filename}: {e}")
 
 if __name__ == "__main__":
     main()

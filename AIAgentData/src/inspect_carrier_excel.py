@@ -1,17 +1,17 @@
+from logger import get_logger
+log = get_logger(__name__)
 import pandas as pd
-import os
 
-excel_path = os.path.join(r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models", "16_21新舰载机仿真模型信息.xlsx")
+from config import MODELS_DIR
+
+excel_path = MODELS_DIR / "16_21新舰载机仿真模型信息.xlsx"
 
 try:
     df = pd.read_excel(excel_path)
-    print("Columns:", df.columns.tolist())
-    print("First few rows:")
-    print(df.head())
-    
-    # Extract names and descriptions for further use
+    log.info("Columns:", df.columns.tolist())
+    log.info("First few rows:")
+    log.info(df.head())
     for index, row in df.iterrows():
-        print(f"Row {index}: {row.to_dict()}")
-        
+        log.info(f"Row {index}: {row.to_dict()}")
 except Exception as e:
-    print(f"Error reading excel: {e}")
+    log.info(f"Error reading excel: {e}")

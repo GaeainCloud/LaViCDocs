@@ -1,12 +1,15 @@
+from logger import get_logger
+log = get_logger(__name__)
 import pandas as pd
-import os
 
-excel_path = os.path.join(r"d:\AIProduct\GaeainCloud\LaViCDocs\AIAgentData\models", "16_21新舰载机仿真模型信息.xlsx")
+from config import MODELS_DIR
+
+excel_path = MODELS_DIR / "16_21新舰载机仿真模型信息.xlsx"
 
 try:
     df = pd.read_excel(excel_path)
-    print("Model Names in Excel:")
-    for name in df['文本']:
-        print(f"'{name}'")
+    log.info("Model Names in Excel:")
+    for name in df["文本"]:
+        log.info(f"'{name}'")
 except Exception as e:
-    print(f"Error reading excel: {e}")
+    log.info(f"Error reading excel: {e}")
